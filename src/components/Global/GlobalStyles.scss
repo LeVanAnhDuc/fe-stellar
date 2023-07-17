@@ -1,0 +1,52 @@
+@import 'normalize.css';
+
+:root {
+    --primary: rgb(254, 44, 85, 1);
+    --black: #000;
+    --white: rgba(255, 255, 255, 1);
+    --text-color: rgb(22, 24, 35);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    // font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    // Tối ưu tải phông chữ
+    text-rendering: optimizeSpeed;
+    color: var(--text-color);
+
+    // custom tippy tooltip
+    // .tippy-box {
+    //     background-color: rgba(84, 84, 84, 0.92);
+    //     border-radius: 8px;
+    //     padding: 2px;
+    //     font-weight: 400;
+    //     font-size: 1.6rem;
+    //     line-height: 2.1rem;
+    // }
+}
+
+//
+button,
+input,
+[tabindex] {
+    // bỏ khung viền và gạch chân duói chữ
+    border: none;
+    outline: none;
+}
+
+a[href] {
+    color: var(--text-color);
+    // bo gach chan
+    text-decoration: none;
+}
