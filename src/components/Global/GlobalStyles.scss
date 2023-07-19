@@ -1,10 +1,33 @@
 @import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 :root {
-    --primary: rgb(254, 44, 85, 1);
-    --black: #000;
-    --white: rgba(255, 255, 255, 1);
     --text-color: rgb(22, 24, 35);
+
+    --color-Sienna: #884a39;
+    --color-Copper: #c38154;
+    --color-Apricot: #ffc26f;
+    --color-Champagne: #f9e0bb;
+
+    --color-Gradient-1: linear-gradient(to right, #fee3ba, #ffc26f);
+    --color-Gradient-2: linear-gradient(to right, #f3b055, #bc6a53);
+
+    --color-White: #ffffff;
+    --color-Gray-100: #f8f9fa;
+    --color-Gray-200: #e9ecef;
+    --color-Gray-300: #dee2e6;
+    --color-Gray-400: #ced4da;
+    --color-Gray-500: #adb5bd;
+    --color-Gray-600: #6c757d;
+    --color-Gray-700: #495057;
+    --color-Gray-800: #343a40;
+    --color-Gray-900: #212529;
+    --color-Black: #000000;
+
+    --color-Primary: #0d6efd;
+    --color-Success: #198754;
+    --color-Warning: #ffc107;
+    --color-Danger: #dc3545;
 }
 
 * {
@@ -18,7 +41,7 @@ html {
 }
 
 body {
-    // font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     // Tối ưu tải phông chữ
