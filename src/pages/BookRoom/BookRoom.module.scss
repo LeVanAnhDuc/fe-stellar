@@ -1,11 +1,11 @@
 .Room{
     margin-top: 10rem;
     margin-bottom: 5rem;
-    padding: 0 3.2rem
+    
 }
 .Intro{
     margin-top: 4rem;
-    padding: 0 3.2rem
+ 
 }
 p{
    margin: 1.5rem 0;
@@ -28,13 +28,29 @@ h1{
     padding: 1.6rem 0;
 }
 .Search{
-    position: fixed;
+   
     background-color: rgb(241, 172, 148);
+
+    .exit{
+        margin-left: 98%
+    }
+    .date{
+        justify-content: space-between;
+        display: flex;
+        margin: 3rem 10rem;
+    }
+    button{
+        margin-left: 90%;
+        background-color: sienna;
+        margin-bottom: 4.2rem;
+        padding: 1rem;
+        color: #fffcfc;
+    
+    }
+    input{
+        width: 18.2rem;
+    }
 }
-.exit{
-    margin-left: 98%
-}
-.date{
-    justify-content: space-evenly;
-    display: flex;
+li{
+    list-style: none;
 }

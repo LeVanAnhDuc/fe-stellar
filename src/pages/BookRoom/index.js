@@ -2,8 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Intro from './Intro';
 import React from 'react';
-import Search from './Search';
-import InfoRoom from './InfoRoom';
+import {InfoRoomRight, InfoRoomLeft} from './InfoRoom';
 import DeluxeDouble from "./DeluxeDouble1.jpg";
 import Superior from "./SuperiorDoubleOrTwin_1.jpg";
 import Executive from "./ExecutiveCityView1.jpg";
@@ -15,7 +14,7 @@ function BookRoom() {
                 <Intro />  
             </div>
             <div className="Room">
-                <InfoRoom 
+                <InfoRoomRight 
                     image={DeluxeDouble}
                     name="Phòng Superior Double Or Twin"
                     acreage="23m2"
@@ -26,7 +25,7 @@ function BookRoom() {
 
             </div>
             <div className="Room">
-                <InfoRoom 
+                <InfoRoomLeft
                     image={Superior}
                     name="Phòng Deluxe Double"
                     acreage="23m2"
@@ -36,7 +35,7 @@ function BookRoom() {
                 />
             </div>
             <div className="Room">
-                <InfoRoom 
+                <InfoRoomRight
                     image={Executive}
                     name="Phòng Executive City View"
                     acreage="40m2"
@@ -46,7 +45,7 @@ function BookRoom() {
                     description="Với hai cửa sổ lớn cho quang cảnh tuyệt vời nhìn ra thành phố, Phòng Executive City View mang lại cho quý khách một không gian thoáng đãng, rộng mở. được trang trí bằng sàn gỗ kết hợp gạch, những món đồ nội thất phảng phất phong cách Đông Dương kết hợp những tiện nghi hiện đại tạo nên một tổng thể hài hoà, đương đại mà quý khách có thể trải nghiệm để cảm nhận nét đẹp Sài Gòn chuẩn xác nhất." />
             </div>
             <div className="Room">
-                <InfoRoom 
+                <InfoRoomLeft
                     image={Suite}
                     name="Phòng Suite Garden"
                     acreage="40m2"
@@ -55,9 +54,7 @@ function BookRoom() {
                     view="Thành phố"
                     description="Phòng Suite Garden được phối hợp phong cách hiện đại với cảm hứng từ cây xanh, rộng rãi, hoàn hảo cho các kì nghỉ cuối tuần hay chuyến khám phá của quý khách. Ban công rộng và được sắp xếp để quý khách luôn cảm nhận được không khí trong lành, gió nhẹ lay và bóng mát từ các tán cây. Loại phòng nghỉ này đáp ứng đầy đủ nhu cầu ngắm nhìn đường phố, tận hưởng những giây phút đắm mình trong bồn tắm bể sục."  />
             </div>
-            <div>
-                <Search />
-            </div>
+            
         </div>
        
     );

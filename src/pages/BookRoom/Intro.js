@@ -10,7 +10,7 @@ const cx = classNames.bind(style);
 function Intro() {
     return (
      
-        <Container fluid className={cx('Intro')}>
+        <Container fluid="md" className={cx('Intro')}>
             <Row>
             <Col  className={cx('Col')} >
             <Image className={cx('imageRoom')} src={image} alt="introRoom" />
