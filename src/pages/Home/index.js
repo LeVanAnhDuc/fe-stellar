@@ -3,11 +3,20 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import { pic1, pic2, pic3, pic4, aboutStellar } from '../../assets/images/home';
 import { Carousel, Container, Row, Col } from 'react-bootstrap';
+import Slider from 'react-slick';
 
 const cx = classNames.bind(styles);
 
 function Home() {
     const images = [pic1, pic2, pic3, pic4];
+
+    const s2SliderSettings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+    };
 
     return (
         <>
@@ -78,6 +87,33 @@ function Home() {
                         <Col md="6" className={cx('right')}>
                             <img src={aboutStellar} alt="About Stellar" />
                         </Col>
+                    </Row>
+                </Container>
+            </div>
+
+            <div className={cx('section-2')}>
+                <Container>
+                    <Row>
+                        <div className={cx('heading-wrapper')}>
+                            <h1>PHÒNG KHÁCH SẠN</h1>
+                            <p>Trải nghiệm tiện nghi đẳng cấp giữa trời mây.</p>
+                        </div>
+                    </Row>
+                    <Row className={cx('content')}>
+                        <Slider {...s2SliderSettings}>
+                            <div>
+                                <h3>1</h3>
+                            </div>
+                            <div>
+                                <h3>2</h3>
+                            </div>
+                            <div>
+                                <h3>3</h3>
+                            </div>
+                            <div>
+                                <h3>4</h3>
+                            </div>
+                        </Slider>
                     </Row>
                 </Container>
             </div>
