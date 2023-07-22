@@ -1,4 +1,73 @@
+:root {
+    --size-margin: 184px;
+    --size-header: 100%;
+}
+
 .wrapper {
-    background-color: chocolate;
-    min-height: 9.6rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    color: var(--color-Sienna);
+    padding: 8px var(--size-margin);
+    background-color: var(--color-Champagne);
+    height: var(--height-header);
+    width: var(--size-header);
+    display: flex;
+    font-weight: 700;
+    // position: fixed;
+}
+.logo {
+    width: 193px;
+    height: 80px;
+    margin-right: 20px;
+}
+.menu {
+    width: 100%;
+}
+.header_1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .sdt {
+        margin-left: 15px;
+    }
+
+    .more-btn1 {
+        display: flex;
+        .btn + .btn {
+            margin-left: 10px;
+        }
+    }
+}
+
+.header_2 {
+    margin: auto auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+// button
+
+.btn {
+    font-weight: 700;
+    background-color: var(--color-Champagne);
+    color: var(--color-Sienna);
+}
+.custom-btn {
+    width: 155px;
+    height: 43px;
+    border-radius: 15px;
+}
+
+// Item menu
+.more-menu {
+    min-width: 200px;
+}
+.menu-list {
+    padding: 8px 0px;
+    display: flex;
+    flex-direction: column;
 }

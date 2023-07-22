@@ -29,6 +29,8 @@
     --color-Success: #198754;
     --color-Warning: #ffc107;
     --color-Danger: #dc3545;
+
+    --height-header: 9.6rem;
 }
 
 * {
@@ -70,7 +72,7 @@ input,
 }
 
 a[href] {
-    color: var(--text-color);
+    color: var(--color-Sienna);
     // bo gach chan
     text-decoration: none;
 }
