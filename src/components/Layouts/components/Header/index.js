@@ -10,10 +10,15 @@ import React, { useState } from 'react';
 import Account from './Account';
 import { Link } from 'react-router-dom';
 import Language from './Language';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
+import Tippy from '@tippyjs/react/headless';
+import { Wrapper as PopperWrapper } from '../../../Popper';
 
 const cx = classNames.bind(styles);
 
-const HEADER_2 = [
+const TITLE_HEADER = [
     {
         title: 'Về Stellar',
         to: '/ve-Stellar',
@@ -46,47 +51,91 @@ const HEADER_2 = [
 
 function Header() {
     const [activeButton, setActiveButton] = useState(null);
+    const [signIn, setSignIn] = useState(false);
+
     const handleActive = (index) => {
         setActiveButton(index);
     };
 
     return (
         <header className={cx('wrapper')}>
-            <Link to={'/'}>
-                <Image src={images.logo} className={cx('logo')} onClick={() => setActiveButton(null)} />
-            </Link>
+            <div className={cx('back-ground')}>
+                <Link to={'/'}>
+                    <Image src={images.logo} className={cx('logo')} onClick={() => setActiveButton(null)} />
+                </Link>
 
-            <div className={cx('menu')}>
-                <div className={cx('header_1')}>
-                    <span className={cx('sdt')}>Số điện thoại: 09465412XX</span>
-                    <div className={cx('more-btn1')}>
-                        <Button className={cx('btn')} none_1>
-                            Đăng ký
-                        </Button>
-                        <Button className={cx('btn')} none_1>
-                            Đăng nhập
-                        </Button>
-                        <Language />
+                <div className={cx('menu')}>
+                    <div className={cx('header_1')}>
+                        {/* <span className={cx('sdt')}>Số điện thoại: 09465412XX</span> */}
+                        <div className={cx('more-btn1')}>
+                            {signIn === true ? (
+                                <Account />
+                            ) : (
+                                <>
+                                    <Button className={cx('btn', 'sign-up')} none_1>
+                                        Đăng ký
+                                    </Button>
+                                    <Button className={cx('btn', ' sign-in')} none_1>
+                                        Đăng nhập
+                                    </Button>
+                                </>
+                            )}
+                            <Language className={cx('lang')} />
+                        </div>
                     </div>
-                </div>
-                <div className={cx('header_2')}>
-                    {HEADER_2.map((item, index) => (
-                        <Button
-                            className={cx('btn', 'custom-btn')}
-                            none_1
-                            to={item.to}
-                            key={index}
-                            onClick={() => handleActive(index)}
-                            style={{
-                                backgroundColor:
-                                    activeButton === index ? 'var(--color-Apricot)' : 'var(--color-Champagne)',
-                            }}
-                        >
-                            {item.title}
-                        </Button>
-                    ))}
-
-                    {/* <Account onClick={() => setActiveButton(null)} /> */}
+                    <div className={cx('header_2')}>
+                        {TITLE_HEADER.map((item, index) => (
+                            <Button
+                                className={cx('btn', 'custom-btn')}
+                                none_1
+                                to={item.to}
+                                key={index}
+                                onClick={() => handleActive(index)}
+                                style={{
+                                    backgroundColor:
+                                        activeButton === index ? 'var(--color-Apricot)' : 'var(--color-Champagne)',
+                                }}
+                            >
+                                {item.title}
+                            </Button>
+                        ))}
+                        {/* --------------------------------------------------------------------------------------- */}
+                        {/* Responsive */}
+                        <div className={cx('btn-bar')}>
+                            <Tippy
+                                // visible={true}
+                                offset={[5, 10]}
+                                interactive={true}
+                                delay={[0, 300]}
+                                placement="bottom-end"
+                                render={(attrs) => (
+                                    <div className={cx('more-menu')} tabIndex="-1" {...attrs}>
+                                        <PopperWrapper className={cx('menu-list-resposive')}>
+                                            {TITLE_HEADER.map((item, index) => (
+                                                <Button
+                                                    // className={cx('btn', 'custom-btn')}
+                                                    none_1
+                                                    to={item.to}
+                                                    key={index}
+                                                    onClick={() => handleActive(index)}
+                                                    style={{
+                                                        backgroundColor:
+                                                            activeButton === index
+                                                                ? 'var(--color-Apricot)'
+                                                                : 'var(--color-Champagne)',
+                                                    }}
+                                                >
+                                                    {item.title}
+                                                </Button>
+                                            ))}
+                                        </PopperWrapper>
+                                    </div>
+                                )}
+                            >
+                                <FontAwesomeIcon className={cx('menu_responsive')} icon={faBars} />
+                            </Tippy>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
