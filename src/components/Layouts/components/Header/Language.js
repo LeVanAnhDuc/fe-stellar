@@ -15,7 +15,7 @@ function Language({ className }) {
             // visible={true}
             offset={[-10, -5]}
             interactive={true}
-            delay={[0, 300]}
+            delay={[0, 200]}
             placement="bottom-end"
             render={(attrs) => (
                 <div className={cx('more-menu')} tabIndex="-1" {...attrs}>

@@ -92,8 +92,7 @@ function Header() {
                                 key={index}
                                 onClick={() => handleActive(index)}
                                 style={{
-                                    backgroundColor:
-                                        activeButton === index ? 'var(--color-Apricot)' : 'var(--color-Champagne)',
+                                    backgroundColor: activeButton === index ? 'var(--color-active-btn)' : 'transparent',
                                 }}
                             >
                                 {item.title}
@@ -121,8 +120,8 @@ function Header() {
                                                     style={{
                                                         backgroundColor:
                                                             activeButton === index
-                                                                ? 'var(--color-Apricot)'
-                                                                : 'var(--color-Champagne)',
+                                                                ? 'var(--color-Champagne)'
+                                                                : 'transparent',
                                                     }}
                                                 >
                                                     {item.title}

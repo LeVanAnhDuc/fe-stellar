@@ -12,7 +12,7 @@
     z-index: 1;
 
     color: var(--color-Sienna);
-    background-color: var(--color-Champagne);
+    background-image: var(--color-Gradient-1);
 
     height: var(--height-header);
     width: var(--size-header);
@@ -63,7 +63,7 @@
 
 .btn {
     font-weight: 700;
-    background-color: var(--color-Champagne);
+    background-color: transparent;
     color: var(--color-Sienna);
 }
 .custom-btn {
@@ -106,6 +106,7 @@
     }
     .custom-btn {
         display: none;
+        flex-wrap: wrap;
     }
 }
 // Menu-bar
