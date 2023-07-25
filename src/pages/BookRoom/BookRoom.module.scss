@@ -1,35 +1,101 @@
-.Room{
-    margin-top: 10rem;
-    margin-bottom: 5rem;
+ 
+.hero {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .item {
+        max-width: 100%;
+        height: 540px;
+    }
+    @media screen and (max-width: 576px)
+    {
+        .item {
+            max-width: 100%;
+            height: 540px;
+        }
     
+        .content-wrapper {
+            position: absolute;
+            left: auto;
+            top: 0;
+            height: 100%;
+            max-width: 592px;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            gap: 28px;
+        }
+    }
 }
 .Intro{
-    margin-top: 4rem;
- 
+    padding: 5rem 0;
+    .IntroImage{
+        width: 100%;
+        
+    }
+    p{
+        margin: 1.5rem 0;
+        text-align: justify;
+       
+     }
+     h1{
+        color: sienna;
+    }
+    
+    .ContentIntro{
+        margin-top: 3rem;
+        padding: 1.6rem 0;
+    }
+    @media screen and (max-width: 576px)
+    { 
+        flex-direction: column;
+     
+        .IntroImage{
+            width: 100%;
+        }
+    }
+    
 }
-p{
-   margin: 1.5rem 0;
-   text-align: justify;
-  
-}
-.Col{
-    padding: 0 1.6rem !important;
-}
-h1{
-    color: sienna;
-}
-.imageRoom{
-   
-    width: 100%;
-    height: 419px;
-}
-.ContentIntro{
-    margin-top: 3rem;
-    padding: 1.6rem 0;
-}
+.RoomLeft,.RoomRight{
+    margin-top: 10rem;
+    margin-bottom: 5rem; 
+    .Col{
+        height: 100%;
+        position: relative;
+    
+        .item {
+            max-width: 100%;
+            height: 540px;
+        }
+    }
+    li{
+        list-style: none;
+    } 
+    @media screen and (max-width: 576px)
+    { 
+        
+     .item{
+        padding: 2rem 0;
+     }
+        
+    }
+} 
+@media screen and (max-width: 576px)
+{ 
+    .RoomRight{
+        flex-direction: column-reverse;
+    }
+    .RoomLeft{
+        flex-direction: column;
+    }
+ }
+    
+
 .Search{
    
-    background-color: rgb(241, 172, 148);
+    background-color: #F9E0BB;
 
     .exit{
         margin-left: 98%
@@ -39,18 +105,36 @@ h1{
         display: flex;
         margin: 3rem 10rem;
     }
-    button{
+    a{
         margin-left: 90%;
         background-color: sienna;
         margin-bottom: 4.2rem;
         padding: 1rem;
-        color: #fffcfc;
+        font-size: 1.6rem;
+        border-color: rgba(255, 255, 255, 0.15);
     
+    }
+    a:hover {
+        color: #212529;
+        background-color: #fff3cd;
+        border-color: rgba(255, 255, 255, 0.15);
     }
     input{
         width: 18.2rem;
     }
+    @media screen and (max-width: 576px)
+{ 
+    .date{
+        flex-direction: column;
+    }
+    a{
+        margin-left: 75%;
+        background-color: sienna;
+        margin-bottom: 4.2rem;
+        padding: 1rem;
+        font-size: 1.6rem;
+        border-color: rgba(255, 255, 255, 0.15);
+    }
 }
-li{
-    list-style: none;
 }
+
