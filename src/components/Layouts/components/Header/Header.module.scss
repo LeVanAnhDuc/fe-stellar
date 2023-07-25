@@ -1,4 +1,125 @@
+:root {
+    // --size-margin: 184px;
+    --size-header: 100%;
+    --size-logo: 180px;
+    --size-background-header: 1340px;
+}
+
 .wrapper {
-    background-color: chocolate;
-    min-height: 9.6rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    color: var(--color-Sienna);
+    background-image: var(--color-Gradient-1);
+
+    height: var(--height-header);
+    width: var(--size-header);
+
+    display: flex;
+    justify-content: center;
+}
+.back-ground {
+    width: var(--size-background-header);
+    height: 100%;
+    display: flex;
+    font-weight: 700;
+    padding: 8px;
+}
+.logo {
+    width: var(--size-logo);
+    height: 80px;
+    margin-right: 20px;
+}
+.menu {
+    width: 100%;
+}
+.header_1 {
+    width: var(--size-background-header - --size-logo);
+    display: flex;
+    justify-content: end;
+
+    .sdt {
+        margin-left: 15px;
+    }
+
+    .more-btn1 {
+        display: flex;
+        .btn + .btn {
+            margin-left: 10px;
+        }
+    }
+}
+
+.header_2 {
+    width: var(--size-background-header - --size-logo);
+    margin: auto auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+// button
+
+.btn {
+    font-weight: 700;
+    background-color: transparent;
+    color: var(--color-Sienna);
+}
+.custom-btn {
+    width: 155px;
+    height: 43px;
+    border-radius: 15px;
+}
+
+// Item menu
+.more-menu {
+    min-width: 200px;
+}
+
+.menu-list {
+    padding: 8px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+// menu responsive
+.btn-bar {
+    font-size: 2.4rem;
+    display: flex;
+    // align-items: end;
+    justify-content: end;
+}
+.menu_responsive {
+    display: none;
+    margin: 10px 20px;
+    cursor: pointer;
+}
+
+// responsive
+@media screen and (max-width: 1340px) {
+    .btn-bar {
+        width: 100%;
+        .menu_responsive {
+            display: block;
+        }
+    }
+    .custom-btn {
+        display: none;
+        flex-wrap: wrap;
+    }
+}
+// Menu-bar
+
+.menu-list-resposive {
+    background-color: var(--color-Champagne);
+    padding: 8px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 560px) {
+    .sign-up {
+        display: none;
+    }
 }
