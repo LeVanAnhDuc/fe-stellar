@@ -1,25 +1,89 @@
 import Button from '../../components/Button';
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-import { pic1, pic2, pic3, pic4, aboutStellar } from '../../assets/images/home';
 import { Carousel, Container, Row, Col } from 'react-bootstrap';
 import Slider from 'react-slick';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import {
+    pic1,
+    pic2,
+    pic3,
+    pic4,
+    aboutStellar,
+    rSuperiorDoubleOrTwin,
+    rDeluxeDouble,
+    rExecutiveCityView,
+    rSuiteGarden,
+} from '../../assets/images/home';
 
 const cx = classNames.bind(styles);
 
 function Home() {
-    const images = [pic1, pic2, pic3, pic4];
+    // Hero
+    const heroImages = [pic1, pic2, pic3, pic4];
+
+    // Section 2
+    const section2Images = [
+        {
+            id: 1,
+            image: rSuperiorDoubleOrTwin,
+            name: 'Phòng Superior Double Or Twin',
+        },
+        {
+            id: 2,
+            image: rDeluxeDouble,
+            name: 'Phòng Deluxe Double',
+        },
+        {
+            id: 3,
+            image: rExecutiveCityView,
+            name: 'Phòng Executive City View',
+        },
+        {
+            id: 4,
+            image: rSuiteGarden,
+            name: 'Phòng Suite Garden',
+        },
+    ];
+
+    const CustomPrevArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className={cx('custom-prev-arrow')} onClick={onClick}>
+                {/* Add your custom arrow content here */}
+                <FontAwesomeIcon className={cx('pre-icon')} icon={faAngleLeft} />
+            </div>
+        );
+    };
+
+    const CustomNextArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className={cx('custom-next-arrow')} onClick={onClick}>
+                {/* Add your custom arrow content here */}
+                <FontAwesomeIcon className={cx('next-icon')} icon={faAngleRight} />
+            </div>
+        );
+    };
 
     const s2SliderSettings = {
-        dots: true,
+        centerPadding: '60px',
+        focusOnSelect: true,
         infinite: true,
+        autoplay: true,
+        autoplaySpeed: 10000,
         speed: 500,
         slidesToShow: 3,
-        slidesToScroll: 1,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        prevArrow: <CustomPrevArrow />,
+        nextArrow: <CustomNextArrow />,
     };
 
     return (
         <>
+            {/* Hero */}
             <div className={cx('hero')}>
                 <Carousel
                     className={cx('item-wrapper')}
@@ -28,7 +92,7 @@ function Home() {
                     indicators={false}
                     interval={10000}
                 >
-                    {images.map((image, index) => (
+                    {heroImages.map((image, index) => (
                         <Carousel.Item key={index} className={cx('item')}>
                             <div
                                 style={{
@@ -58,6 +122,7 @@ function Home() {
                 </Container>
             </div>
 
+            {/* Section 1 */}
             <div className={cx('section-1')}>
                 <Container fluid="md" className="section-wrapper">
                     <Row>
@@ -91,6 +156,7 @@ function Home() {
                 </Container>
             </div>
 
+            {/* Section 2 */}
             <div className={cx('section-2')}>
                 <Container>
                     <Row>
@@ -101,21 +167,18 @@ function Home() {
                     </Row>
                     <Row className={cx('content')}>
                         <Slider {...s2SliderSettings}>
-                            <div>
-                                <h3>1</h3>
-                            </div>
-                            <div>
-                                <h3>2</h3>
-                            </div>
-                            <div>
-                                <h3>3</h3>
-                            </div>
-                            <div>
-                                <h3>4</h3>
-                            </div>
+                            {section2Images.map((item) => (
+                                <div className={cx('slider-item')} key={item.id}>
+                                    <img src={item.image} alt={item.name} />
+                                    <Button className={cx('btn')} outline_2={true}>
+                                        {item.name}
+                                    </Button>
+                                </div>
+                            ))}
                         </Slider>
                     </Row>
                 </Container>
+                {}
             </div>
         </>
     );

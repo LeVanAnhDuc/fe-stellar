@@ -3,3 +3,7 @@ export { default as pic2 } from './pic2.jpg';
 export { default as pic3 } from './pic3.png';
 export { default as pic4 } from './pic4.jpg';
 export { default as aboutStellar } from './about-stellar.jpg';
+export { default as rSuperiorDoubleOrTwin } from './rSuperiorDoubleOrTwin.jpg';
+export { default as rDeluxeDouble } from './rDeluxeDouble.jpg';
+export { default as rExecutiveCityView } from './rExecutiveCityView.jpg';
+export { default as rSuiteGarden } from './rSuiteGarden.jpg';
