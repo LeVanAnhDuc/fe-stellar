@@ -13,6 +13,7 @@ import Utilities from '../pages/Utilities';
 import ViewPrice from '../pages/ViewPrice';
 
 import Error404 from '../pages/Error404';
+import SignIn from '../pages/SignIn';
 
 const publishRoute = [
     { path: '/', component: Home },
@@ -28,6 +29,7 @@ const publishRoute = [
     { path: '/nha-hang-quan-bar', component: RestaurentAndBar },
     { path: '/tien-ich', component: Utilities },
     { path: '/xem-gia', component: ViewPrice },
+    { path: '/dang-nhap', component: SignIn, layout: null },
 
     { path: '/error', component: Error404, layout: null },
 ];

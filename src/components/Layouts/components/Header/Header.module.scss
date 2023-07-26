@@ -38,7 +38,7 @@
 .header_1 {
     width: var(--size-background-header - --size-logo);
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 
     .sdt {
         margin-left: 15px;
@@ -63,11 +63,14 @@
 
 .btn {
     font-weight: 700;
+    font-size: 1.7rem;
+    margin: 0;
     background-color: transparent;
     color: var(--color-Sienna);
 }
 .custom-btn {
-    width: 155px;
+    width: 160px;
+    // width: max-content;
     height: 43px;
     border-radius: 15px;
 }
@@ -88,7 +91,7 @@
     font-size: 2.4rem;
     display: flex;
     // align-items: end;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .menu_responsive {
     display: none;
