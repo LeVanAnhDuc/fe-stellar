@@ -14,6 +14,7 @@ import ViewPrice from '../pages/ViewPrice';
 
 import Error404 from '../pages/Error404';
 import SignIn from '../pages/SignIn';
+import Register from '../pages/Register';
 
 const publishRoute = [
     { path: '/', component: Home },
@@ -30,6 +31,7 @@ const publishRoute = [
     { path: '/tien-ich', component: Utilities },
     { path: '/xem-gia', component: ViewPrice },
     { path: '/dang-nhap', component: SignIn, layout: null },
+    { path: '/dang-ki', component: Register, layout: null },
 
     { path: '/error', component: Error404, layout: null },
 ];
