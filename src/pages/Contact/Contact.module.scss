@@ -1,0 +1,97 @@
+.app-slide{
+  font-family: sans-serif;
+  text-align: center;
+}
+.slideshow {
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 500px;
+}
+
+.slideshowSlider {
+  white-space: nowrap;
+  transition: ease 1000ms;
+}
+
+.slide {
+  display: inline-block;
+
+  height: 400px;
+  width: 100%;
+  border-radius: 40px;
+}
+
+/* Buttons */
+
+.slideshowDots {
+  text-align: center;
+}
+
+.slideshowDot {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+
+  cursor: pointer;
+  margin: 15px 7px 0px;
+
+  background-color: #c4c4c4;
+}
+
+.slideshowDot.active {
+  background-color: #6a0dad;
+}
+
+form{
+  border: 2px solid sienna;
+  border-radius: 2px;
+  margin:10px;
+}
+
+
+input[type=text]{
+  background-color: #f9e0bb;
+  text-align: center;
+
+}
+a{
+  size: 20px;
+}
+.Button{
+  margin-top: 10px;
+}
+*{
+  font: roboto;
+}
+.form_1{
+  background-color: #f9e0bb;
+}
+.Column{
+  background-color: white;
+  margin-top: 30px;
+}
+.Col1{
+  background-color: White;
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+}
+.Col_1{
+  background-color: White;
+                width: 100%;
+                padding: 12px 20px;
+                margin:  0; 
+}
+.Tilte1{
+  color:#884a39;
+  font-size: 32px;
+  font: Roboto;
+  text-align: center;
+  margin-top:30;
+}
+.Tilte2{
+  color:Black;
+  font-size: 30px ; font: Roboto;
+  text-align: center;
+}
