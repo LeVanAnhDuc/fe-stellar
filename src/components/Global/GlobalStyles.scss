@@ -1,3 +1,4 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap';
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
@@ -8,6 +9,8 @@
     --color-Copper: #c38154;
     --color-Apricot: #ffc26f;
     --color-Champagne: #f9e0bb;
+
+    --color-active-btn: #e9b384;
 
     --color-Gradient-1: linear-gradient(to right, #fee3ba, #ffc26f);
     --color-Gradient-2: linear-gradient(to right, #f3b055, #bc6a53);
@@ -28,6 +31,8 @@
     --color-Success: #198754;
     --color-Warning: #ffc107;
     --color-Danger: #dc3545;
+
+    --height-header: 9.6rem;
 }
 
 * {
@@ -57,6 +62,12 @@ body {
     //     font-size: 1.6rem;
     //     line-height: 2.1rem;
     // }
+
+    // custom form bootstrap
+    .was-validated .form-control:invalid,
+    .was-validated .form-control:valid {
+        background-image: none;
+    }
 }
 
 //
@@ -69,7 +80,7 @@ input,
 }
 
 a[href] {
-    color: var(--text-color);
+    color: var(--color-Sienna);
     // bo gach chan
     text-decoration: none;
 }

@@ -1,0 +1,56 @@
+.Room{
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+    
+}
+.Intro{
+    margin-top: 4rem;
+ 
+}
+p{
+   margin: 1.5rem 0;
+   text-align: justify;
+  
+}
+.Col{
+    padding: 0 1.6rem !important;
+}
+h1{
+    color: sienna;
+}
+.imageRoom{
+   
+    width: 100%;
+    height: 419px;
+}
+.ContentIntro{
+    margin-top: 3rem;
+    padding: 1.6rem 0;
+}
+.Search{
+   
+    background-color: rgb(241, 172, 148);
+
+    .exit{
+        margin-left: 98%
+    }
+    .date{
+        justify-content: space-between;
+        display: flex;
+        margin: 3rem 10rem;
+    }
+    button{
+        margin-left: 90%;
+        background-color: sienna;
+        margin-bottom: 4.2rem;
+        padding: 1rem;
+        color: #fffcfc;
+    
+    }
+    input{
+        width: 18.2rem;
+    }
+}
+li{
+    list-style: none;
+}

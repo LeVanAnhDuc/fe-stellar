@@ -24,17 +24,18 @@ const zoomOutProperties = {
   scale: 0.4,
   arrows: false,
 };
+
 const Slideshow = () => {
-    return (
-      <div className={cx('slide-container')}>
-        <Zoom {...zoomOutProperties}>
-          {images.map((each, index) => (
-            <img key={index} style={{ width: "100%", height:"540" }} src={each} />
-          ))}
-        </Zoom>
-      </div>
-    );
-  }
+  return (
+    <div className={cx('slide-container')}>
+      <Zoom {...zoomOutProperties}>
+        {images.map((each, index) => (
+          <img key={index} style={{ width: "100%", height:"540" }} src={each} />
+        ))}
+      </Zoom>
+    </div>
+  );
+}
 const FormShow = () => {
   return( 
     <div>
