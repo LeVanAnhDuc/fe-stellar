@@ -75,6 +75,7 @@ function SignIn() {
                             label="Remember Me"
                             checked={rememberMe}
                             onChange={handleRememberMeChange}
+                            preventDefault
                         />
                         <a href="/#">Forgot password?</a>
                     </Form.Group>

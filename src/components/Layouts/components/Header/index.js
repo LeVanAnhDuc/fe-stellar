@@ -72,7 +72,7 @@ function Header() {
                                 <Account />
                             ) : (
                                 <>
-                                    <Button className={cx('btn', 'sign-up')} none_1>
+                                    <Button className={cx('btn', 'sign-up')} none_1 to={'/dang-ki'}>
                                         Đăng ký
                                     </Button>
                                     <Button className={cx('btn', ' sign-in')} none_1 to={'/dang-nhap'}>

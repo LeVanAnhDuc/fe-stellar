@@ -62,6 +62,12 @@ body {
     //     font-size: 1.6rem;
     //     line-height: 2.1rem;
     // }
+
+    // custom form bootstrap
+    .was-validated .form-control:invalid,
+    .was-validated .form-control:valid {
+        background-image: none;
+    }
 }
 
 //
