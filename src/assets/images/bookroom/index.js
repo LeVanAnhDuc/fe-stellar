@@ -1,0 +1,12 @@
+export { default as pic1 } from './pic1.jpg';
+export { default as pic2 } from './pic2.jpg';
+export { default as pic3 } from './pic3.jpg';
+export { default as introRoom } from './introRoom.jpg';
+export { default as Deluxe1 } from './DeluxeDouble1.jpg';
+export { default as Deluxe2 } from './DeluxeDouble2.jpg';
+export { default as Executive1 } from './ExecutiveCityView1.jpg';
+export { default as Executive2 } from './ExecutiveCityView2.jpg';
+export { default as Suite1 } from './SuiteGarden1.jpg';
+export { default as Suite2 } from './SuiteGarden2.jpg';
+export { default as Superior1 } from './SuperiorDoubleOrTwin_1.jpg';
+export { default as Superior2 } from './SuperiorDoubleOrTwin_2.jpg';

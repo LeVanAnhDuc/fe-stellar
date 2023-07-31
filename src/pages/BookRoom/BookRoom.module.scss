@@ -1,35 +1,136 @@
-.Room{
-    margin-top: 10rem;
-    margin-bottom: 5rem;
+ 
+.hero {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .item {
+        max-width: 100%;
+        height: 540px;
+    }
+    .content-wrapper {
+        position: absolute;
+        left: auto;
+        top: 0;
+        height: 93%;
+        max-width: 592px;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-end;
+        .date{
+            background-color: #fafafa;
+            padding: 1rem;
+            color: sienna;
+            font-weight: bold;
+            margin: 2rem;
+            input{
+                margin-left: 0.7rem;
+            }
+
+
+        }
+        .input-date{
+            display: flex;
+        }
+        .btn{    
+            margin-left: 53%;
+            margin-right: 2rem;
+            background-color: sienna;
+            color: #F9E0BB;
+        }
+    }
+    @media screen and (max-width: 576px)
+    {
+        .item {
+            max-width: 100%;
+            height: 540px;
+        }
     
+        .content-wrapper {
+            position: absolute;
+            left: auto;
+            top: 0;
+            height: 100%;
+            max-width: 592px;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            gap: 28px;
+        }
+    }
 }
 .Intro{
-    margin-top: 4rem;
- 
+    padding: 5rem 0;
+    .IntroImage{
+        width: 100%;
+        object-fit: cover;
+        image-rendering: pixelated;
+    }
+    p{
+        margin: 1.5rem 0;
+        text-align: justify;
+       
+     }
+     h1{
+        color: sienna;
+    }
+    
+    .ContentIntro{
+        margin-top: 3rem;
+        padding: 1.6rem 0;
+    }
+    @media screen and (max-width: 1340px)
+    { 
+        flex-direction: column;
+     
+        .IntroImage{
+            width: 100%;
+            object-fit: cover;
+            image-rendering: pixelated;
+        }
+    }
+    
 }
-p{
-   margin: 1.5rem 0;
-   text-align: justify;
-  
-}
-.Col{
-    padding: 0 1.6rem !important;
-}
-h1{
-    color: sienna;
-}
-.imageRoom{
-   
-    width: 100%;
-    height: 419px;
-}
-.ContentIntro{
-    margin-top: 3rem;
-    padding: 1.6rem 0;
-}
+.RoomLeft,.RoomRight{
+    margin-top: 10rem;
+    margin-bottom: 5rem; 
+    .Col{
+        height: 100%;
+        position: relative;
+    
+        .item {
+            max-width: 100%;
+            height: 540px;
+        }
+    }
+    li{
+        list-style: none;
+    } 
+    @media screen and (max-width: 1340px)
+    { 
+        
+     .item{
+        padding: 2rem 0;
+     }
+        
+    }
+} 
+@media screen and (max-width: 1340px)
+{ 
+    .RoomRight{
+        flex-direction: column-reverse;
+    }
+    .RoomLeft{
+        flex-direction: column;
+    }
+ }
+    
+
 .Search{
    
-    background-color: rgb(241, 172, 148);
+    background-color: #F9E0BB;
 
     .exit{
         margin-left: 98%
@@ -39,18 +140,29 @@ h1{
         display: flex;
         margin: 3rem 10rem;
     }
-    button{
-        margin-left: 90%;
+   
+    .btn{    
+        margin-left: 75%;
+        margin-right: 10rem;
         background-color: sienna;
-        margin-bottom: 4.2rem;
-        padding: 1rem;
-        color: #fffcfc;
-    
+        color: #F9E0BB;
+        margin-bottom: 2rem;
     }
     input{
         width: 18.2rem;
     }
+    @media screen and (max-width: 1340px)
+{ 
+    .date{
+        flex-direction: column;
+    }
+    .btn{    
+        margin-left: 75%;
+        margin-right: 10rem;
+        background-color: sienna;
+        color: #F9E0BB;
+        margin-bottom: 2rem;
+    }
 }
-li{
-    list-style: none;
 }
+

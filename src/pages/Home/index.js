@@ -27,6 +27,7 @@ function Home() {
                     wrap={true}
                     indicators={false}
                     interval={10000}
+                    
                 >
                     {images.map((image, index) => (
                         <Carousel.Item key={index} className={cx('item')}>
