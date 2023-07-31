@@ -1,24 +1,47 @@
 import style from './BookRoom.module.scss';
 
 import classNames from 'classnames/bind';
-import { Container, Row, Col } from 'react-bootstrap';
-import Image from '../../components/Image';
+import { Carousel, Container, Row, Col } from 'react-bootstrap';
+
 import Button from '../../components/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
 const cx = classNames.bind(style);
-
-export function InfoRoomRight({ image, name, acreage, typebed, capacity, description, view }) {
+export function InfoRoomRight({ name, acreage, typebed, capacity, description, view, pic1, pic2 }) {
+    const images = [pic1, pic2];
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     return (
-        <Container fluid="md" className={cx('Room')}>
-            <Row>
+        <Container fluid="md">
+            <Row className={cx('RoomRight')}>
                 <Col className={cx('Col')}>
-                    <Image className={cx('imageRoom')} src={image} />
+                    <Carousel
+                        className={cx('item-wrapper')}
+                        controls={false}
+                        wrap={true}
+                        indicators={false}
+                        interval={3000}
+                    >
+                        {images.map((image, index) => (
+                            <Carousel.Item key={index} className={cx('item')}>
+                                <div
+                                    style={{
+                                        backgroundImage: `url(${image})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        backgroundRepeat: 'no-repeat',
+                                        maxWidth: '100%',
+                                        height: '100%',
+                                    }}
+                                ></div>
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
                 </Col>
+
                 <Col className={cx('Col')}>
                     <h1>{name}</h1>
                     <hr width="30%" align="center" />
@@ -80,24 +103,29 @@ export function InfoRoomRight({ image, name, acreage, typebed, capacity, descrip
                     </div>
                     <div className={cx('date')}>
                         Người lớn:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1' />
                         Trẻ em:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1'/>
                     </div>
 
-                    <button> Đặt phòng</button>
+                   <Button className={cx('btn')} to={'/xem-gia'}>
+                     Đặt phòng
+                   </Button>
+                       
+                   
                 </div>
             </Modal>
         </Container>
     );
 }
-export function InfoRoomLeft({ image, name, acreage, typebed, capacity, description, view }) {
+export function InfoRoomLeft({ name, acreage, typebed, capacity, description, view, pic1, pic2 }) {
+    const images = [pic1, pic2];
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
-        <Container fluid="md" className={cx('Room')}>
-            <Row>
+        <Container fluid="md">
+            <Row className={cx('RoomLeft')}>
                 <Col className={cx('Col')}>
                     <h1>{name}</h1>
                     <hr width="30%" align="center" />
@@ -148,11 +176,32 @@ export function InfoRoomLeft({ image, name, acreage, typebed, capacity, descript
                     </Button>
                 </Col>
                 <Col className={cx('Col')}>
-                    <Image className={cx('imageRoom')} src={image} />
+                    <Carousel
+                        className={cx('item-wrapper')}
+                        controls={false}
+                        wrap={true}
+                        indicators={false}
+                        interval={3000}
+                    >
+                        {images.map((image, index) => (
+                            <Carousel.Item key={index} className={cx('item')}>
+                                <div
+                                    style={{
+                                        backgroundImage: `url(${image})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        backgroundRepeat: 'no-repeat',
+                                        maxWidth: '100%',
+                                        height: '100%',
+                                    }}
+                                ></div>
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
                 </Col>
             </Row>
-            <Modal size="xl" show={show} onHide={handleClose}>
-                <Modal.Header closeButton></Modal.Header>
+            <Modal  size="xl" show={show} onHide={handleClose}>
+                <Modal.Header  closeButton></Modal.Header>
                 <div className={cx('Search')}>
                     <div className={cx('date')}>
                         Ngày nhập phòng:
@@ -162,12 +211,13 @@ export function InfoRoomLeft({ image, name, acreage, typebed, capacity, descript
                     </div>
                     <div className={cx('date')}>
                         Người lớn:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1' />
                         Trẻ em:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1' />
                     </div>
-
-                    <button> Đặt phòng</button>
+                    <Button className={cx('btn')} to={'/xem-gia'}>
+                     Đặt phòng
+                   </Button>
                 </div>
             </Modal>
         </Container>
