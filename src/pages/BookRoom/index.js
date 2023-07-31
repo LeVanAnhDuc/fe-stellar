@@ -6,10 +6,12 @@ import Image from '../../components/Image';
 import {InfoRoomRight, InfoRoomLeft} from './InfoRoom';
 import {Deluxe1,Deluxe2,Executive1,Executive2,Suite1, Suite2,Superior1,Superior2,pic1,pic2,pic3, introRoom} from "../../assets/images/bookroom";
 import styles from './BookRoom.module.scss';
+import Button from '../../components/Button';
 
 const cx = classNames.bind(styles);
 function BookRoom() {
     const images = [pic1, pic2, pic3];
+   
     return (
         <> 
         <div className={cx('hero')}>
@@ -35,6 +37,23 @@ function BookRoom() {
                     </Carousel.Item>
                 ))}
             </Carousel>
+            <Container fluid="md">
+                    <div className={cx('content-wrapper')}>
+                        <div className={cx('input-date')}>
+                        <span className={cx('date')}>Check in   
+                        <input type='date' ></input>
+                        </span>
+                       <span className={cx('date')}>Check out   
+                        <input type='date'></input>
+                        </span>
+                        </div>
+                      
+                        <Button  to={'/xem-gia'}
+                                 className={cx('btn')}>
+                        CHECK AVAILABILITY
+                        </Button>
+                    </div>
+                </Container>
             </div>
             <Container fluid="md" >
                 <Row className={cx('Intro')}>

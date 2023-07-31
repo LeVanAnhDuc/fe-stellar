@@ -8,6 +8,38 @@
         max-width: 100%;
         height: 540px;
     }
+    .content-wrapper {
+        position: absolute;
+        left: auto;
+        top: 0;
+        height: 93%;
+        max-width: 592px;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-end;
+        .date{
+            background-color: #fafafa;
+            padding: 1rem;
+            color: sienna;
+            font-weight: bold;
+            margin: 2rem;
+            input{
+                margin-left: 0.7rem;
+            }
+
+
+        }
+        .input-date{
+            display: flex;
+        }
+        .btn{    
+            margin-left: 53%;
+            margin-right: 2rem;
+            background-color: sienna;
+            color: #F9E0BB;
+        }
+    }
     @media screen and (max-width: 576px)
     {
         .item {
@@ -33,7 +65,8 @@
     padding: 5rem 0;
     .IntroImage{
         width: 100%;
-        
+        object-fit: cover;
+        image-rendering: pixelated;
     }
     p{
         margin: 1.5rem 0;
@@ -48,12 +81,14 @@
         margin-top: 3rem;
         padding: 1.6rem 0;
     }
-    @media screen and (max-width: 576px)
+    @media screen and (max-width: 1340px)
     { 
         flex-direction: column;
      
         .IntroImage{
             width: 100%;
+            object-fit: cover;
+            image-rendering: pixelated;
         }
     }
     
@@ -73,7 +108,7 @@
     li{
         list-style: none;
     } 
-    @media screen and (max-width: 576px)
+    @media screen and (max-width: 1340px)
     { 
         
      .item{
@@ -82,7 +117,7 @@
         
     }
 } 
-@media screen and (max-width: 576px)
+@media screen and (max-width: 1340px)
 { 
     .RoomRight{
         flex-direction: column-reverse;
@@ -105,35 +140,28 @@
         display: flex;
         margin: 3rem 10rem;
     }
-    a{
-        margin-left: 90%;
+   
+    .btn{    
+        margin-left: 75%;
+        margin-right: 10rem;
         background-color: sienna;
-        margin-bottom: 4.2rem;
-        padding: 1rem;
-        font-size: 1.6rem;
-        border-color: rgba(255, 255, 255, 0.15);
-    
-    }
-    a:hover {
-        color: #212529;
-        background-color: #fff3cd;
-        border-color: rgba(255, 255, 255, 0.15);
+        color: #F9E0BB;
+        margin-bottom: 2rem;
     }
     input{
         width: 18.2rem;
     }
-    @media screen and (max-width: 576px)
+    @media screen and (max-width: 1340px)
 { 
     .date{
         flex-direction: column;
     }
-    a{
+    .btn{    
         margin-left: 75%;
+        margin-right: 10rem;
         background-color: sienna;
-        margin-bottom: 4.2rem;
-        padding: 1rem;
-        font-size: 1.6rem;
-        border-color: rgba(255, 255, 255, 0.15);
+        color: #F9E0BB;
+        margin-bottom: 2rem;
     }
 }
 }

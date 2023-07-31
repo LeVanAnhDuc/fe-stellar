@@ -1,0 +1,121 @@
+.item-wrapper{
+    display: flex;
+    flex-direction: column;
+    .section-1{
+        margin-top: 2rem;
+        background-color: #F8F9FA;
+        margin-bottom: 1rem;
+       
+        p{
+            font-weight: 300;
+            margin-left: 2rem;
+        }
+        a{
+            color: #0D6EFD;
+            font-style: italic;
+            font-size: small;
+            margin-left: 2rem;
+        }
+        .content{
+            margin-top: 2rem;
+            p{
+                font-weight: bold;
+            }
+            .detail{
+                display: flex;
+                justify-content: space-between;
+                p{
+                    font-weight: 300;
+                    margin-right: 4rem;
+                }
+            }
+        }
+    }
+    .section-2{
+        margin: 2rem 0;
+        background-color: #F8F9FA;
+        .content{
+            margin-top: 1rem;
+           
+             background-color: #F8F9FA;
+          
+            p{
+                font-weight: bold;
+                margin-left: 2rem;
+            }
+            .detail{
+                display: flex;
+                justify-content: space-between;
+                margin-left: 2rem;
+                padding-bottom: 2rem;
+                .text-item{
+                    display: flex;
+                    input{
+                        width: 15rem;
+                        margin-right: 5rem;
+                        border: 1px solid black;
+                    }
+                }
+                a{
+                    font-weight: bold;
+                    margin-right: 4rem;
+                    font-size: small;
+                    color: black;
+                }
+                
+            }
+        }
+    }
+    .section-3{
+        margin-top: 2rem;
+        background-color: #F8F9FA;
+        margin-bottom: 3rem;
+        input{
+            border: 1px solid black;
+            margin-left: 2rem;
+        }
+        p{
+            margin-top: 2rem;
+            margin-left: 2rem;
+        }
+        .email{
+            width: 90%;
+            margin-left: 3rem;
+        }
+        .phone{
+            padding-bottom: 4rem;
+        }
+    }
+    .section-4{
+        margin-top: 2rem;
+        background-color: #F8F9FA;
+        padding-bottom: 3rem;
+        .content{
+            display: flex;
+            justify-content: space-between;
+            p{
+                margin-top: 1rem;
+                margin-left: 2rem;
+                margin-right: 2rem;
+                font-weight: bold;
+                
+            }
+        }
+        .check-item{
+            margin-left: 2rem;
+            margin-top: 3rem;
+            display: flex;
+            p{
+                margin:0 2rem;
+            }
+        }
+        Button{
+            margin: auto;
+        }
+    }
+    @media screen and (max-width: 1340px){
+        .section-3-4{
+            flex-direction: column;
+        }
+    }
+}

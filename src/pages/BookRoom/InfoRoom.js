@@ -103,14 +103,16 @@ export function InfoRoomRight({ name, acreage, typebed, capacity, description, v
                     </div>
                     <div className={cx('date')}>
                         Người lớn:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1' />
                         Trẻ em:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1'/>
                     </div>
 
-                    <a class="btn btn-primary" href="/xem-gia" role="button">
-                        Đặt phòng
-                    </a>
+                   <Button className={cx('btn')} to={'/xem-gia'}>
+                     Đặt phòng
+                   </Button>
+                       
+                   
                 </div>
             </Modal>
         </Container>
@@ -198,8 +200,8 @@ export function InfoRoomLeft({ name, acreage, typebed, capacity, description, vi
                     </Carousel>
                 </Col>
             </Row>
-            <Modal size="xl" show={show} onHide={handleClose}>
-                <Modal.Header closeButton></Modal.Header>
+            <Modal  size="xl" show={show} onHide={handleClose}>
+                <Modal.Header  closeButton></Modal.Header>
                 <div className={cx('Search')}>
                     <div className={cx('date')}>
                         Ngày nhập phòng:
@@ -209,13 +211,13 @@ export function InfoRoomLeft({ name, acreage, typebed, capacity, description, vi
                     </div>
                     <div className={cx('date')}>
                         Người lớn:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1' />
                         Trẻ em:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="0" max="5" placeholder='1' />
                     </div>
-                    <a className="btn btn-primary" href="/xem-gia" role="button">
-                        Đặt phòng
-                    </a>
+                    <Button className={cx('btn')} to={'/xem-gia'}>
+                     Đặt phòng
+                   </Button>
                 </div>
             </Modal>
         </Container>

@@ -39,17 +39,17 @@ function Utilities() {
             <div className={cx('section-1')}>
                 <Container fluid>
                     <Row>
-                        <Col className={cx('Image')} >
+                        <Col className={cx('px-0','Image')} >
                         <a href='#Utilies3'>
                         <Image src={spa2} className={cx('ImageUtilies')}/>
                         </a>
                         </Col>
-                        <Col  className={cx('Image')}>
+                        <Col  className={cx('px-0','Image')}>
                         <a href='#Utilies2'>
                         <Image src={gym1} className={cx('ImageUtilies')} />
                         </a>
                         </Col>
-                        <Col  className={cx('Image')}>
+                        <Col  className={cx('px-0','Image')}>
                         <a href='#Utilies1'>
                         <Image src={boi2} className={cx('ImageUtilies')} />
                         </a>
@@ -60,7 +60,7 @@ function Utilities() {
             </div>
             <div  id="Utilies1" className={cx('section-2')}>
                 <Container fluid="md">
-                    <Row>
+                    <Row  className={cx('row')}>
                         <Col >
                             <Image src={boi1} className={cx('ImageUtilies')}/>
                         </Col>
@@ -74,7 +74,7 @@ function Utilities() {
             </div>
             <div  id="Utilies2" className={cx('section-3')}>
                 <Container fluid="md">
-                    <Row>
+                    <Row  className={cx('row')}>
                         <Col  className={cx('left')}>
                         <h1 className={cx('content-header')}>Phòng Tập Thể Thao</h1>
                         <p className={cx('content-wrapper')}>Phòng tập thể thao hiện đại mở cánh cửa bừng sáng đón chào ngày mới với những thiết bị tập luyện thể thao hiện đại và góc nhìn phủ khắp Sài Gòn từ trên cao. Dành một chút thời gian tập luyện cho cơ thể mỗi sớm, bạn sẽ có cả một ngày tràn đầy năng lượng để làm việc và tận hưởng chuyến đi khám phá thành phố.</p>   </Col>
@@ -86,7 +86,7 @@ function Utilities() {
             </div>
             <div id="Utilies3" className={cx('section-4')}>
                 <Container fluid="md">
-                    <Row>
+                    <Row className={cx('row')}>
                         <Col >
                             <Image src={spa3} className={cx('ImageUtilies')}/>
                         </Col>

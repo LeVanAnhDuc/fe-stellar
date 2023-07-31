@@ -1,4 +1,5 @@
 import { Carousel, Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import {pic1,pic2,pic3, Suite1} from "../../assets/images/bookroom";
 import styles from './ViewPrice.module.scss';
@@ -7,6 +8,13 @@ const cx = classNames.bind(styles);
 
 function ViewPrice() {
     const images = [pic1, pic2, pic3];
+    const [selectedValue, setSelectedValue] = useState('1');
+
+    const handleSelectionChange = (event) => {
+        setSelectedValue(event.target.value);
+    }
+    const isSelectionOne = selectedValue === '1';
+
     return <>
     <div className={cx('hero')}>
             <Carousel
@@ -41,12 +49,14 @@ function ViewPrice() {
                 <input id="date-checkin" type="date" />
                 </Col>
                 <Col className={cx('col')} >
-                <a className="btn btn-primary " href="/thanh-toan" role="button" aria-disabled="false">THANH TOÁN</a>
+                <a className={`btn btn-primary ${isSelectionOne ? 'disabled' : ''}`} href="/thanh-toan" role="button">
+                    THANH TOÁN
+                </a>
                 </Col>
             </Row>  
         </Container>
             <div className={cx('ListRoom')}>
-            <Container fluid="md" >    
+            <Container  fluid="md" >    
             <Row className={cx('Room')}>
                 <Col className={cx('col')}>
                     <Image className={cx('ImageRoom')} src={Suite1} alt="imageRoom" />
@@ -72,12 +82,13 @@ function ViewPrice() {
                         </Col>
                         <Col>
                             <div className="input-group mb-3">
-                                <select className="custom-select" id="inputGroupSelect02" defaultValue="1">
-                                    <option value="1">0 Phòng</option>
+                                    <select onChange={handleSelectionChange} value={selectedValue} >
+                                    <option value="1" >0 Phòng</option>
                                     <option value="2">1 Phòng</option>
-                                    <option value="3">2 Phòng</option>
-                                    <option value="4">3 Phòng</option>
-                                    <option value="5">4 Phòng</option>
+                                    <option value="3">2 Phòng </option>
+                                    <option value="4">3 Phòng </option>
+                                    <option value="5">4 Phòng </option>
+                                    <option value="6">5 Phòng </option>
                                 </select>
                             </div>
                         </Col>
