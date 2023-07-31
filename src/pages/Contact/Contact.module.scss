@@ -2,6 +2,9 @@
   font-family: sans-serif;
   text-align: center;
 }
+*{
+  font: roboto;
+}
 .slideshow {
   margin: 0 auto;
   overflow: hidden;
@@ -43,17 +46,27 @@
   background-color: #6a0dad;
 }
 
+.Column{
+  background-color: white;
+  margin-top: 30px;
+
+.Col1{
+  background-color: White;
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        .Col_1{
+          
 form{
   border: 2px solid sienna;
   border-radius: 2px;
   margin:10px;
-}
 
-
-input[type=text]{
-  background-color: #f9e0bb;
-  text-align: center;
-
+  input[type=text]{
+    background-color: #f9e0bb;
+    text-align: center;
+  
+  }
 }
 a{
   size: 20px;
@@ -61,37 +74,61 @@ a{
 .Button{
   margin-top: 10px;
 }
-*{
-  font: roboto;
-}
-.form_1{
-  background-color: #f9e0bb;
-}
-.Column{
-  background-color: white;
-  margin-top: 30px;
-}
-.Col1{
-  background-color: White;
+        }
+      }
+      .form_1{
+        background-color: #f9e0bb;
+      }
+      
+      
+      .Tilte1{
+        color:#884a39;
+        font-size: 32px;
+        font: Roboto;
+        text-align: center;
+        margin-top:30;
+      }
+      .Tilte2{
+        color:Black;
+        font-size: 30px ; font: Roboto;
+        text-align: center;
+      }
+      
+      .iframe{
         width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
+        height: 300px;
+        text-align: center;
+      }
+    }    
+
+@media screen and (max-width: 576px){
+  .slideshow {
+    margin: 0 auto;
+    overflow: hidden;
+    max-width: 500px;
+  }
+  .Column{
+    background-color: white;
+    margin-top: 30px;
+  
+  .Col1{
+    background-color: White;
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          .Col_1{
+            
+  form{
+    border: 2px solid sienna;
+    border-radius: 2px;
+    margin:10px;
+  
+    input[type=text]{
+      background-color: #f9e0bb;
+      text-align: center;
+    
+    }
+  }}}}
 }
-.Col_1{
-  background-color: White;
-                width: 100%;
-                padding: 12px 20px;
-                margin:  0; 
-}
-.Tilte1{
-  color:#884a39;
-  font-size: 32px;
-  font: Roboto;
-  text-align: center;
-  margin-top:30;
-}
-.Tilte2{
-  color:Black;
-  font-size: 30px ; font: Roboto;
-  text-align: center;
-}
+
+
