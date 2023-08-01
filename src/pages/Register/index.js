@@ -8,39 +8,19 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
+import InputSDT from '../../components/InputBootstrap/SDT';
+import InputEmail from '../../components/InputBootstrap/Email';
 
 const cx = classNames.bind(styles);
 
 function Register() {
     const [validated, setValidated] = useState(false);
 
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [enterPassWord, setEnterPassWord] = useState('');
 
-    const [isValidEmail, setIsValidEmail] = useState(true);
-    const [isValidPhone, setIsValidPhone] = useState(true);
     const [isComFirmPass, setIsComFirmPass] = useState(true);
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const validateEmail = () => {
-        // Sử dụng biểu thức chính quy (regex) để kiểm tra tính hợp lệ của email
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        setIsValidEmail(emailPattern.test(email));
-    };
-
-    const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
-    };
-
-    const validatePhone = () => {
-        const phonePattern = /^\d{10,12}$/;
-        setIsValidPhone(phonePattern.test(phone));
-    };
+    const [showPassWord, setShowPassWord] = useState(false);
 
     const handleChangePassWord = (e) => {
         setPassword(e.target.value);
@@ -49,9 +29,13 @@ function Register() {
         setEnterPassWord(e.target.value);
     };
 
+    const handleRememberMeChange = () => {
+        setShowPassWord(!showPassWord);
+    };
+
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        if (form.checkValidity() === false || !validatePhone(phone) || !validateEmail(email)) {
+        if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -84,41 +68,20 @@ function Register() {
                 >
                     <h1>Register</h1>
                     <Form.Group className={cx('input-box')}>
-                        <Form.Control
-                            required
-                            type="tel"
-                            placeholder="Enter phone number (10-12 digits)"
-                            value={phone}
-                            onChange={handlePhoneChange}
-                            onBlur={validatePhone}
-                            pattern="[0-9]{10,12}"
-                            className={cx('input')}
-                        />
-                        <FontAwesomeIcon icon={faPhone} className={cx('icon')} />
-                        {!isValidPhone && (
-                            <Form.Control.Feedback type="invalid">Please enter a valid phone.</Form.Control.Feedback>
-                        )}
+                        <InputSDT className={cx('input')} label={false}>
+                            <FontAwesomeIcon icon={faPhone} className={cx('icon')} />
+                        </InputSDT>
                     </Form.Group>
                     <Form.Group className={cx('input-box')}>
-                        <Form.Control
-                            required
-                            type="email"
-                            placeholder="Enter email address"
-                            value={email}
-                            onChange={handleEmailChange}
-                            onBlur={validateEmail}
-                            className={cx('input')}
-                        />
-                        <FontAwesomeIcon icon={faUser} className={cx('icon')} />
-                        {!isValidEmail && (
-                            <Form.Control.Feedback type="invalid">Invalid email address</Form.Control.Feedback>
-                        )}
+                        <InputEmail className={cx('input')} label={false}>
+                            <FontAwesomeIcon icon={faUser} className={cx('icon')} />
+                        </InputEmail>
                     </Form.Group>
 
                     <div className={cx('input-box')}>
                         <input
                             required
-                            type="text"
+                            type={showPassWord ? 'text' : 'password'}
                             placeholder="Password"
                             value={password}
                             onChange={handleChangePassWord}
@@ -130,7 +93,7 @@ function Register() {
                     <div className={cx('input-box')}>
                         <input
                             required
-                            type="text"
+                            type={showPassWord ? 'text' : 'password'}
                             placeholder="Enter the password"
                             value={enterPassWord}
                             onChange={handleChangeEnterPW}
@@ -138,6 +101,18 @@ function Register() {
                         />
                         <FontAwesomeIcon icon={faLock} className={cx('icon')} />
                         {!isComFirmPass && <div className={cx('notyfi-danger')}>Not match password</div>}
+                    </div>
+                    <div className={cx('remember-forgot')}>
+                        <label className={cx('label-checkbox')}>
+                            <input
+                                type="checkbox"
+                                checked={showPassWord}
+                                onChange={handleRememberMeChange}
+                                preventDefault
+                                className={cx('input-checkbox')}
+                            />
+                            Show password
+                        </label>
                     </div>
 
                     <Button type="submit" className={cx('btn')}>
