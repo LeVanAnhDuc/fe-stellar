@@ -1,10 +1,17 @@
 import styles from './MyReservation.module.scss';
 import classNames from 'classnames/bind';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useState } from 'react';
 import Button from '../../components/Button';
 
 const cx = classNames.bind(styles);
 function MyReservation() {
+    const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+  
     return <>
         <div className={cx('MyReservation')}>
             <Container fluid="md" className={cx('item-wrapper')}>
@@ -13,7 +20,7 @@ function MyReservation() {
                    <div className={cx('section-1')} >
                     <p>Ngày nhận: Thứ 5, Tháng 7 13, 2023 từ 14:00</p>
                     <p>Ngày trả:  Thứ 6, Tháng 7 14, 2023 cho đến 12:00 </p>
-                    <a href='#'>(Bạn có muốn chuyển ngày du lịch?)</a>
+                    <a href='/xem-gia'>(Bạn có muốn chuyển ngày du lịch?)</a>
                     <div className={cx('content')} >
                         <p>Superior Double</p>
                         <div className={cx('detail')} >
@@ -41,8 +48,7 @@ function MyReservation() {
                      <div className={cx('detail')} >
                         <div className={cx('text-item')}>
                         <input  type="number"  placeholder='0'  min="0" max="2"/>    <label>₫ 460.000 </label>
-                        </div>
-                        <a href='#'>Chính sách đặt phòng</a>
+                        </div> 
                     </div>
                     <p>Airport Pickup</p>
                     <div className={cx('detail')} >
@@ -100,11 +106,11 @@ function MyReservation() {
                             <p>đ 1.790.000</p>
                         </div>
                         <div className={cx('check-item')} >
-                        <input className="form-check-input" type="radio" name="flexRadio" id="flexRadio"/>    
+                        <input className="form-check-input" type="checkbox" checked={isChecked}
+                        onChange={handleCheckboxChange} name="flexCheckbox" id="flexCheckbox"/>    
                             <p>Vui lòng đọc kỹ và đồng ý với điều khoản đặt phòng bằng cách đánh dấu vào ô bên cạnh.</p>
                         </div>
-                        <Button filled_1  >Xác nhận đặt phòng</Button>
-                    
+                        <Button className={cx('btn')} filled_1 disable={!isChecked} to={'/thanh-toan'} >Xác nhận đặt phòng</Button>
                     </div>
                     </Col>
                 </Row>
