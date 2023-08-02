@@ -1,0 +1,50 @@
+@mixin heading-text {
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 125%;
+    margin: 0;
+}
+
+@mixin title-text {
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 127%;
+    margin: 0;
+}
+
+@mixin content-text {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: 0.024px;
+    text-align: justify;
+    margin: 0;
+}
+
+@mixin image($width, $height) {
+    width: $width;
+    height: $height;
+    object-fit: cover;
+    image-rendering: pixelated;
+}
+
+@mixin heading-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    gap: 8px;
+    flex: 1;
+}
+
+$myPadding: 32px 0px;
+
+$myHeadingText-576: 2.2rem;
+$myTitleText-576: 1.4rem;
+$myBtnText-576: 1.2rem;
+$myContentText-576: 1.2rem;
+$myHeightItem-576: 360px;

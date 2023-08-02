@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
+import InputEmail from '../../components/InputBootstrap/Email';
 
 const cx = classNames.bind(styles);
 
@@ -24,19 +25,6 @@ function SignIn() {
         setValidated(true);
     };
 
-    const [email, setEmail] = useState('');
-    const [isValidEmail, setIsValidEmail] = useState(true);
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const validateEmail = () => {
-        // Sử dụng biểu thức chính quy (regex) để kiểm tra tính hợp lệ của email
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        setIsValidEmail(emailPattern.test(email));
-    };
-
     const [rememberMe, setRememberMe] = useState(false);
 
     const handleRememberMeChange = () => {
@@ -46,22 +34,13 @@ function SignIn() {
     return (
         <>
             <div className={cx('wrapper')}>
-                <Form noValidate validated={validated} onSubmit={handleSubmit} className={cx('form')}>
+                <Form noValidate validated={validated} onSubmit={handleSubmit} className={cx('form')} action="/">
                     <h1>Login</h1>
 
                     <Form.Group controlId="validationCustom01" className={cx('input-box')}>
-                        <Form.Control
-                            required
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={handleEmailChange}
-                            onBlur={validateEmail}
-                            className={cx('input')}
-                        />
-                        <FontAwesomeIcon icon={faUser} className={cx('icon')} />
-                        {!isValidEmail && <div className="invalid-feedback">Please enter a valid email address.</div>}
-                        <Form.Control.Feedback>Success</Form.Control.Feedback>
+                        <InputEmail className={cx('input')} label={false}>
+                            <FontAwesomeIcon icon={faUser} className={cx('icon')} />
+                        </InputEmail>
                     </Form.Group>
 
                     <Form.Group controlId="validationCustom01" className={cx('input-box')}>
@@ -76,6 +55,7 @@ function SignIn() {
                             checked={rememberMe}
                             onChange={handleRememberMeChange}
                             preventDefault
+                            className={cx('remember')}
                         />
                         <a href="/#">Forgot password?</a>
                     </Form.Group>
