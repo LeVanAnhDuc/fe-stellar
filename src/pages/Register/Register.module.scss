@@ -119,6 +119,23 @@
     color: #dc3545;
 }
 
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    margin: -5px 0 15px;
+
+    .label-checkbox {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-checkbox {
+        margin-right: 10px;
+        height: 15px;
+        width: 15px;
+    }
+}
+
 .register-link {
     font-size: 1.5rem;
     text-align: center;

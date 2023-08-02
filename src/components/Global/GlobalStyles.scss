@@ -70,6 +70,19 @@ body {
     .was-validated .form-control:valid {
         background-image: none;
     }
+    .was-validated .form-check-input:valid,
+    .was-validated .form-check-input:invalid {
+        border-color: transparent;
+    }
+
+    .was-validated .form-check-input:valid ~ .form-check-label,
+    .was-validated .form-check-input:invalid ~ .form-check-label {
+        color: var(--color-White);
+    }
+
+    .was-validated .form-select:valid:not([multiple]):not([size]) {
+        --bs-form-select-bg-icon: none;
+    }
 }
 
 //

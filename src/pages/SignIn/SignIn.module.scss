@@ -83,7 +83,11 @@
     justify-content: space-between;
     margin: -15px 0 15px;
 
-    a {
+    .remember {
+        color: #fff;
+    }
+
+    .link {
         &:hover {
             text-decoration: underline;
         }
