@@ -12,7 +12,12 @@ function MyReservation() {
     setIsChecked(!isChecked);
   };
   
-    return <>
+
+  const title= `Hủy:\nNếu hủy hoặc thay đổi sớm hơn 7 ngày trước ngày nhận phòng,không có khoản phí hủy phòng nào phải thanh toán.\nNếu hủy hoặc thay đổi trong vòng 7 ngày trước ngày đến, đêm đầu tiên phải thanh toán.\nTrong trường hợp không đến, tổng giá trị tiền đặt phòng phải thanh toán.\n-Nhận phòng: 14:00 \n- Trả phòng: 12:00`;
+
+    
+    return (
+    <>
         <div className={cx('MyReservation')}>
             <Container fluid="md" className={cx('item-wrapper')}>
                 <Row>
@@ -40,7 +45,11 @@ function MyReservation() {
                         <div className={cx('text-item')}>
                         <input  type="number"  placeholder='0' min="0" max="2"/>    <label>₫ 460.000 </label>
                         </div>
-                        <a href='#'>Chính sách đặt phòng</a>
+                        
+                        <button type="button" className="btn btn-secondary" data-toggle="tooltip"data-placement="top" title={title}>
+                                Chính sách đặt phòng
+                        </button>
+                    
                     </div>
                     </div>
                     <div className={cx('content')} >
@@ -49,13 +58,25 @@ function MyReservation() {
                         <div className={cx('text-item')}>
                         <input  type="number"  placeholder='0'  min="0" max="2"/>    <label>₫ 460.000 </label>
                         </div> 
+                       
+                                <button type="button" className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={title}>
+                                Chính sách đặt phòng
+                                </button>
+                                
+                        
                     </div>
+
                     <p>Airport Pickup</p>
                     <div className={cx('detail')} >
                         <div className={cx('text-item')}>
                         <input  type="number"  placeholder='0'  min="0" max="2"/>    <label>₫ 460.000 </label>
                         </div>
-                        <a href='#'>Chính sách đặt phòng</a>
+                      
+                                <button type="button" className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title={title}>
+                                Chính sách đặt phòng
+                                </button>
+                               
+                        
                     </div>
                     </div>
                    </div>
@@ -116,7 +137,7 @@ function MyReservation() {
                 </Row>
             </Container>
         </div>
-    </>;
+    </>
+    );
 }
-
 export default MyReservation;
