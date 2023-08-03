@@ -79,6 +79,13 @@ function Pay() {
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
 
+    const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
+
+    const handleClick = (index) => {
+      if (selectedButtonIndex === null || selectedButtonIndex !== index) {
+        setSelectedButtonIndex(index);
+      }
+    }
     return <>
     <div className={cx('hero')}>
     <Container fluid="md" className={cx('item-wrapper')}>
@@ -88,8 +95,8 @@ function Pay() {
                 logobank.map((item, index) =>(
                     <Col md="2" key={item.id} className={cx('item')}>
                             <button className={cx('btn')}
-                            style={{backgroundImage: `url(${item.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-                            />
+                            style={{backgroundImage: `url(${item.image})`, backgroundSize: 'cover', backgroundPosition: 'center', border: selectedButtonIndex === index ? '1px solid red' : '1px solid white' }}
+                            onClick={() => handleClick(index)} />
                     </Col>
             ) )}
             
