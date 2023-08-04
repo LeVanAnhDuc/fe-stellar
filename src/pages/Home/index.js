@@ -513,11 +513,18 @@ function Home() {
                 <div className={cx('content-wrapper')}>
                     {s8PhotoLibrariy.map((item, index) => (
                         <div md="6" key={item.id} className={cx('item')}>
-                            <img src={item.image} alt={item.id} onClick={() => setShowModal(true)} />
+                            <img
+                                src={item.image}
+                                alt={item.id}
+                                onClick={() => {
+                                    setShowModal(true);
+                                }}
+                            />
                         </div>
                     ))}
                 </div>
             </div>
+
             <Modal
                 size="xxl"
                 aria-labelledby="contained-modal-title-vcenter"
@@ -527,11 +534,13 @@ function Home() {
                 onHide={() => setShowModal(false)}
             >
                 <Slider className="px-0" {...s8SliderSettings}>
-                    {s8PhotoLibrariy.map((item) => (
-                        <ModalBody className={cx('slider-item')} key={item.id + '-modal'}>
-                            <img src={item.image} alt="Thư viện ảnh" />
-                        </ModalBody>
-                    ))}
+                    {s8PhotoLibrariy.map((item) => {
+                        return (
+                            <ModalBody className={cx('slider-item')} key={item.id + '-modal'}>
+                                <img src={item.image} alt="Thư viện ảnh" />
+                            </ModalBody>
+                        );
+                    })}
                 </Slider>
             </Modal>
         </>

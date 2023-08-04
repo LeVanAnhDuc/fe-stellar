@@ -474,7 +474,7 @@
                 color: var(--color-Champagne);
             }
 
-            span {
+            & > span {
                 @include content-text;
                 color: var(--color-Gray-200);
             }
@@ -533,7 +533,7 @@
                 justify-content: center;
                 align-items: center;
 
-                span {
+                & > span {
                     display: none;
                 }
             }
