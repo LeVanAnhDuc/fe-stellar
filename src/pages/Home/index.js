@@ -1,17 +1,20 @@
-/* eslint-disable jsx-a11y/iframe-has-title */
-import Button from '../../components/Button';
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
+
+import Button from '../../components/Button';
+import Map from '../../components/Map';
+
 import { Carousel, Container, Row, Col, Modal, ModalBody } from 'react-bootstrap';
 import Slider from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+
 import {
-    pic1,
-    pic2,
-    pic3,
-    pic4,
+    sliderHero1,
+    sliderHero2,
+    sliderHero3,
+    sliderHero4,
     aboutStellar,
     rSuperiorDoubleOrTwin,
     rDeluxeDouble,
@@ -33,12 +36,13 @@ import {
     photoLibrary1,
     photoLibrary2,
 } from '../../assets/images/home';
+import SliderHero from '../../components/SliderHero';
 
 const cx = classNames.bind(styles);
 
 function Home() {
     // Hero
-    const heroImages = [pic1, pic2, pic3, pic4];
+    const heroImages = [sliderHero1, sliderHero2, sliderHero3, sliderHero4];
 
     // Section 2
     const section2Images = [
@@ -209,15 +213,15 @@ function Home() {
         },
         {
             id: 'home-s8-photoLibrariy-3',
-            image: pic1,
+            image: sliderHero1,
         },
         {
             id: 'home-s8-photoLibrariy-4',
-            image: pic2,
+            image: sliderHero2,
         },
         {
             id: 'home-s8-photoLibrariy-5',
-            image: pic4,
+            image: sliderHero4,
         },
     ];
 
@@ -239,43 +243,14 @@ function Home() {
     return (
         <>
             {/* Hero */}
-            <div className={cx('hero')}>
-                <Carousel
-                    className={cx('item-wrapper')}
-                    controls={false}
-                    wrap={true}
-                    indicators={false}
-                    interval={10000}
-                >
-                    {heroImages.map((image, index) => (
-                        <Carousel.Item key={index} className={cx('item')}>
-                            <div
-                                style={{
-                                    backgroundImage: `url(${image})`,
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    backgroundRepeat: 'no-repeat',
-                                    maxWidth: '100%',
-                                    height: '100%',
-                                    filter: 'brightness(45%)',
-                                }}
-                            ></div>
-                        </Carousel.Item>
-                    ))}
-                </Carousel>
-                <Container fluid="md">
-                    <div className={cx('content-wrapper')}>
-                        <strong
-                            className={cx('heading')}
-                        >{`20+ NĂM UY TÍN TRONG\nLĨNH VỰC NHÀ HÀNG - KHÁCH SẠN`}</strong>
+            <SliderHero className={cx('hero')} images={heroImages} classNameChildren={cx('content-wrapper')}>
+                <strong className={cx('heading')}>{`20+ NĂM UY TÍN TRONG\nLĨNH VỰC NHÀ HÀNG - KHÁCH SẠN`}</strong>
 
-                        <p>Thực hiện phương châm kinh doanh: Trải nghiệm mới với hoài niệm cũ.</p>
-                        <Button filled_1 className={cx('btn')}>
-                            TÌM HIỂU THÊM
-                        </Button>
-                    </div>
-                </Container>
-            </div>
+                <p>Thực hiện phương châm kinh doanh: Trải nghiệm mới với hoài niệm cũ.</p>
+                <Button filled_1 className={cx('btn')}>
+                    TÌM HIỂU THÊM
+                </Button>
+            </SliderHero>
 
             {/* Section 1 */}
             <div className={cx('section-1')}>
@@ -472,7 +447,8 @@ function Home() {
                         </div>
                     </Row>
                 </Container>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.375736707316!2d106.76933281027874!3d10.850632389258081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752763f23816ab%3A0x282f711441b6916f!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTxrAgcGjhuqFtIEvhu7kgdGh14bqtdCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!5e1!3m2!1svi!2s!4v1690684807626!5m2!1svi!2s"></iframe>
+                {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.375736707316!2d106.76933281027874!3d10.850632389258081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752763f23816ab%3A0x282f711441b6916f!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTxrAgcGjhuqFtIEvhu7kgdGh14bqtdCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!5e1!3m2!1svi!2s!4v1690684807626!5m2!1svi!2s"></iframe> */}
+                <Map />
             </div>
 
             {/* Section 7 */}
