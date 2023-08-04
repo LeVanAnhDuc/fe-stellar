@@ -6,6 +6,7 @@ import { Carousel, Container, Row, Col, Modal, ModalBody } from 'react-bootstrap
 import Slider from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 import {
     pic1,
     pic2,
@@ -32,7 +33,6 @@ import {
     photoLibrary1,
     photoLibrary2,
 } from '../../assets/images/home';
-import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -246,7 +246,6 @@ function Home() {
                     wrap={true}
                     indicators={false}
                     interval={10000}
-                    
                 >
                     {heroImages.map((image, index) => (
                         <Carousel.Item key={index} className={cx('item')}>
@@ -280,7 +279,7 @@ function Home() {
 
             {/* Section 1 */}
             <div className={cx('section-1')}>
-                <Container fluid="md" className="section-wrapper">
+                <Container fluid="md">
                     <Row>
                         <div className={cx('px-0', 'heading-wrapper')}>
                             <p className={cx('titile')}>
@@ -529,7 +528,7 @@ function Home() {
             >
                 <Slider className="px-0" {...s8SliderSettings}>
                     {s8PhotoLibrariy.map((item) => (
-                        <ModalBody className={cx('slider-item')} key={item.id+'-modal'}>
+                        <ModalBody className={cx('slider-item')} key={item.id + '-modal'}>
                             <img src={item.image} alt="Thư viện ảnh" />
                         </ModalBody>
                     ))}
