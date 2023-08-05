@@ -72,7 +72,6 @@ function Home() {
         const { onClick } = props;
         return (
             <div className={cx('custom-prev-arrow')} onClick={onClick}>
-                {/* Add your custom arrow content here */}
                 <FontAwesomeIcon className={cx('pre-icon')} icon={faAngleLeft} />
             </div>
         );
@@ -82,7 +81,6 @@ function Home() {
         const { onClick } = props;
         return (
             <div className={cx('custom-next-arrow')} onClick={onClick}>
-                {/* Add your custom arrow content here */}
                 <FontAwesomeIcon className={cx('next-icon')} icon={faAngleRight} />
             </div>
         );
@@ -245,7 +243,6 @@ function Home() {
             {/* Hero */}
             <SliderHero className={cx('hero')} images={heroImages} classNameChildren={cx('content-wrapper')}>
                 <strong className={cx('heading')}>{`20+ NĂM UY TÍN TRONG\nLĨNH VỰC NHÀ HÀNG - KHÁCH SẠN`}</strong>
-
                 <p>Thực hiện phương châm kinh doanh: Trải nghiệm mới với hoài niệm cũ.</p>
                 <Button filled_1 className={cx('btn')}>
                     TÌM HIỂU THÊM
