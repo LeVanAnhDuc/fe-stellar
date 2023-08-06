@@ -45,7 +45,7 @@ function ConferenceEvents() {
                     <h3>Điền thông tin liên hệ đặt hội nghị - sự kiện để được tư vấn và nhận giá tốt nhất</h3>
                     <input className={cx('name')} type="text" placeholder="Họ và tên" />
                     <input className={cx('email')} type="text" placeholder="Email" />
-                    <textarea name="subject" className={cx('mess')} placeholder="Lời nhắn..." ></textarea>
+                    <textarea name="subject" className={cx('email','mess')} placeholder="Lời nhắn..." ></textarea>
                     <Button filled_1 >Gửi thông tin</Button>
                 </div>
              

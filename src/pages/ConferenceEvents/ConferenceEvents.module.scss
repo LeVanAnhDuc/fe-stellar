@@ -1,8 +1,10 @@
+@import '../../components/Global/base.scss';
 .hero {
     width: 100%;
     height: 100%;
     position: relative;
     h1{
+        @include heading-text;
         padding: 1rem 0;
         text-align: center;
         color: sienna;
@@ -16,20 +18,7 @@
         .item {
             max-width: 100%;
             height: 540px;
-        }
-    
-        .content-wrapper {
-            position: absolute;
-            left: auto;
-            top: 0;
-            height: 100%;
-            max-width: 592px;
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            justify-content: center;
-            gap: 28px;
-        }
+        }      
     }
 }
 .content-wrapper{
@@ -43,6 +32,7 @@
         margin-bottom: 5rem;
     }
     p{
+        
         text-align: center;
         font-weight: bold;
         margin-bottom: 2rem;
@@ -58,7 +48,7 @@
         flex-direction: column;
         margin-bottom: 6rem;
         h1{
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
         .name, .email{
             width: 80%;
@@ -68,12 +58,8 @@
             margin: 1rem 0;
         }
         .mess{
-            width: 80%;
-            border: 0.1rem solid black;
-            border-radius: 0.7rem;
-            padding: 1rem;
-            height: 30rem;
-            margin: 1rem 0;
+            
+            max-height: 30rem;
         }
         Button{
             margin-bottom: 1rem;

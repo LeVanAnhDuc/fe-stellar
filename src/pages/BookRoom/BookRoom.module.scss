@@ -1,4 +1,4 @@
- 
+@import '../../components/Global/base.scss';
 .hero {
     width: 100%;
     height: 100%;
@@ -27,8 +27,6 @@
             input{
                 margin-left: 0.7rem;
             }
-
-
         }
         .input-date{
             display: flex;
@@ -46,7 +44,6 @@
             max-width: 100%;
             height: 540px;
         }
-    
         .content-wrapper {
             position: absolute;
             left: auto;
@@ -63,10 +60,9 @@
 }
 .Intro{
     padding: 5rem 0;
+
     .IntroImage{
-        width: 100%;
-        object-fit: cover;
-        image-rendering: pixelated;
+        @include image(100%, 100%);
     }
     p{
         margin: 1.5rem 0;
@@ -76,7 +72,6 @@
      h1{
         color: sienna;
     }
-    
     .ContentIntro{
         margin-top: 3rem;
         padding: 1.6rem 0;
@@ -86,48 +81,45 @@
         flex-direction: column;
      
         .IntroImage{
-            width: 100%;
-            object-fit: cover;
-            image-rendering: pixelated;
+            @include image(100%, 100%);
         }
     }
     
 }
-.RoomLeft,.RoomRight{
-    margin-top: 10rem;
-    margin-bottom: 5rem; 
-    .Col{
-        height: 100%;
-        position: relative;
+.Room{
+    margin: 2rem 0;
+
+    .container{
     
-        .item {
-            max-width: 100%;
-            height: 540px;
+        margin-bottom: 10rem;
+
+        .item-wrapper{
+            width: 100%;
+            height: 100%;
+            .item {
+                @include image(100%, 520px);
+            }
         }
+        li{
+            list-style: none;
+        }
+        .btn{
+            margin: 3rem 2rem;
+        }
+       
+    
     }
-    li{
-        list-style: none;
-    } 
     @media screen and (max-width: 1340px)
     { 
-        
-     .item{
-        padding: 2rem 0;
+     .row{
+         flex-direction: column-reverse !important;
+         padding-bottom: 2rem;
      }
         
     }
-} 
-@media screen and (max-width: 1340px)
-{ 
-    .RoomRight{
-        flex-direction: column-reverse;
-    }
-    .RoomLeft{
-        flex-direction: column;
-    }
- }
-    
-
+   
+        
+}
 .Search{
    
     background-color: #F9E0BB;
@@ -165,4 +157,5 @@
     }
 }
 }
+
 
