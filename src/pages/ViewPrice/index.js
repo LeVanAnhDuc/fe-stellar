@@ -49,7 +49,7 @@ function ViewPrice() {
                 <input id="date-checkin" type="date" />
                 </Col>
                 <Col className={cx('col')} >
-                <a className={`btn btn-primary ${isSelectionOne ? 'disabled' : ''}`} href="/thanh-toan" role="button">
+                <a className={`btn btn-primary ${isSelectionOne ? 'disabled' : ''}`} href="/dat-cho-cua-toi" role="button">
                     THANH TOÁN
                 </a>
                 </Col>

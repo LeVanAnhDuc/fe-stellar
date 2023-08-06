@@ -62,6 +62,12 @@
                     font-size: small;
                     color: black;
                 }
+                button{
+                    color: black;
+                    background-color: transparent;
+                    border: aliceblue;
+                    font-weight: bold;
+                }
                 
             }
         }
@@ -79,7 +85,7 @@
             margin-left: 2rem;
         }
         .email{
-            width: 90%;
+            width: 78%;
             margin-left: 3rem;
         }
         .phone{
@@ -109,8 +115,9 @@
                 margin:0 2rem;
             }
         }
-        Button{
-            margin: auto;
+        .btn{
+           // margin: auto;
+            margin: 0 2rem;
         }
     }
     @media screen and (max-width: 1340px){
