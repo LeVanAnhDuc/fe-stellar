@@ -2,15 +2,8 @@
 
 // Hero
 .hero {
-    position: relative;
-
-    .item {
-        max-width: 100%;
-        height: 540px;
-    }
-
     .content-wrapper {
-        position: absolute;
+        display: flex;
         left: auto;
         top: 0;
         height: 100%;
@@ -19,7 +12,7 @@
         flex: 1;
         flex-direction: column;
         justify-content: center;
-        gap: 28px;
+        gap: 24px;
 
         .heading {
             @include heading-text;
@@ -43,10 +36,6 @@
     }
 
     @media screen and (max-width: 576px) {
-        .item {
-            height: $myHeightItem-576;
-        }
-
         .content-wrapper {
             .heading {
                 font-size: $myHeadingText-576;
@@ -474,7 +463,7 @@
                 color: var(--color-Champagne);
             }
 
-            span {
+            & > span {
                 @include content-text;
                 color: var(--color-Gray-200);
             }
@@ -533,7 +522,7 @@
                 justify-content: center;
                 align-items: center;
 
-                span {
+                & > span {
                     display: none;
                 }
             }
