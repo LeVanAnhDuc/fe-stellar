@@ -1,0 +1,170 @@
+@import '../../components/Global/base.scss';
+
+.section {
+    display: flex;
+    flex-flow: row wrap; // flex-direction: row; flex-wrap: wrap;
+    gap: 32px;
+    padding: $myPadding;
+
+    .left {
+        flex: 1;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+
+        h1 {
+            @include heading-text;
+            font-style: italic;
+            text-align: center;
+            color: var(--color-Sienna);
+        }
+
+        hr {
+            width: 80%;
+            margin: 0;
+            border: 1px solid var(--color-Black);
+        }
+
+        form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+
+            div {
+                display: flex;
+                flex-direction: row;
+                background-color: var(--color-Champagne);
+                border: 1px solid var(--color-Black);
+                border-radius: 5px;
+
+                label {
+                    @include content-text;
+                    color: var(--color-Sienna);
+                    width: max-content;
+                    padding: 8px;
+                }
+
+                input {
+                    @include content-text;
+                    flex: 1;
+                    color: var(--color-Black);
+                    background: none;
+                }
+
+                &:nth-child(3) {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        width: 100%;
+                        border-bottom: 1px solid var(--color-Black);
+                    }
+
+                    textarea {
+                        flex: 1;
+                        padding: 8px;
+                        background: none;
+                        border: none;
+                    }
+                }
+            }
+
+            .btn {
+                width: max-content;
+                align-self: center;
+            }
+        }
+    }
+
+    .right {
+        flex: 1;
+
+        .heading-wrapper {
+            @include heading-wrapper;
+
+            h1 {
+                @include heading-text;
+                font-style: italic;
+                color: var(--color-Sienna);
+                align-content: center;
+            }
+
+            p {
+                @include title-text;
+                align-items: center;
+            }
+        }
+        .content-wrapper {
+            margin-bottom: 16px;
+            p {
+                width: 100%;
+                @include content-text;
+            }
+        }
+        .map {
+            flex: 1;
+            height: 250px;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .left {
+            h1 {
+                font-size: $myHeadingText-576;
+            }
+
+            form {
+                div {
+                    label,
+                    input {
+                        font-size: $myContentText-576;
+                    }
+                }
+
+                .btn {
+                    font-size: $myBtnText-576;
+                }
+            }
+        }
+
+        .right {
+            .heading-wrapper {
+                h1 {
+                    font-size: $myHeadingText-576;
+                }
+
+                p {
+                    font-size: $myTitleText-576;
+                }
+            }
+            .content-wrapper {
+                p {
+                    width: 100%;
+                    font-size: $myContentText-576;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .section {
+        flex-direction: column-reverse;
+        gap: 0;
+        padding: 0;
+
+        .left {
+            padding: $myPadding;
+            background-color: var(--color-Apricot);
+        }
+
+        .right {
+            padding-top: 32px;
+        }
+    }
+}

@@ -7,23 +7,24 @@ import Button from '../../../Button';
 
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
+
 const cx = classNames.bind(styles);
 
 function Language({ className }) {
     return (
         <Tippy
             // visible={true}
-            offset={[-10, -5]}
+            offset={[35, -5]}
             interactive={true}
             delay={[0, 200]}
-            placement="bottom-end"
+            placement="bottom-start"
             render={(attrs) => (
                 <div className={cx('more-menu')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper className={cx('menu-list')}>
-                        <Button none_1 to={'/#'}>
+                    <PopperWrapper className={cx('menu-list', 'custom-popper')}>
+                        <Button none_1 to={'/#'} className={cx('btn')}>
                             Tiếng Việt
                         </Button>
-                        <Button none_1 to={'/#'}>
+                        <Button none_1 to={'/#'} className={cx('btn')}>
                             EngLish
                         </Button>
                     </PopperWrapper>
@@ -32,7 +33,7 @@ function Language({ className }) {
         >
             <div>
                 <Button className={cx('btn', className)} none_1 rightIcon={<FontAwesomeIcon icon={faGlobeAfrica} />}>
-                    Tiếng Việt
+                    |
                 </Button>
             </div>
         </Tippy>
