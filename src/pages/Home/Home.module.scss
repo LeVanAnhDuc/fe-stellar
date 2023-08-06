@@ -77,12 +77,9 @@
         gap: 32px;
 
         .left {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            @include heading-wrapper;
             flex: 1;
-            gap: 16px;
+            margin: 0;
 
             p {
                 @include content-text;
@@ -190,7 +187,7 @@
 
             .btn {
                 margin: auto;
-                background: none;
+                width: max-content;
             }
         }
     }
@@ -377,14 +374,14 @@
     }
 }
 
+// Section 4
 .section-4 {
     background-color: var(--color-Sienna);
     padding: $myPadding;
 
     .event-wrapper {
         display: flex;
-        flex-direction: row;
-        flex: 1;
+        flex-flow: row wrap;
         gap: 32px;
 
         .left {
@@ -422,7 +419,6 @@
 
             .btn {
                 width: max-content;
-                background: none;
                 padding: 8px 16px;
             }
 
@@ -441,8 +437,7 @@
 
     .seminar-wrapper {
         display: flex;
-        flex-direction: row;
-        flex: 1;
+        flex-flow: row wrap;
         gap: 32px;
 
         .left {

@@ -73,7 +73,7 @@ function BookRoom() {
                     </Col>
                 </Row>
             </Container> 
-            <div className="Room">
+            <div className="Room" id="rSuperiorDoubleOrTwin">
                 <InfoRoomRight 
                     name="Phòng Superior Double Or Twin"
                     acreage="23m2"
@@ -85,7 +85,7 @@ function BookRoom() {
                 />
 
             </div>
-            <div className="Room">
+            <div className="Room" id="rDeluxeDouble">
                 <InfoRoomLeft
                     name="Phòng Deluxe Double"
                     acreage="23m2"
@@ -96,7 +96,7 @@ function BookRoom() {
                     pic2={Deluxe2}
                />
             </div>
-            <div className="Room">
+            <div className="Room" id="rExecutiveCityView">
                 <InfoRoomRight
                     name="Phòng Executive City View"
                     acreage="40m2"
@@ -108,7 +108,7 @@ function BookRoom() {
                     pic2={Executive2}
                     />
             </div>
-            <div className="Room">
+            <div className="Room" id="rSuiteGarden">
                 <InfoRoomLeft
                     name="Phòng Suite Garden"
                     acreage="40m2"
