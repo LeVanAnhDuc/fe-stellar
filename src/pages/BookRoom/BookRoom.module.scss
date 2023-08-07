@@ -18,28 +18,27 @@
         flex: 1;
         flex-direction: column;
         justify-content: flex-end;
-        .date{
+        .date {
             background-color: #fafafa;
             padding: 1rem;
             color: sienna;
             font-weight: bold;
             margin: 2rem;
-            input{
+            input {
                 margin-left: 0.7rem;
             }
         }
-        .input-date{
+        .input-date {
             display: flex;
         }
-        .btn{    
+        .btn {
             margin-left: 53%;
             margin-right: 2rem;
             background-color: sienna;
-            color: #F9E0BB;
+            color: #f9e0bb;
         }
     }
-    @media screen and (max-width: 576px)
-    {
+    @media screen and (max-width: 576px) {
         .item {
             max-width: 100%;
             height: 540px;
@@ -58,104 +57,90 @@
         }
     }
 }
-.Intro{
+.Intro {
     padding: 5rem 0;
 
-    .IntroImage{
+    .IntroImage {
         @include image(100%, 100%);
     }
-    p{
+    p {
         margin: 1.5rem 0;
         text-align: justify;
-       
-     }
-     h1{
+    }
+    h1 {
         color: sienna;
     }
-    .ContentIntro{
+    .ContentIntro {
         margin-top: 3rem;
         padding: 1.6rem 0;
     }
-    @media screen and (max-width: 1340px)
-    { 
+    @media screen and (max-width: 1340px) {
         flex-direction: column;
-     
-        .IntroImage{
+
+        .IntroImage {
             @include image(100%, 100%);
         }
     }
-    
 }
-.Room{
+.Room {
     margin: 2rem 0;
 
-    .container{
-    
+    .container {
         margin-bottom: 10rem;
 
-        .item-wrapper{
+        .item-wrapper {
             width: 100%;
             height: 100%;
             .item {
                 @include image(100%, 520px);
             }
         }
-        li{
+        li {
             list-style: none;
         }
-        .btn{
+        .btn {
             margin: 3rem 2rem;
         }
-       
-    
     }
-    @media screen and (max-width: 1340px)
-    { 
-     .row{
-         flex-direction: column-reverse !important;
-         padding-bottom: 2rem;
-     }
-        
+    @media screen and (max-width: 1340px) {
+        .row {
+            flex-direction: column-reverse !important;
+            padding-bottom: 2rem;
+        }
     }
-   
-        
 }
-.Search{
-   
-    background-color: #F9E0BB;
+.Search {
+    background-color: #f9e0bb;
 
-    .exit{
-        margin-left: 98%
+    .exit {
+        margin-left: 98%;
     }
-    .date{
+    .date {
         justify-content: space-between;
         display: flex;
         margin: 3rem 10rem;
     }
-   
-    .btn{    
+
+    .btn {
         margin-left: 75%;
         margin-right: 10rem;
         background-color: sienna;
-        color: #F9E0BB;
+        color: #f9e0bb;
         margin-bottom: 2rem;
     }
-    input{
+    input {
         width: 18.2rem;
     }
-    @media screen and (max-width: 1340px)
-{ 
-    .date{
-        flex-direction: column;
-    }
-    .btn{    
-        margin-left: 75%;
-        margin-right: 10rem;
-        background-color: sienna;
-        color: #F9E0BB;
-        margin-bottom: 2rem;
+    @media screen and (max-width: 1340px) {
+        .date {
+            flex-direction: column;
+        }
+        .btn {
+            margin-left: 75%;
+            margin-right: 10rem;
+            background-color: sienna;
+            color: #f9e0bb;
+            margin-bottom: 2rem;
+        }
     }
 }
-}
-
-

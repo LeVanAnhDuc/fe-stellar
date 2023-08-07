@@ -3,7 +3,7 @@
     width: 100%;
     height: 100%;
     position: relative;
-    h1{
+    h1 {
         @include heading-text;
         padding: 1rem 0;
         text-align: center;
@@ -13,57 +13,53 @@
         max-width: 100%;
         height: 540px;
     }
-    @media screen and (max-width: 576px)
-    {
+    @media screen and (max-width: 576px) {
         .item {
             max-width: 100%;
             height: 540px;
-        }      
+        }
     }
 }
-.content-wrapper{
+.content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 1rem 6.2rem;
-    hr{
+    hr {
         opacity: 1;
         border: 1px solid black;
         margin-bottom: 5rem;
     }
-    p{
-        
+    p {
         text-align: center;
         font-weight: bold;
         margin-bottom: 2rem;
     }
 }
-.session-1{
-    
-    .content{
-        background-color: #FFFFFF;
-        border: 8.2rem solid #FFC26F;
+.session-1 {
+    .content {
+        background-color: #ffffff;
+        border: 8.2rem solid #ffc26f;
         align-items: center;
         display: flex;
         flex-direction: column;
         margin-bottom: 6rem;
-        h1{
+        h1 {
             margin-top: 2rem;
         }
-        .name, .email{
+        .name,
+        .email {
             width: 80%;
             border: 0.1rem solid black;
             border-radius: 0.7rem;
             padding: 1rem;
             margin: 1rem 0;
         }
-        .mess{
-            
+        .mess {
             max-height: 30rem;
         }
-        Button{
+        Button {
             margin-bottom: 1rem;
         }
-
     }
 }
