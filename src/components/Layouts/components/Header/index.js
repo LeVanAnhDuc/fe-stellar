@@ -15,17 +15,18 @@ import { faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
 
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '../../../Popper';
+import config from '../../../../config';
 
 const cx = classNames.bind(styles);
 
 const TITLE_HEADER = [
     {
         title: 'Giới thiệu',
-        to: '/ve-Stellar',
+        to: config.Routes.aboutStellar,
     },
     {
         title: 'Phòng nghỉ',
-        to: '/dat-phong',
+        to: config.Routes.bookRoom,
         icon: <FontAwesomeIcon icon={faAngleDown} />,
         children: [
             {
@@ -52,19 +53,19 @@ const TITLE_HEADER = [
     },
     {
         title: 'Nhà hàng & Bar',
-        to: '/nha-hang-quan-bar',
+        to: config.Routes.restaurentAndBar,
     },
     {
         title: 'Hội thảo & Sự kiện',
-        to: '/hoi-thao-su-kien',
+        to: config.Routes.conferenceEvents,
     },
     {
         title: 'Tiện ích',
-        to: '/tien-ich',
+        to: config.Routes.utilities,
     },
     {
         title: 'Liên hệ',
-        to: '/lien-he',
+        to: config.Routes.contact,
     },
 ];
 
@@ -79,7 +80,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('back-ground')}>
-                <Link to={'/'}>
+                <Link to={config.Routes.home}>
                     <Image src={images.logo} className={cx('logo')} onClick={() => setActiveButton(null)} />
                 </Link>
 
@@ -124,17 +125,15 @@ function Header() {
                                 </Tippy>
                             ) : (
                                 <Button
-                                    className={cx('btn', 'custom-btn')}
+                                    className={
+                                        activeButton === index && !item.icon
+                                            ? cx('btn-active', 'custom-btn')
+                                            : cx('btn', 'custom-btn')
+                                    }
                                     none_1
                                     to={item.to}
                                     key={index}
                                     onClick={() => handleActive(index)}
-                                    style={{
-                                        backgroundColor:
-                                            activeButton === index && !item.icon
-                                                ? 'var(--color-active-btn)'
-                                                : 'transparent',
-                                    }}
                                 >
                                     {item.title}
                                 </Button>
@@ -145,7 +144,7 @@ function Header() {
                                 <Account onClick={() => handleActive(null)} />
                             ) : (
                                 <>
-                                    <Button className={cx('btn', ' sign-in')} none_1 to={'/dang-nhap'}>
+                                    <Button className={cx('btn', ' sign-in')} none_1 to={config.Routes.signIn}>
                                         Đăng nhập
                                     </Button>
                                 </>
@@ -167,17 +166,21 @@ function Header() {
                                         <PopperWrapper className={cx('menu-list-resposive', 'custom-popper')}>
                                             {TITLE_HEADER.map((item, index) => (
                                                 <Button
-                                                    className={cx('btn')}
+                                                    className={
+                                                        activeButton === index && !item.icon
+                                                            ? cx('btn-active-responsive')
+                                                            : cx('btn')
+                                                    }
                                                     none_1
                                                     to={item.to}
                                                     key={index}
                                                     onClick={() => handleActive(index)}
-                                                    style={{
-                                                        backgroundColor:
-                                                            activeButton === index
-                                                                ? 'var(--color-active-btn)'
-                                                                : 'transparent',
-                                                    }}
+                                                    // style={{
+                                                    //     color:
+                                                    //         activeButton === index && !item.icon
+                                                    //             ? 'var(--color-Gray-700)'
+                                                    //             : 'var(--color-Sienna)',
+                                                    // }}
                                                 >
                                                     {item.title}
                                                 </Button>
@@ -188,7 +191,7 @@ function Header() {
                             >
                                 <FontAwesomeIcon className={cx('menu_responsive')} icon={faBars} />
                             </Tippy>
-                            <Link to={'/'}>
+                            <Link to={config.Routes.home}>
                                 <Image
                                     src={images.logo}
                                     className={cx('logo-responsive')}
@@ -200,7 +203,7 @@ function Header() {
                                     <Account onClick={() => handleActive(null)} />
                                 ) : (
                                     <>
-                                        <Button className={cx('btn', ' sign-in')} none_1 to={'/dang-nhap'}>
+                                        <Button className={cx('btn', ' sign-in')} none_1 to={config.Routes.signIn}>
                                             Đăng nhập
                                         </Button>
                                     </>

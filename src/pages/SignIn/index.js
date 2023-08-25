@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import InputEmail from '../../components/InputBootstrap/Email';
+import config from '../../config';
 
 const cx = classNames.bind(styles);
 
@@ -57,14 +58,14 @@ function SignIn() {
                             preventDefault
                             className={cx('remember')}
                         />
-                        <a href="/#">Forgot password?</a>
+                        <Link to="/quen-mat-khau">Forgot password?</Link>
                     </Form.Group>
 
                     <Button type="submit" className={cx('btn-submit')}>
                         Login
                     </Button>
                     <div className={cx('register-link')}>
-                        Don't have a account? <Link to={'/dang-ki'}> Register</Link>
+                        Don't have a account? <Link to={config.Routes.register}> Register</Link>
                     </div>
                 </Form>
             </div>
