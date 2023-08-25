@@ -1,10 +1,11 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 
-import Image from '../../../Image';
-import images from '../../../../assets/images';
-import Button from '../../../Button';
-import '../../../Icon';
+import Image from '../../../components/Image';
+import images from '../../../assets/images';
+import Button from '../../../components/Button';
+import '../../../components/Icon';
+import { Wrapper as PopperWrapper } from '../../../components/Popper';
 
 import React, { useState } from 'react';
 import Account from './Account';
@@ -14,8 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
 
 import Tippy from '@tippyjs/react/headless';
-import { Wrapper as PopperWrapper } from '../../../Popper';
-import config from '../../../../config';
+import config from '../../../config';
 
 const cx = classNames.bind(styles);
 

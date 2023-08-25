@@ -3,10 +3,10 @@ import classNames from 'classnames/bind';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Image from '../../../Image';
-import images from '../../../../assets/images';
-import Button from '../../../Button';
-import config from '../../../../config';
+import Image from '../../../components/Image';
+import images from '../../../assets/images';
+import Button from '../../../components/Button';
+import config from '../../../config';
 
 const cx = classNames.bind(styles);
 
