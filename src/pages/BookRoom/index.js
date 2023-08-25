@@ -22,6 +22,7 @@ import {
 } from '../../assets/images/bookroom';
 import styles from './BookRoom.module.scss';
 import Button from '../../components/Button';
+import config from '../../config';
 
 const cx = classNames.bind(styles);
 function BookRoom() {
@@ -114,7 +115,7 @@ function BookRoom() {
                             </span>
                         </div>
 
-                        <Button to={'/xem-gia'} className={cx('btn')}>
+                        <Button to={config.Routes.viewPrice} className={cx('btn')}>
                             CHECK AVAILABILITY
                         </Button>
                     </div>
@@ -237,7 +238,7 @@ function BookRoom() {
                                     Trẻ em:
                                     <input type="number" min="0" max="5" placeholder="1" />
                                 </div>
-                                <Button className={cx('btn')} to={'/xem-gia'}>
+                                <Button className={cx('btn')} to={config.Routes.viewPrice}>
                                     Đặt phòng
                                 </Button>
                             </div>

@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import InputSDT from '../../components/InputBootstrap/SDT';
 import InputEmail from '../../components/InputBootstrap/Email';
+import config from '../../config';
 
 const cx = classNames.bind(styles);
 
@@ -119,7 +120,7 @@ function Register() {
                         Register
                     </Button>
                     <div className={cx('register-link')}>
-                        Already have an account? <Link to={'/dang-nhap'}> Login</Link>
+                        Already have an account? <Link to={config.Routes.signIn}> Login</Link>
                     </div>
                 </Form>
             </div>

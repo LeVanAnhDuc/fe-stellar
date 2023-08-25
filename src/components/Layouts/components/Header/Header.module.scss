@@ -25,8 +25,8 @@
     width: var(--size-background-header);
     height: 100%;
     display: flex;
+    align-items: center;
     font-weight: 700;
-    padding: 8px 0;
 }
 .logo {
     width: var(--size-logo);
@@ -35,6 +35,7 @@
 }
 .menu {
     width: 100%;
+    height: 100%;
 }
 
 .header_2 {
@@ -76,8 +77,18 @@
     display: flex;
     justify-content: left;
 }
+.btn-active {
+    @extend .btn;
+    color: var(--color-Gray-700);
+}
+.btn-active-responsive {
+    @extend .btn;
+    background-color: var(--color-active-btn);
+}
 .custom-btn {
-    display: block;
+    display: flex;
+    justify-content: center;
+    height: 100%;
 }
 
 .hover {

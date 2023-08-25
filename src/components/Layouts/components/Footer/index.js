@@ -6,33 +6,34 @@ import { Link } from 'react-router-dom';
 import Image from '../../../Image';
 import images from '../../../../assets/images';
 import Button from '../../../Button';
+import config from '../../../../config';
 
 const cx = classNames.bind(styles);
 
 const TITLE_FOOTER = [
     {
         title: 'Về Stellar',
-        to: '/ve-Stellar',
+        to: config.Routes.aboutStellar,
     },
     {
         title: 'Phòng nghỉ',
-        to: '/dat-phong',
+        to: config.Routes.bookRoom,
     },
     {
         title: 'Nhà hàng',
-        to: '/nha-hang-quan-bar',
+        to: config.Routes.restaurentAndBar,
     },
     {
         title: 'Hội thảo & sự kiện',
-        to: '/hoi-thao-su-kien',
+        to: config.Routes.conferenceEvents,
     },
     {
         title: 'Tiện ích',
-        to: '/tien-ich',
+        to: config.Routes.utilities,
     },
     {
         title: 'Liên hệ',
-        to: '/lien-he',
+        to: config.Routes.contact,
     },
 ];
 
@@ -40,7 +41,7 @@ function Footer() {
     return (
         <h1 className={cx('wrapper')}>
             <div className={cx('back-ground')}>
-                <Link to={'/'}>
+                <Link to={config.Routes.home}>
                     <Image src={images.logo} className={cx('logo')} />
                 </Link>
                 <div className={cx('menu-item')}>

@@ -15,25 +15,29 @@ import ViewPrice from '../pages/ViewPrice';
 import Error404 from '../pages/Error404';
 import SignIn from '../pages/SignIn';
 import Register from '../pages/Register';
+import * as ForgotPassword from '../pages/ForgotPassword';
+import config from '../config/index';
 
 const publishRoute = [
-    { path: '/', component: Home },
-    { path: '/ve-Stellar', component: AboutStellar },
-    { path: '/dat-phong', component: BookRoom },
-    { path: '/hoi-thao-su-kien', component: ConferenceEvents },
-    { path: '/lien-he', component: Contact },
-    { path: '/thong-tin-tai-khoan', component: InfoAccount },
-    { path: '/danh-sach-giao-dich', component: ListOfTransaction },
-    { path: '/dat-cho-cua-toi', component: MyReservation },
-    { path: '/mat-khau-bao-mat', component: PasswordAndSecuruty },
-    { path: '/thanh-toan', component: Pay },
-    { path: '/nha-hang-quan-bar', component: RestaurentAndBar },
-    { path: '/tien-ich', component: Utilities },
-    { path: '/xem-gia', component: ViewPrice },
-    { path: '/dang-nhap', component: SignIn, layout: null },
-    { path: '/dang-ki', component: Register, layout: null },
+    { path: config.Routes.home, component: Home },
+    { path: config.Routes.aboutStellar, component: AboutStellar },
+    { path: config.Routes.bookRoom, component: BookRoom },
+    { path: config.Routes.conferenceEvents, component: ConferenceEvents },
+    { path: config.Routes.contact, component: Contact },
+    { path: config.Routes.infoAccount, component: InfoAccount },
+    { path: config.Routes.listOfTransaction, component: ListOfTransaction },
+    { path: config.Routes.myReservation, component: MyReservation },
+    { path: config.Routes.passwordAndSecuruty, component: PasswordAndSecuruty },
+    { path: config.Routes.pay, component: Pay },
+    { path: config.Routes.restaurentAndBar, component: RestaurentAndBar },
+    { path: config.Routes.utilities, component: Utilities },
+    { path: config.Routes.viewPrice, component: ViewPrice },
+    { path: config.Routes.signIn, component: SignIn, layout: null },
+    { path: config.Routes.register, component: Register, layout: null },
+    { path: config.Routes.forgotPassword, component: ForgotPassword.ForgotPassword, layout: null },
+    { path: config.Routes.OTP, component: ForgotPassword.OTP, layout: null },
 
-    { path: '/error', component: Error404, layout: null },
+    { path: config.Routes.error, component: Error404, layout: null },
 ];
 
 // required sign in
