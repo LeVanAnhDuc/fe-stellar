@@ -1,9 +1,9 @@
 import Tippy from '@tippyjs/react/headless';
-import { Wrapper as PopperWrapper } from '../../../Popper';
+import { Wrapper as PopperWrapper } from '../../../components/Popper';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
-import Button from '../../../Button';
+import Button from '../../../components/Button';
 
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
