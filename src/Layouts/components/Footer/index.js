@@ -39,7 +39,7 @@ const TITLE_FOOTER = [
 
 function Footer() {
     return (
-        <h1 className={cx('wrapper')}>
+        <div className={cx('wrapper')}>
             <div className={cx('back-ground')}>
                 <Link to={config.Routes.home}>
                     <Image src={images.logo} className={cx('logo')} />
@@ -59,7 +59,7 @@ function Footer() {
                 <div>Email: info@stellar.com.vn</div>
                 <div>Địa chỉ: 01 Võ Văn Ngân, P. Linh Chiểu, Q. Thủ Đức, TP. Hồ Chí Minh</div>
             </div>
-        </h1>
+        </div>
     );
 }
 

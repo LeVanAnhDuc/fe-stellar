@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
 import { Link } from 'react-router-dom';
 
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -92,6 +92,14 @@ const Button = forwardRef(
             small,
             large,
         };
+
+        useEffect(() => {
+            // Cuộn về đầu trang khi component đã mount
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth', // Cuộn mượt hơn
+            });
+        }, []);
 
         return (
             <>

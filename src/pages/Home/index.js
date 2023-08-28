@@ -37,6 +37,7 @@ import {
     photoLibrary2,
 } from '../../assets/images/home';
 import SliderHero from '../../components/SliderHero';
+import config from '../../config';
 
 const cx = classNames.bind(styles);
 
@@ -297,7 +298,7 @@ function Home() {
                             {section2Images.map((item) => (
                                 <div className={cx('slider-item')} key={item.id}>
                                     <img src={item.image} alt={item.name} />
-                                    <Button className={cx('btn')} outline_2={true}>
+                                    <Button className={cx('btn')} outline_2={true} to={config.Routes.bookRoom}>
                                         {item.name}
                                     </Button>
                                 </div>

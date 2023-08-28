@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 
 import { Container, Row } from 'react-bootstrap';
 
-import { useState, useEffect, forwardRef } from 'react';
+import { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import { listOfTransaction } from '../../assets/images/listOfTransaction';

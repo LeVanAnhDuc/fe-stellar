@@ -4,7 +4,7 @@ import styles from './Contact.module.scss';
 import React from 'react';
 import Button from '../../components/Button';
 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 import SliderHero from '../../components/SliderHero';
 import Map from '../../components/Map';
