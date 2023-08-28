@@ -14,6 +14,7 @@ function InputEmail({ className, label = true, children }) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setIsValidEmail(emailPattern.test(email));
     };
+    console.log(email);
     return (
         <>
             {label ? <Form.Label>Email</Form.Label> : null}

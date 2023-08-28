@@ -81,7 +81,7 @@
 }
 
 .outline_1 {
-    color: var(--color-Sienna);
+    background-color: inherit;
     border-color: var(--color-Sienna);
     border-radius: 8px;
 
@@ -90,10 +90,14 @@
         opacity: 0.9;
         background-color: rgba(136, 74, 57, 0.08);
     }
+
+    span {
+        color: var(--color-Sienna);
+    }
 }
 
 .outline_2 {
-    color: var(--color-Champagne);
+    background-color: inherit;
     border-color: var(--color-Champagne);
     border-radius: 8px;
 
@@ -102,30 +106,57 @@
         opacity: 0.9;
         background-color: rgba(249, 224, 187, 0.16);
     }
+
+    span {
+        color: var(--color-Champagne);
+    }
 }
 
 .none_1 {
-    color: var(--color-Sienna);
+    background-color: inherit;
+    
     &:hover {
         opacity: 0.7;
     }
+
+    span {
+        color: var(--color-Sienna);
+    }
 }
+
 .none_2 {
-    color: var(--color-Copper);
+    background-color: inherit;
+    
     &:hover {
         opacity: 0.7;
     }
+
+    span {
+        color: var(--color-Copper);
+    }
 }
+
 .none_3 {
-    color: var(--color-Apricot);
+    background-color: inherit;
+    
     &:hover {
         opacity: 0.7;
     }
+
+    span {
+        color: var(--color-Apricot);
+    }
 }
+
 .none_4 {
-    color: var(--color-Champagne);
+    background-color: inherit;
+    
     &:hover {
         opacity: 0.7;
+    }
+
+    span {
+        color: var(--color-Champagne);
     }
 }
 
