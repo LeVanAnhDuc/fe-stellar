@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-import '../BookRoom'
+import '../BookRoom';
 
 import {
     sliderHero1,
@@ -52,25 +52,21 @@ function Home() {
             id: 'home-s2-image-1',
             image: rSuperiorDoubleOrTwin,
             name: 'Phòng Superior Double Or Twin',
-            to: '#rSuperiorDoubleOrTwin'
         },
         {
             id: 'home-s2-image-2',
             image: rDeluxeDouble,
             name: 'Phòng Deluxe Double',
-            to: '#rDeluxeDouble'
         },
         {
             id: 'home-s2-image-3',
             image: rExecutiveCityView,
             name: 'Phòng Executive City View',
-            to: '#rExecutiveCityView'
         },
         {
             id: 'home-s2-image-4',
             image: rSuiteGarden,
             name: 'Phòng Suite Garden',
-            to: '#rSuiteGarden'
         },
     ];
 
@@ -250,7 +246,7 @@ function Home() {
             <SliderHero className={cx('hero')} images={heroImages} classNameChildren={cx('content-wrapper')}>
                 <strong className={cx('heading')}>{`20+ NĂM UY TÍN TRONG\nLĨNH VỰC NHÀ HÀNG - KHÁCH SẠN`}</strong>
                 <p>Thực hiện phương châm kinh doanh: Trải nghiệm mới với hoài niệm cũ.</p>
-                <Button filled_1 className={cx('btn') } to={'/lien-he'}>
+                <Button filled_1 className={cx('btn')} to={'/lien-he'}>
                     TÌM HIỂU THÊM
                 </Button>
             </SliderHero>
@@ -280,7 +276,9 @@ function Home() {
                                 khách hàng có thể ngắm nhìn toàn cảnh thành phố hoặc tận hưởng cảnh quan tuyệt đẹp của
                                 "ốc đảo".
                             </p>
-                            <Button outline_1={true} to={'/ve-Stellar'}>Về Stellar</Button>
+                            <Button outline_1={true} to={'/ve-Stellar'}>
+                                Về Stellar
+                            </Button>
                         </Col>
                         <Col md="6" className={cx('px-0', 'right')}>
                             <img src={aboutStellar} alt="About Stellar" />
@@ -303,7 +301,7 @@ function Home() {
                             {section2Images.map((item) => (
                                 <div className={cx('slider-item')} key={item.id}>
                                     <img src={item.image} alt={item.name} />
-                                    <Button className={cx('btn')} outline_2={true} to={'dat-phong'+item.to}>
+                                    <Button className={cx('btn')} outline_2={true} to={'dat-phong'}>
                                         {item.name}
                                     </Button>
                                 </div>

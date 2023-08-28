@@ -70,7 +70,7 @@ const TITLE_HEADER = [
 
 function Header() {
     const [activeButton, setActiveButton] = useState(null);
-    const [signIn, setSignIn] = useState(true);
+    const [signIn, setSignIn] = useState(false);
 
     const handleActive = (index) => {
         setActiveButton(index);
