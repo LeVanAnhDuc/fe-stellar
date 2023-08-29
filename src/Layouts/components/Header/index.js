@@ -26,28 +26,32 @@ const TITLE_HEADER = [
     },
     {
         title: 'Phòng nghỉ',
-        to: config.Routes.bookRoom,
         icon: <FontAwesomeIcon icon={faAngleDown} />,
+        to: null,
         children: [
             {
                 title: 'Giới thiệu',
                 id: '1',
             },
             {
-                title: 'Phòng Superior Double Or Twin',
+                title: 'Superior Double Or Twin',
                 id: '2',
+                to: '#rSuperiorDoubleOrTwin',
             },
             {
-                title: 'Phòng Deluxe Double',
+                title: 'Deluxe Double',
                 id: '3',
+                to: '#rDeluxeDouble',
             },
             {
-                title: 'Phòng Executive City View',
+                title: 'Executive City View',
                 id: '4',
+                to: '#rExecutiveCityView',
             },
             {
-                title: 'Phòng Suite Garden',
+                title: 'Suite Garden',
                 id: '5',
+                to: '#rSuiteGarden',
             },
         ],
     },
@@ -102,7 +106,10 @@ function Header() {
                                                     <Button
                                                         className={cx('btn', 'custom-btn')}
                                                         none_1
-                                                        // to={item.to}
+                                                        to={
+                                                            config.Routes.bookRoom +
+                                                            (item2.to === undefined ? '' : item2.to)
+                                                        }
                                                         key={index2}
                                                     >
                                                         {item2.title}
@@ -156,8 +163,9 @@ function Header() {
                         <div className={cx('btn-bar')}>
                             <Tippy
                                 // visible={true}
+
                                 hideOnClick={false}
-                                offset={[5, 10]}
+                                offset={[-1000, 10]}
                                 interactive={true}
                                 delay={[0, 300]}
                                 placement="bottom-start"
@@ -167,20 +175,12 @@ function Header() {
                                             {TITLE_HEADER.map((item, index) => (
                                                 <Button
                                                     className={
-                                                        activeButton === index && !item.icon
-                                                            ? cx('btn-active-responsive')
-                                                            : cx('btn')
+                                                        activeButton === index ? cx('btn-active-responsive') : cx('btn')
                                                     }
                                                     none_1
                                                     to={item.to}
                                                     key={index}
                                                     onClick={() => handleActive(index)}
-                                                    // style={{
-                                                    //     color:
-                                                    //         activeButton === index && !item.icon
-                                                    //             ? 'var(--color-Gray-700)'
-                                                    //             : 'var(--color-Sienna)',
-                                                    // }}
                                                 >
                                                     {item.title}
                                                 </Button>

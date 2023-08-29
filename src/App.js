@@ -2,10 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publishRoute } from './routes';
 import { DefaultLayout } from './Layouts';
 import { Fragment } from 'react';
+import ScrollAutoTop from './components/ScrollAutoTop/ScrollAutoTop';
+// import ScrollClickTop from './components/ScrollClickTop/ScrollClickTop';
 
 function App() {
     return (
         <Router>
+            <ScrollAutoTop />
             <div className="App">
                 <Routes>
                     {publishRoute.map((item, index) => {
@@ -17,9 +20,12 @@ function App() {
                                 key={index}
                                 path={item.path}
                                 element={
-                                    <Layout>
-                                        <Element />
-                                    </Layout>
+                                    <>
+                                        <Layout>
+                                            <Element />
+                                            {/* <ScrollClickTop /> */}
+                                        </Layout>
+                                    </>
                                 }
                             />
                         );

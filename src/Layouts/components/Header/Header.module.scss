@@ -4,6 +4,7 @@
     --size-logo: 180px;
     --size-background-header: 1340px;
     --font-size: 1.8rem;
+    --height-header: 6.5rem;
 }
 
 .wrapper {
@@ -90,24 +91,21 @@
     justify-content: center;
     height: 100%;
 }
-
 .hover {
     &:hover {
         opacity: 1;
     }
 }
-
 // Item menu
 .more-menu {
     min-width: 200px;
-
     .custom-popper {
         background-color: var(--color-Champagne);
     }
 }
 
 .menu-list {
-    padding: 8px 10px;
+    padding: 8px 20px 8px 0px;
     display: flex;
     flex-direction: column;
 }
@@ -140,6 +138,8 @@
         position: relative;
         justify-content: space-between;
         .menu_responsive {
+            height: 25px;
+            width: 25px;
             display: block;
         }
     }
@@ -195,4 +195,5 @@
     padding: 8px 0px;
     display: flex;
     flex-direction: column;
+    padding: 0;
 }

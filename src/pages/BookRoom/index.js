@@ -23,13 +23,37 @@ import {
 import styles from './BookRoom.module.scss';
 import Button from '../../components/Button';
 import config from '../../config';
+import { useLocation } from 'react-router';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 function BookRoom() {
+    const location = useLocation();
+    useEffect(() => {
+        if (location.hash) {
+            // Lấy phần tử có id tương ứng với hash
+            const targetElement = document.querySelector(location.hash);
+
+            // Nếu phần tử tồn tại, tính toán vị trí để cuộn tới
+            if (targetElement) {
+                const yOffset = -120; // Điều chỉnh dựa trên độ cao của fixed header (nếu có)
+                const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+                // Cuộn tới vị trí tính toán được
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, [location.hash, location]);
+
     const images = [pic1, pic2, pic3];
     const room = [
         {
             id: 1,
+            hash: 'rSuperiorDoubleOrTwin',
             name: 'Phòng Superior Double Or Twin',
             acreage: '23m2',
             typebed: 'Giường đôi hoặc 02 giường đơn',
@@ -41,6 +65,7 @@ function BookRoom() {
         },
         {
             id: 2,
+            hash: 'rDeluxeDouble',
             name: 'Phòng Deluxe Double',
             acreage: '23m2',
             typebed: 'Giường đôi',
@@ -52,6 +77,7 @@ function BookRoom() {
         },
         {
             id: 3,
+            hash: 'rExecutiveCityView',
             name: 'Phòng Executive City View',
             acreage: '40m2',
             typebed: '02 Giường đơn',
@@ -63,6 +89,7 @@ function BookRoom() {
         },
         {
             id: 4,
+            hash: 'rSuiteGarden',
             name: 'Phòng Suite Garden',
             acreage: '40m2',
             typebed: '01 giường queen',
@@ -148,7 +175,7 @@ function BookRoom() {
             </Container>
             <div className={cx('Room')}>
                 {room.map((item, index) => (
-                    <Container className={cx('container')} fluid="md" key={item.id}>
+                    <Container className={cx('container')} fluid="md" key={item.id} id={item.hash}>
                         <Row className={cx('row')} style={{ flexDirection: item.id % 2 === 0 ? 'row-reverse' : 'row' }}>
                             <Col>
                                 <Carousel
@@ -246,6 +273,7 @@ function BookRoom() {
                     </Container>
                 ))}
             </div>
+            <div id="demo"></div>
         </>
     );
 }

@@ -18,7 +18,7 @@ const Routes = {
     forgotPassword: '/quen-mat-khau',
     OTP: '/lay-OTP',
 
-    error: '/error',
+    error: '*',
 };
 
 export default Routes;
