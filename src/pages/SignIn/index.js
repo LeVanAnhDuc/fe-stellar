@@ -6,64 +6,81 @@ import { Link } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import config from '../../config';
+import { login } from '../../apis/authApi';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import SignInUser from './signInSlice';
-// import { getInfoUserSignIn } from '../../redux/select';
+import { useSelector, useDispatch } from 'react-redux';
+import { getStateHeaderSlice } from '../../redux/select';
+import { setIsSignIn } from '../../Layouts/components/Header/HeaderSlice';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function SignIn() {
-    // store
-    // const dispatch = useDispatch();
-    // const user = useSelector(getInfoUserSignIn);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [validated, setValidated] = useState(false); // validate
+    const [isValidEmail, setIsValidEmail] = useState(true); // validate mail
+    const [isValidPassword, setIsValidPassword] = useState(true); // validate password
+    const [rememberMe, setRememberMe] = useState(false);
+    const notificationRef = useRef(null);
 
-    // value
-    const [emailUser, setEmailUser] = useState('');
-    const [passWordUser, setPassWordUser] = useState('');
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const handleChangeEmail = (e) => {
-        setEmailUser(e.target.value);
+        setEmail(e.target.value);
     };
 
     const handleChangePassWord = (e) => {
-        setPassWordUser(e.target.value);
-    };
-
-    // validate
-    const [validated, setValidated] = useState(false);
-    const [isValidEmail, setIsValidEmail] = useState(true);
-
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        setValidated(true);
-        // dispatch(SignInUser.actions.setSignInUser({ email: emailUser, pass: passWordUser }));
+        setPassword(e.target.value);
     };
 
     const validateEmail = () => {
         // Sử dụng biểu thức chính quy (regex) để kiểm tra tính hợp lệ của email
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        setIsValidEmail(emailPattern.test(emailUser));
+        setIsValidEmail(emailPattern.test(email));
     };
 
-    const [rememberMe, setRememberMe] = useState(false);
+    const validatePassword = () => {
+        const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+        setIsValidPassword(passwordPattern.test(password));
+    };
 
     const handleRememberMeChange = () => {
         setRememberMe(!rememberMe);
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (isValidEmail && isValidPassword && rememberMe) {
+            await login(email, password)
+                .then((response) => {
+                    notificationRef.current.classList.remove(cx('hidden'));
+                    notificationRef.current.classList.add(cx('success'));
+                    notificationRef.current.textContent = response.data.message;
+
+                    dispatch(setIsSignIn(true));
+                    navigate('/');
+                })
+                .catch((error) => {
+                    notificationRef.current.classList.remove(cx('hidden'));
+                    notificationRef.current.classList.add(cx('error'));
+                    notificationRef.current.textContent = error.response.data.message;
+                });
+        }
+    };
+
     return (
         <>
             <div className={cx('wrapper')}>
-                <Form noValidate validated={validated} onSubmit={handleSubmit} className={cx('form')} action="/">
+                <Form noValidate validated={validated} className={cx('form')}>
                     <h1>Login</h1>
+                    <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
 
                     <Form.Group controlId="validationCustom01" className={cx('input-box')}>
                         <Form.Control
@@ -71,42 +88,46 @@ function SignIn() {
                             required
                             type="email"
                             placeholder="Enter email address"
-                            value={emailUser}
+                            value={email}
                             onChange={handleChangeEmail}
+                            isInvalid={!isValidEmail}
                             onBlur={validateEmail}
-                            defaultValue=""
                         />
                         <FontAwesomeIcon icon={faUser} className={cx('icon')} />
-                        {!isValidEmail && (
-                            <Form.Control.Feedback type="invalid">Invalid email address</Form.Control.Feedback>
-                        )}
+                        <Form.Control.Feedback type="invalid">Invalid email address.</Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group controlId="validationCustom01" className={cx('input-box')}>
+                    <Form.Group controlId="validationCustom02" className={cx('input-box')}>
                         <Form.Control
+                            className={cx('input')}
                             required
                             type="password"
                             placeholder="Password"
-                            className={cx('input')}
-                            value={passWordUser}
+                            value={password}
                             onChange={handleChangePassWord}
+                            isInvalid={!isValidPassword}
+                            onBlur={validatePassword}
                         />
                         <FontAwesomeIcon icon={faLock} className={cx('icon')} />
+                        <Form.Control.Feedback type="invalid">Invalid password</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="rememberMeCheck" className={cx('remember-forgot')}>
                         <Form.Check
+                            required
                             type="checkbox"
                             label="Remember Me"
                             checked={rememberMe}
                             onChange={handleRememberMeChange}
-                            preventDefault
                             className={cx('remember')}
+                            isInvalid={!rememberMe}
+                            feedback={!rememberMe && 'Invalid'}
+                            feedbackType="invalid"
                         />
                         <Link to="/quen-mat-khau">Forgot password?</Link>
                     </Form.Group>
 
-                    <Button type="submit" className={cx('btn-submit')}>
+                    <Button type="submit" className={cx('btn-submit')} onClick={handleSubmit}>
                         Login
                     </Button>
                     <div className={cx('register-link')}>

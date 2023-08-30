@@ -24,7 +24,7 @@ function InputSDT({ className, label = true, children }) {
                 placeholder="Enter phone number (10-12 digits)"
                 value={phone}
                 onChange={handlePhoneChange}
-                onBlur={validatePhone}
+                // onBlur={validatePhone}
                 pattern="[0-9]{10,12}"
                 defaultValue=""
             />
