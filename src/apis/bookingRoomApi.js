@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from './axiosConfig.js';
 
 const getTotalPrices = async (params) => {
@@ -23,4 +24,13 @@ const getTransactionHistory = async () => {
     }
 };
 
-export default { getTotalPrices, getTransactionHistory };
+const getTotalTransactionHistory = async () => {
+    try {
+        const response = await axios.get('/booking-room/get-total-transaction-history');
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export default { getTotalPrices, getTransactionHistory, getTotalTransactionHistory };
