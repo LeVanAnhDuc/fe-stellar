@@ -149,3 +149,26 @@
         }
     }
 }
+
+.hidden {
+    display: none;
+}
+
+.success {
+    color: var(--color-Success);
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -20px;
+}
+
+.error {
+    color: var(--color-Danger);
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -20px;
+}
+

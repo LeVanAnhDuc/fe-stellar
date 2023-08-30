@@ -17,6 +17,9 @@ import { faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 import config from '../../../config';
 
+import { useSelector } from 'react-redux';
+import { getStateHeaderSlice } from '../../../redux/select';
+
 const cx = classNames.bind(styles);
 
 const TITLE_HEADER = [
@@ -70,8 +73,10 @@ const TITLE_HEADER = [
 ];
 
 function Header() {
+    const { isSignIn } = useSelector(getStateHeaderSlice);
     const [activeButton, setActiveButton] = useState(null);
-    const [signIn, setSignIn] = useState(false);
+
+    console.log(isSignIn)
 
     const handleActive = (index) => {
         setActiveButton(index);
@@ -140,7 +145,7 @@ function Header() {
                             ),
                         )}
                         <div className={cx('more-btn1')}>
-                            {signIn === true ? (
+                            {isSignIn === true ? (
                                 <Account onClick={() => handleActive(null)} />
                             ) : (
                                 <>
@@ -199,7 +204,7 @@ function Header() {
                                 />
                             </Link>
                             <div className={cx('more-btn1-responsive')}>
-                                {signIn === true ? (
+                                {isSignIn === true ? (
                                     <Account onClick={() => handleActive(null)} />
                                 ) : (
                                     <>
