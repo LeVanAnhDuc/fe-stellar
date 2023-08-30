@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
-import { login, register } from '../../apis/authApi';
+import { authApi } from '../../apis/index.js';
 import { useDispatch } from 'react-redux';
 import { setIsSignIn } from '../../Layouts/components/Header/HeaderSlice';
 
@@ -76,13 +76,15 @@ function Register() {
         if (password === enterPassWord) {
             setIsComFirmPass(true);
             if (isValidPhoneNumber && isValidEmail && isValidPassword) {
-                await register(email, password, phoneNumber)
+                await authApi
+                    .register(email, password, phoneNumber)
                     .then(async (response) => {
                         notificationRef.current.classList.remove(cx('hidden'));
                         notificationRef.current.classList.add(cx('success'));
                         notificationRef.current.textContent = response.data.message;
 
-                        await login(email, password)
+                        await authApi
+                            .login(email, password)
                             .then(() => {
                                 dispatch(setIsSignIn(true));
                                 navigate('/');

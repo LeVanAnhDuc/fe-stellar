@@ -1,6 +1,6 @@
 import axios from './axiosConfig.js';
 
-export const register = async (email, password, phoneNumber) => {
+const register = async (email, password, phoneNumber) => {
     try {
         const reponse = await axios.post('/auth/register', {
             email,
@@ -14,7 +14,7 @@ export const register = async (email, password, phoneNumber) => {
     }
 };
 
-export const login = async (email, password) => {
+const login = async (email, password) => {
     try {
         const response = await axios.post('/auth/login', {
             email,
@@ -33,20 +33,79 @@ export const login = async (email, password) => {
     }
 };
 
-export const getUserName = async () => {
-    try {
-        const response = await axios.get('/user/get-name');
-        return response;
-    } catch (error) {
-        throw error;
-    }
-};
-
-export const logout = async () => {
+const logout = async () => {
     try {
         const response = await axios.post('/auth/logout');
         return response;
     } catch (error) {
         throw error;
     }
+};
+
+// Có token
+const resetPass_SendOTP = async (email) => {
+    try {
+        const response = await axios.post('/auth/sendotp', { email });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const resetPass_CheckPass = async (email, otp) => {
+    try {
+        const response = await axios.post('/auth/checkotp', { email, otp });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Không token
+const resetPass = async (email, oldpass, newpass, checknewpass) => {
+    try {
+        const response = await axios.post('/auth/resetpass', { email, oldpass, newpass, checknewpass });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const forgotpass_SendOTP = async (email) => {
+    try {
+        const response = await axios.post('/auth/sendotp-forgotpass', { email });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const forgotpass_CheckPass = async (email, otp) => {
+    try {
+        const response = await axios.post('/auth/checkotp-forgotpass', { email, otp });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const forgotpass = async (email, newpass, checknewpass) => {
+    try {
+        const response = await axios.post('/auth/forgetpass', { email, newpass, checknewpass });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export default {
+    register,
+    login,
+    logout,
+    resetPass_SendOTP,
+    resetPass_CheckPass,
+    resetPass,
+    forgotpass_SendOTP,
+    forgotpass_CheckPass,
+    forgotpass,
 };

@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
-import { getUserName, logout } from '../../../apis/authApi';
+import { authApi, userApi } from '../../../apis/index.js';
+
 const cx = classNames.bind(styles);
 
 function Account({ name = 'Name', onClick }) {
@@ -20,7 +21,8 @@ function Account({ name = 'Name', onClick }) {
     useEffect(() => {
         // Gọi API và cập nhật userName khi component mount
         async function fetchUserName() {
-            await getUserName()
+            await userApi
+                .getUserName()
                 .then((response) => {
                     setUserName(response.data.data.userName);
                 })
@@ -33,7 +35,7 @@ function Account({ name = 'Name', onClick }) {
     }, []);
 
     const handelLogout = async () => {
-        await logout().then(() => {
+        await authApi.logout().then(() => {
             localStorage.clear();
             navigate('/dang-nhap');
         });

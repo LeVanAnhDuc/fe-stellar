@@ -8,11 +8,25 @@ const instance = axios.create({
     },
 });
 
+const noToken = [
+    '/auth/login',
+    '/auth/prefresh-token',
+    '/auth/sendotp-forgotpass',
+    '/auth/checkotp-forgotpass',
+    '/auth/forgetpass',
+];
+
 // Xử lý trước khi xuống server
 // Xử lý token và làm mới token khi cần
 instance.interceptors.request.use(
     async (config) => {
-        if (config.url.indexOf('/auth/login') >= 0 || config.url.indexOf('/auth/prefresh-token') >= 0) {
+        if (
+            noToken.some((item) => {
+                if (config.url.indexOf(item) >= 0) {
+                    return true;
+                }
+            })
+        ) {
             return config;
         }
 

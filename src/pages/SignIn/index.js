@@ -8,10 +8,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useRef } from 'react';
 import config from '../../config';
-import { login } from '../../apis/authApi';
+import { authApi } from '../../apis/index.js';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getStateHeaderSlice } from '../../redux/select';
+import { useDispatch } from 'react-redux';
 import { setIsSignIn } from '../../Layouts/components/Header/HeaderSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -58,7 +57,8 @@ function SignIn() {
         event.stopPropagation();
 
         if (isValidEmail && isValidPassword && rememberMe) {
-            await login(email, password)
+            await authApi
+                .login(email, password)
                 .then((response) => {
                     notificationRef.current.classList.remove(cx('hidden'));
                     notificationRef.current.classList.add(cx('success'));
