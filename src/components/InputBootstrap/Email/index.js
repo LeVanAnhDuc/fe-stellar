@@ -1,12 +1,13 @@
 import Form from 'react-bootstrap/Form';
 
 import { useState } from 'react';
-function InputEmail({ className, label = true, children }) {
+function InputEmail({ className, label = true, children, value, handleChangeEmail }) {
     const [email, setEmail] = useState('');
 
     const [isValidEmail, setIsValidEmail] = useState(true);
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
+        handleChangeEmail(e);
     };
 
     const validateEmail = () => {
@@ -14,7 +15,7 @@ function InputEmail({ className, label = true, children }) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setIsValidEmail(emailPattern.test(email));
     };
-    console.log(email);
+
     return (
         <>
             {label ? <Form.Label>Email</Form.Label> : null}
@@ -23,7 +24,7 @@ function InputEmail({ className, label = true, children }) {
                 required
                 type="email"
                 placeholder="Enter email address"
-                value={email}
+                value={value}
                 onChange={handleEmailChange}
                 onBlur={validateEmail}
                 defaultValue=""

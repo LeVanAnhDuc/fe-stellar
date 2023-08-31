@@ -1,13 +1,14 @@
 import Form from 'react-bootstrap/Form';
 
 import { useState } from 'react';
-function InputSDT({ className, label = true, children }) {
+function InputSDT({ className, label = true, children, value, handleChangePhone }) {
     const [phone, setPhone] = useState('');
 
     const [isValidPhone, setIsValidPhone] = useState(true);
 
     const handlePhoneChange = (e) => {
         setPhone(e.target.value);
+        handleChangePhone(e);
     };
 
     const validatePhone = () => {
@@ -22,7 +23,7 @@ function InputSDT({ className, label = true, children }) {
                 required
                 type="tel"
                 placeholder="Enter phone number (10-12 digits)"
-                value={phone}
+                value={value}
                 onChange={handlePhoneChange}
                 // onBlur={validatePhone}
                 pattern="[0-9]{10,12}"

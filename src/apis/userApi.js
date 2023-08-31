@@ -10,7 +10,7 @@ const getProfile = async () => {
     }
 };
 
-const updateProfile = async (email, userName, phoneNumber, gender, nationality) => {
+const updateProfile = async (email, userName, phoneNumber, gender, nationality, yearOfBirth) => {
     try {
         const response = await axios.patch('/user/update-profile', {
             email,
@@ -18,6 +18,7 @@ const updateProfile = async (email, userName, phoneNumber, gender, nationality) 
             phoneNumber,
             gender,
             nationality,
+            yearOfBirth,
         });
         return response;
     } catch (error) {
