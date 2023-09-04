@@ -13,6 +13,7 @@ import InputEmail from '../../components/InputBootstrap/Email';
 import InputSDT from '../../components/InputBootstrap/SDT';
 import { userApi } from '../../apis/index.js';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -34,13 +35,16 @@ function InfoAccount() {
         });
     };
     const updateUser = async (email, userName, phoneNumber, gender, nationality, yearOfBirth) => {
-        await userApi.updateProfile(email, userName, phoneNumber, gender, nationality, yearOfBirth);
+        try {
+            await userApi.updateProfile(email, userName, phoneNumber, gender, nationality, yearOfBirth);
+        } catch {
+            toast.error('Update error');
+        }
     };
 
     useEffect(() => {
         fetchUser();
     }, []);
-    console.log(user);
 
     const handleChangeName = (e) => {
         setUser({

@@ -80,8 +80,6 @@ function Header() {
     const { isSignIn } = useSelector(getStateHeaderSlice);
     const [activeButton, setActiveButton] = useState(null);
 
-    console.log(isSignIn)
-
     const handleActive = (index) => {
         setActiveButton(index);
     };
