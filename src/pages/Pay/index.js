@@ -12,57 +12,75 @@ function Pay() {
     const logobank = [
         {  id: "bank-1",
             image: b1,
+            value: "DongABank",
         },
         {  id: "bank-2",
             image: b2,
+            value: "ACB"
         },
         {  id: "bank-3",
             image: b3,
+            value:"Vietcombank"
         },
         {  id: "bank-4",
             image: b4,
+            valua: "HdBank"
         },
         {  id: "bank-5",
             image: b5,
+            value: "TechcomBank"
         },
         {  id: "bank-6",
             image: b6,
+            value:"vib"
         },
         {  id: "bank-7",
             image: b7,
+            value: "NCB"
         },
         {  id: "bank-8",
             image: b8,
+            value: "Sacombank"
         },
         {  id: "bank-9",
             image: b9,
+            value: "SCB"
         },
         {  id: "bank-10",
             image: b10,
+            value: "TPBank"
         },
         {  id: "bank-11",
             image: b11,
+            value: "VietinBank"
         },
         {  id: "bank-12",
             image: b12,
+            value: "BIDV"
         },
         {  id: "bank-13",
             image: b13,
+            value: "LienVietBank",
         },
         {  id: "bank-14",
             image: b14,
+            value: "PVComBank"
         },
         {  id: "bank-15",
             image: b15,
+            value: "VPBank"
         },
         {  id: "bank-16",
             image: b16,
+            value: "MsBank"
         },
         {  id: "bank-17",
             image: b17,
+            value: "Ocb"
         },
         {  id: "bank-18",
             image: b18,
+            value: "Agribank"
         }
     ];
     const instruction=[

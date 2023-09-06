@@ -7,7 +7,7 @@ import Contact from '../pages/Contact';
 import InfoAccount from '../pages/InfoAccount';
 import ListOfTransaction from '../pages/ListOfTransaction';
 import MyReservation from '../pages/MyReservation';
-import PasswordAndSecuruty from '../pages/PasswordAndSecuruty';
+import * as PasswordAndSecuruty from '../pages/PasswordAndSecuruty';
 import RestaurentAndBar from '../pages/RestaurentAndBar';
 import Utilities from '../pages/Utilities';
 import ViewPrice from '../pages/ViewPrice';
@@ -27,7 +27,8 @@ const publishRoute = [
     { path: config.Routes.infoAccount, component: InfoAccount },
     { path: config.Routes.listOfTransaction, component: ListOfTransaction },
     { path: config.Routes.myReservation, component: MyReservation },
-    { path: config.Routes.passwordAndSecuruty, component: PasswordAndSecuruty },
+    { path: config.Routes.passwordAndSecuruty, component: PasswordAndSecuruty.PasswordAndSecuruty},
+    { path: config.Routes.changePass, component: PasswordAndSecuruty.ChangePass},
     { path: config.Routes.pay, component: Pay },
     { path: config.Routes.restaurentAndBar, component: RestaurentAndBar },
     { path: config.Routes.utilities, component: Utilities },
