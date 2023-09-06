@@ -9,6 +9,7 @@ const Routes = {
     listOfTransaction: '/danh-sach-giao-dich',
     myReservation: '/dat-cho-cua-toi',
     passwordAndSecuruty: '/mat-khau-bao-mat',
+    changePass: '/doi-mat-khau',
     pay: '/thanh-toan',
     restaurentAndBar: '/nha-hang-quan-bar',
     utilities: '/tien-ich',

@@ -44,34 +44,24 @@ const logout = async () => {
 };
 
 // Có token
-const resetPass_SendOTP = async (email) => {
+const resetPass_SendOTP = async () => {
     try {
-        const response = await axios.post('/auth/sendotp', { email });
+        const response = await axios.post('/auth/sendotp');
         return response;
     } catch (error) {
         throw error;
     }
 };
 
-const resetPass_CheckPass = async (email, otp) => {
+const resetPass = async ( oldpass, newpass, checknewpass, otp) => {
     try {
-        const response = await axios.post('/auth/checkotp', { email, otp });
+        const response = await axios.post('/auth/resetpass', { oldpass, newpass, checknewpass, otp });
         return response;
     } catch (error) {
         throw error;
     }
 };
-
 // Không token
-const resetPass = async (email, oldpass, newpass, checknewpass) => {
-    try {
-        const response = await axios.post('/auth/resetpass', { email, oldpass, newpass, checknewpass });
-        return response;
-    } catch (error) {
-        throw error;
-    }
-};
-
 const forgotpass_SendOTP = async (email) => {
     try {
         const response = await axios.post('/auth/sendotp-forgotpass', { email });
@@ -81,7 +71,7 @@ const forgotpass_SendOTP = async (email) => {
     }
 };
 
-const forgotpass_CheckPass = async (email, otp) => {
+const forgotpass_CheckOTP = async (email, otp) => {
     try {
         const response = await axios.post('/auth/checkotp-forgotpass', { email, otp });
         return response;
@@ -104,9 +94,8 @@ export default {
     login,
     logout,
     resetPass_SendOTP,
-    resetPass_CheckPass,
     resetPass,
     forgotpass_SendOTP,
-    forgotpass_CheckPass,
+    forgotpass_CheckOTP,
     forgotpass,
 };
