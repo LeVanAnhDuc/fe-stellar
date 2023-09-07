@@ -33,4 +33,21 @@ const getTotalTransactionHistory = async () => {
     }
 };
 
-export default { getTotalPrices, getTransactionHistory, getTotalTransactionHistory };
+const bookingRoom = async ({checkinDate, checkoutDate, typeRoom, quantity, prices}) => {
+    try {
+        const response = await axios.post('/booking-room', {checkinDate, checkoutDate, typeRoom, quantity, prices});
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const payment = async (orderId, bankCode) => {
+    try {
+        const response = await axios.post('/booking-room/create_payment_url', {orderId, bankCode});
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+export default { getTotalPrices, getTransactionHistory, getTotalTransactionHistory, bookingRoom, payment  };

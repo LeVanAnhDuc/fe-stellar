@@ -10,14 +10,16 @@ const cx = classNames.bind(styles);
 
 function ViewPrice() {
     const images = [pic1, pic2, pic3];
-    const [selectedValue, setSelectedValue] = useState('1');
+    const [selectedValue, setSelectedValue] = useState('0');
     const [checkinDate, setDatecheckin] = useState(Date.now());
     const [checkoutDate, setDatecheckout] = useState(Date.now()+86400000);
     const [typeRoom, setIdTypeRoom] = useState('64f6f31e26e1510e094d5ac7');
     const [numberRoom, setNumberRoom] = useState(0);
     const [typeRoomInfo, setTypeRoomInfo] = useState( {name: '',description: '', image: ["https://res.cloudinary.com/drzp9tafy/image/upload/v1693905165/ExecutiveCityView1_hynorn.jpg"]});
-    const isSelectionOne = selectedValue === '1';
-
+    const [priceRoom, setPriceRoom] = useState({price: []});
+    const [selectedPriceValue, setSelectedPriceValue] = useState('');
+    const isSelectionOne = selectedValue === '0';
+   
     useEffect(() => {
     const storeCheckin = localStorage.getItem('datecheckin');
     const storeCheckout = localStorage.getItem('datecheckout');
@@ -25,54 +27,40 @@ function ViewPrice() {
     setDatecheckin(storeCheckin);
     setDatecheckout(storeCheckout);
     setIdTypeRoom(idTypeRoomvalue);
-    }, []);
-    
-    const handleCheckin = (e) => {
-        setDatecheckin(e.target.value)
-        localStorage.setItem('datecheckin', e.target.value);
-    };
-    const handleCheckout = (e) => {
-        setDatecheckout(e.target.value)
-        localStorage.setItem('datecheckout', e.target.value);
-    };
-    const handleSelectionChange = (event) => {
-        setSelectedValue(event.target.value);
-    };
-    const minDate = () => {
-        const today = new Date().toISOString().split('T')[0];
-        return today;
-    };
+    async function fetchPriceRoom() {
+        try {
+            const response = await roomApi.getParametersRoom({ typeRoom: typeRoom });
+            const result = response.data;
+            setPriceRoom({
+              price: result.prices
+            });
+            if(selectedPriceValue === ''  ){
+                setSelectedPriceValue(result.prices[0])  
+                localStorage.setItem('priceOneRoom', result.prices[0])
+            }
+            
+        } catch (error) {
+            throw error;
+        }}
 
-   
-const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-};
-
-const fetchNumberRoom = async() => {
-    const formattedCheckinDate = formatDate(checkinDate);
-    const formattedCheckoutDate = formatDate(checkoutDate);
-    
-    try {
-        const response = await roomApi.getNumberAvailableRooms({
-            typeRoom,
-            checkinDate: formattedCheckinDate,
-            checkoutDate: formattedCheckoutDate,
-        });
-       const result =response.data.result;
-         setNumberRoom(result);
-    } catch (error) {
-        throw error;
+    async function fetchNumberRoom() {
+        const formattedCheckinDate = formatDate(checkinDate);
+        const formattedCheckoutDate = formatDate(checkoutDate);
+        try {
+            const response = await roomApi.getNumberAvailableRooms({
+                typeRoom,
+                checkinDate: formattedCheckinDate,
+                checkoutDate: formattedCheckoutDate,
+                prices: selectedPriceValue,
+            });
+           const result =response.data.result;
+            setNumberRoom(result);
+            localStorage.setItem('numberDate', response.data.dDate);
+        } catch (error) {
+            throw error;
+        }
     }
-};
-  useEffect(() => {
-    fetchNumberRoom();
-    }, [typeRoom, checkinDate, checkoutDate]);
-
-    const fetchTypeRoom = async () => {
+    async function fetchTypeRoom() {
         try {
             const response = await typeRoomApi.getRoomTypeById({ idTypeRoom: typeRoom });
             const result = response.data;
@@ -81,13 +69,52 @@ const fetchNumberRoom = async() => {
                 description: result.description,
                 image: [result.image[0]],
             });
+            localStorage.setItem('RoomName', result.name);
+            
         } catch (error) {
             throw error;
-        }
-    };
-    useEffect(() => {
+        }}
+
+        fetchPriceRoom();
+        fetchNumberRoom();
         fetchTypeRoom();
-    }, [typeRoom]);
+       
+    }, [ checkinDate,checkoutDate,typeRoom, selectedPriceValue]);
+   
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+    console.log(checkinDate, checkoutDate)
+    const handleCheckin = (e) => {
+        setDatecheckin(e.target.value)
+        localStorage.setItem('datecheckin', e.target.value);
+    };
+
+    const handleCheckout = (e) => {
+        setDatecheckout(e.target.value)
+        localStorage.setItem('datecheckout', e.target.value);
+    };
+
+    const handleSelectionChange = (event) => {
+        setSelectedValue(event.target.value);
+        localStorage.setItem('number', event.target.value);
+    };
+
+    const handleSelectionPriceChange = (event) => {
+        setSelectedPriceValue(event.target.value);
+        localStorage.setItem('priceOneRoom', event.target.value);
+    };
+
+    const minDate = () => {
+        const today = new Date().toISOString().split('T')[0];
+        return today;
+    };
+    
+
     return (
         <>
             <div className={cx('hero')}>
@@ -117,7 +144,7 @@ const fetchNumberRoom = async() => {
             <Container fluid className={cx('date')}>
                 <Row>
                     <Col className={cx('col')}>
-                        <input id="date-checkin" type="date" min={minDate()} max={checkoutDate} value={checkinDate} onChange={handleCheckin} />
+                        <input id="date-checkin" type="date"  min={minDate()} max={checkoutDate} value={checkinDate} onChange={handleCheckin} />
                     </Col>
                     <Col className={cx('col')}>
                         <input id="date-checkin" type="date"  min={checkinDate} value={checkoutDate} onChange={handleCheckout} />
@@ -165,19 +192,26 @@ const fetchNumberRoom = async() => {
                                     </p>
                                 </Col>
                                 <Col>
-                                    <p>Giá: 1.790.000 VNĐ</p>
+                                <select onChange={handleSelectionPriceChange} value={selectedPriceValue}>
+                                    {Array.isArray(priceRoom.price) && priceRoom.price.length >= 2 ? (
+                                        priceRoom.price.map((price, index) => (
+                                        <option key={index} value={price}>
+                                            {price} VNĐ
+                                        </option>
+                                        ))
+                                    ) : (
+                                        <option value="">No prices available</option>
+                                    )}
+                                    </select>
                                 </Col>
                                 <Col>
-                                    <div className="input-group mb-3">
-                                        <select onChange={handleSelectionChange} value={selectedValue}>
-                                            <option value="1">0 Phòng</option>
-                                            <option value="2">1 Phòng</option>
-                                            <option value="3">2 Phòng </option>
-                                            <option value="4">3 Phòng </option>
-                                            <option value="5">4 Phòng </option>
-                                            <option value="6">5 Phòng </option>
-                                        </select>
-                                    </div>
+                                <select onChange={handleSelectionChange} value={selectedValue}>
+                                {Array.from({ length: numberRoom + 1 }).map((_, index) => (
+                                <option key={index} value={index.toString()}>
+                                 {index} Phòng
+                                </option>
+                                    ))}
+                                </select>
                                 </Col>
                             </Row>
                         </Col>

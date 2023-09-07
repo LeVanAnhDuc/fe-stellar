@@ -82,6 +82,10 @@ function ListOfTransaction() {
                                         <span>Tổng tiền:</span>
                                         <span>{item.totalprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</span>
                                     </div>
+                                    <div>
+                                        <span>Trạng thái:</span>
+                                        <span>{item.status}</span>
+                                    </div>
                                 </div>
                             );
                         })}

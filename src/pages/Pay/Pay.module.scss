@@ -23,47 +23,7 @@
         .section-2{
             background-color: white;
             padding: 4rem 3rem;
-           .content-1{
-            
-            .form{
-                background-color: #E9ECEF;
-              
-                label{
-                    font-size: 1.5rem;
-                    font-weight: bold;
-                    margin: 1rem 2rem;
-                    margin-top: 4rem;
-                }
-                .card{
-                    border: 1px solid black;
-                    border-radius: 5px;
-                    width: 92%;
-                    height: 4rem;
-                    margin: 0 2rem;
-                    margin-bottom: 2rem;
-                    
-                }
-                .btn{
-                    display: flex;
-                    justify-content: flex-end;
-                    margin: 5rem 0;
-                   
-                    p{
-                        font-size: 1.5rem;
-                        font-weight: bold;
-                        color: #0D6EFD;
-                        margin-right: 1rem;
-                        margin-top: 1rem;
-                      
-                    }
-                    Button{
-                        margin-right: 3rem;
-                        margin-bottom: 3rem;
-                    }
-                }
-               
-            }
-           }
+           
            
         .content-2{
             .form{
@@ -84,18 +44,36 @@
                     
                 }
                 .text{
-                    margin-top: 3rem;
+                    margin-top: 2rem;
                     display: flex;
                     justify-content: space-between;
                     label{
-                        margin-top: 0;
+                        margin-top: 15px;
                         color: #6C757D;
                     }
                     p{
+                        margin-top: 15px;
                         color: #0D6EFD;
                     }
                 }
-                Button{ margin: 2rem auto;}
+                .btn{
+                    display: flex;
+                    justify-content: center;
+                    margin: 5rem 0;
+                   
+                    p{
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        color: #0D6EFD;
+                        margin-right: 1rem;
+                        margin-top: 1rem;
+                      
+                    }
+                    Button{
+                        margin-right: 3rem;
+                        margin-bottom: 3rem;
+                    }
+                }
             }
         }
         @media screen and (max-width: 1340px){

@@ -8,4 +8,12 @@ const getNumberAvailableRooms = async (params) => {
         throw error;
     }
 }
-export default {getNumberAvailableRooms};
+const getParametersRoom = async (params) => {
+    try {
+        const response = await axios.get('/room/get-parameters-room/', {params});
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+export default {getNumberAvailableRooms, getParametersRoom};
