@@ -13,13 +13,13 @@ function ViewPrice() {
     const [selectedValue, setSelectedValue] = useState('0');
     const [checkinDate, setDatecheckin] = useState(Date.now());
     const [checkoutDate, setDatecheckout] = useState(Date.now()+86400000);
-    const [typeRoom, setIdTypeRoom] = useState('64f6f31e26e1510e094d5ac7');
+    const [typeRoom, setIdTypeRoom] = useState('');
     const [numberRoom, setNumberRoom] = useState(0);
     const [typeRoomInfo, setTypeRoomInfo] = useState( {name: '',description: '', image: ["https://res.cloudinary.com/drzp9tafy/image/upload/v1693905165/ExecutiveCityView1_hynorn.jpg"]});
     const [priceRoom, setPriceRoom] = useState({price: []});
     const [selectedPriceValue, setSelectedPriceValue] = useState('');
     const isSelectionOne = selectedValue === '0';
-   
+      
     useEffect(() => {
     const storeCheckin = localStorage.getItem('datecheckin');
     const storeCheckout = localStorage.getItem('datecheckout');
@@ -27,6 +27,7 @@ function ViewPrice() {
     setDatecheckin(storeCheckin);
     setDatecheckout(storeCheckout);
     setIdTypeRoom(idTypeRoomvalue);
+   
     async function fetchPriceRoom() {
         try {
             const response = await roomApi.getParametersRoom({ typeRoom: typeRoom });
@@ -38,12 +39,12 @@ function ViewPrice() {
                 setSelectedPriceValue(result.prices[0])  
                 localStorage.setItem('priceOneRoom', result.prices[0])
             }
-            
         } catch (error) {
-            throw error;
+           console.log(error);
         }}
 
     async function fetchNumberRoom() {
+      
         const formattedCheckinDate = formatDate(checkinDate);
         const formattedCheckoutDate = formatDate(checkoutDate);
         try {
@@ -57,11 +58,12 @@ function ViewPrice() {
             setNumberRoom(result);
             localStorage.setItem('numberDate', response.data.dDate);
         } catch (error) {
-            throw error;
+            console.log(error);
         }
     }
     async function fetchTypeRoom() {
         try {
+           
             const response = await typeRoomApi.getRoomTypeById({ idTypeRoom: typeRoom });
             const result = response.data;
             setTypeRoomInfo({
@@ -72,9 +74,8 @@ function ViewPrice() {
             localStorage.setItem('RoomName', result.name);
             
         } catch (error) {
-            throw error;
+            console.log(error);
         }}
-
         fetchPriceRoom();
         fetchNumberRoom();
         fetchTypeRoom();

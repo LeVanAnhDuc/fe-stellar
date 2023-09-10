@@ -5,7 +5,6 @@ import { useState, useEffect} from 'react';
 import Button from '../../components/Button';
 import config from '../../config';
 
-import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -36,27 +35,29 @@ function MyReservation() {
     
     useEffect(() => {
         async function fetchUser() {
-            const res = await userApi.getProfile();
-            const value = res.data.data;
-            setUser({
-                userName: value.userName,
-                phoneNumber: value.phoneNumber,
-                email: value.email,
-                gender: value.gender,
-                nationality: value.nationality,
-                yearOfBirth: +value.yearOfBirth,
+             await userApi.getProfile().then((res) => {
+                const value = res.data.data;
+                setUser({
+                    userName: value.userName,
+                    phoneNumber: value.phoneNumber,
+                    email: value.email,
+                    gender: value.gender,
+                    nationality: value.nationality,
+                    yearOfBirth: +value.yearOfBirth,
+                })
+            }).catch((error) => {
+                    alert(error.response.data.message); 
             });
         }
         fetchUser();
     }, []);
-
-    const updateUser = async (email, userName, phoneNumber, gender, nationality, yearOfBirth) => {
+    
+    const updateUser = async (email, userName, phoneNumber,  nationality, yearOfBirth) => {
         try {
-            gender= user.gender
-            
-            await userApi.updateProfile(email, userName, phoneNumber, gender, nationality, yearOfBirth);
-        } catch {
-            toast.error('Update error');
+           const userGender = user.gender;
+            await userApi.updateProfile(email, userName, phoneNumber, userGender, nationality, yearOfBirth);
+        } catch (error){
+           alert(error.response.data.message);
         }
     };
 
@@ -79,7 +80,7 @@ function MyReservation() {
             navigate(config.Routes.pay);
         }).catch((error) => {
             alert(error.response.data.message); 
-            navigate(config.Routes.home);
+            navigate(config.Routes.login);
         });
     };
 

@@ -30,7 +30,7 @@ function BookRoom() {
     const [datecheckout, setDatecheckout] = useState('');
     const [typeRoom, setTypeRoom] = useState([]);
     const [typeRoomId, setTypeRoomId] = useState('');
-
+    const [style, setStyle] = useState([]);
     const location = useLocation();
 
     useEffect(() => {
@@ -73,6 +73,8 @@ function BookRoom() {
         const value = response.data;
         if (Array.isArray(value)) {
             setTypeRoom(value);
+            const initialStyles = value.map((_, index) => (index % 2 !== 0 ? 'row-reverse' : 'row'));
+            setStyle(initialStyles);
         } else {
             console.error('Received data is not an array:', value);
         }
@@ -87,7 +89,6 @@ function BookRoom() {
         setShow(true);
     };
   
-
     return (
         <>
             <div className={cx('hero')}>
@@ -162,7 +163,7 @@ function BookRoom() {
             {Array.isArray(typeRoom) ? (
                 typeRoom.map((item, index) => (
                     <Container className={cx('container')} fluid="md" key={item._id} id={item._id}>
-                        <Row className={cx('row')} style={{ flexDirection: item.id % 2 === 0 ? 'row-reverse' : 'row' }}>
+                        <Row className={cx('row')} style={{ flexDirection: style[index] }}>
                             <Col>
                             <Carousel
                                 className={cx('item-wrapper')}
