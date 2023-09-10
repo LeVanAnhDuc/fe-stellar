@@ -68,6 +68,8 @@ function Register() {
         setIsValidPassword(passwordPattern.test(password));
     };
 
+    console.log(email)
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
