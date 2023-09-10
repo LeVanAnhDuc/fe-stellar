@@ -37,7 +37,6 @@ const publishRoute = [
     { path: config.Routes.register, component: Register, layout: null },
     { path: config.Routes.forgotPassword, component: ForgotPassword.ForgotPassword, layout: null },
     { path: config.Routes.OTP, component: ForgotPassword.OTP, layout: null },
-
     { path: config.Routes.error, component: Error404, layout: null },
 ];
 

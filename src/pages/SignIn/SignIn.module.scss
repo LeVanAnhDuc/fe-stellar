@@ -99,33 +99,3 @@
         transform: translateY(-50%);
     }
 }
-
-.remember-forgot {
-    display: flex;
-    justify-content: space-between;
-    margin: -5px 0 5px;
-
-    .remember {
-        color: #fff;
-    }
-
-    .link {
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}
-
-.register-link {
-    font-size: 1.5rem;
-    text-align: center;
-    margin: 20px 0 15px;
-
-    a {
-        font-weight: 600;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}

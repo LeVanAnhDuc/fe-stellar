@@ -27,18 +27,24 @@ function Account({ name = 'Name', onClick }) {
                     setUserName(response.data.data.userName);
                 })
                 .catch((error) => {
-                    console.error('Error fetching user name:', error);
+                    console.error('Error ftching user name:', error);
                 });
         }
 
         fetchUserName();
-    }, []);
+    }, [userName]);
 
     const handelLogout = async () => {
-        await authApi.logout().then(() => {
-            localStorage.clear();
-            navigate('/dang-nhap');
-        });
+        await authApi
+            .logout()
+            .then(() => {
+                localStorage.clear();
+                navigate('/dang-nhap');
+            })
+            .catch(() => {
+                localStorage.clear();
+                navigate('/dang-nhap');
+            });
     };
 
     return (
