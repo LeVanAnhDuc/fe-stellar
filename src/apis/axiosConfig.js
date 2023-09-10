@@ -77,9 +77,6 @@ instance.interceptors.response.use(
                     return Promise.reject(error);
                 });
         } else {
-            localStorage.clear();
-            const navigate = useNavigate();
-            navigate(config.Routes.home);
             return Promise.reject(error);
         }
     },
