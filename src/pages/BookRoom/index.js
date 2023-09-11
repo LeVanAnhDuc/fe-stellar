@@ -70,7 +70,7 @@ function BookRoom() {
     
     const fetchTypeRoom = async () => {
         const response = await typeRoomApi.getRoomType();
-        const value = response.data;
+        const value = response.data.data;
         if (Array.isArray(value)) {
             setTypeRoom(value);
             const initialStyles = value.map((_, index) => (index % 2 !== 0 ? 'row-reverse' : 'row'));
@@ -82,6 +82,7 @@ function BookRoom() {
     useEffect(() => {
         fetchTypeRoom();
     }, []);
+
 
     const handleShow = (idTypeRoom) => {
         setTypeRoomId(idTypeRoom);

@@ -46,8 +46,9 @@ function MyReservation() {
                     yearOfBirth: +value.yearOfBirth,
                 })
             }).catch((error) => {
-                    alert(error.response.data.message); 
+                navigate(config.Routes.signIn);
             });
+
         }
         fetchUser();
     }, []);
@@ -56,9 +57,10 @@ function MyReservation() {
         try {
            const userGender = user.gender;
             await userApi.updateProfile(email, userName, phoneNumber, userGender, nationality, yearOfBirth);
-        } catch (error){
-           alert(error.response.data.message);
-        }
+        } 
+        catch {
+            navigate(config.Routes.signIn);
+        };
     };
 
     const handleCheckboxChange = () => {
@@ -79,8 +81,7 @@ function MyReservation() {
             localStorage.setItem('totalRoomPrice', res.data.data.totalPrice);
             navigate(config.Routes.pay);
         }).catch((error) => {
-            alert(error.response.data.message); 
-            navigate(config.Routes.login);
+            navigate(config.Routes.signIn);
         });
     };
 

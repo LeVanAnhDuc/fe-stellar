@@ -1,6 +1,6 @@
 import styles from './RestaurentAndBar.module.scss';
 import classNames from 'classnames/bind';
-import { rest1, rest2, rest3, bar1, bar2, bar3, buffet1, rest4, buffet2 } from '../../assets/images/restaurent';
+import { rest1, rest2, bar1,  buffet1,  } from '../../assets/images/restaurent';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
 import Button from '../../components/Button';
 import config from '../../config';
@@ -23,7 +23,7 @@ function RestaurentAndBar() {
         };
         fetchRestaurent();
     }, [])
-    
+
     return (
         <>
             <div className={cx('hero')}>
@@ -51,11 +51,11 @@ function RestaurentAndBar() {
                 </Carousel>
             </div>
             <div >
-                
                     {
-                        Array.isArray(restaurent) ?( restaurent.map((item, index) => (
-                            <Container fluid="md" className={cx('section-1')}>
-                            <Row key={index} className={cx('px-0', 'content')}>
+                        Array.isArray(restaurent) &&
+                        ( restaurent.map((item, index) => (
+                            <Container fluid="md" key={item._id} className={cx('section-1')}>
+                            <Row  className={cx('px-0', 'content')}>
                                 <Col >
                                     <img src={item.image[0]} alt="rest1" className={cx('image')} />
                                 </Col>
@@ -89,9 +89,7 @@ function RestaurentAndBar() {
                                      </Button>
                                  </Row>
                              </Container>
-                        ))):(
-                            <p>Loading.....</p>
-                        )
+                        )))
                     
                     }
               
