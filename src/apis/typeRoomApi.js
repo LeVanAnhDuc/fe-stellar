@@ -2,8 +2,9 @@ import axios from './axiosConfig.js';
 
 const getRoomType = async () => {
     try {
-        const response = await axios.get('/type-room/');
-        return response.data;
+        const response = await axios.get('/type-room');
+        console.log(response);
+        return response;
     } catch (error) {
         throw error;
     }

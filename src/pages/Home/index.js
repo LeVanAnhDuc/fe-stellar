@@ -8,7 +8,7 @@ import { Carousel, Container, Row, Col, Modal, ModalBody } from 'react-bootstrap
 import Slider from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import '../BookRoom';
 
@@ -40,7 +40,7 @@ import {
 } from '../../assets/images/home';
 import SliderHero from '../../components/SliderHero';
 import config from '../../config';
-import { typeRoomApi } from '../../apis'
+import { typeRoomApi } from '../../apis';
 
 const cx = classNames.bind(styles);
 
@@ -49,6 +49,22 @@ function Home() {
     const heroImages = [sliderHero1, sliderHero2, sliderHero3, sliderHero4];
 
     // Section 2
+    const [typeRooms, setTypeRooms] = useState();
+    useEffect(() => {
+        async function fetchTypeRooms() {
+            await typeRoomApi
+                .getRoomType()
+                .then((response) => {
+                    console.log(response.data.data);
+                    setTypeRooms(response.data.data);
+                })
+                .catch((error) => {
+                    console.error('Error ftching', error);
+                });
+        }
+
+        fetchTypeRooms();
+    }, []);
     const section2Images = [
         {
             id: 'home-s2-image-1',
@@ -327,18 +343,19 @@ function Home() {
                     </Row>
                     <Row className={cx('content-wrapper')}>
                         <Slider className="px-0" {...s2SliderSettings}>
-                            {section2Images.map((item) => (
-                                <div className={cx('slider-item')} key={item.id}>
-                                    <img src={item.image} alt={item.name} />
-                                    <Button
-                                        className={cx('btn')}
-                                        outline_2={true}
-                                        to={config.Routes.bookRoom + item.to}
-                                    >
-                                        {item.name}
-                                    </Button>
-                                </div>
-                            ))}
+                            {Array.isArray(typeRooms) &&
+                                typeRooms.map((item) => (
+                                    <div className={cx('slider-item')} key={item._id}>
+                                        <img src={item.image[0]} alt={item.name} />
+                                        <Button
+                                            className={cx('btn')}
+                                            outline_2={true}
+                                            // to={config.Routes.bookRoom + item.to}
+                                        >
+                                            {item.name}
+                                        </Button>
+                                    </div>
+                                ))}
                         </Slider>
                     </Row>
                 </Container>
