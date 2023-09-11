@@ -8,7 +8,7 @@ import { Carousel, Container, Row, Col, Modal, ModalBody } from 'react-bootstrap
 import Slider from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import '../BookRoom';
 
@@ -40,6 +40,7 @@ import {
 } from '../../assets/images/home';
 import SliderHero from '../../components/SliderHero';
 import config from '../../config';
+import { typeRoomApi } from '../../apis';
 
 const cx = classNames.bind(styles);
 
@@ -48,6 +49,22 @@ function Home() {
     const heroImages = [sliderHero1, sliderHero2, sliderHero3, sliderHero4];
 
     // Section 2
+    const [typeRooms, setTypeRooms] = useState();
+    useEffect(() => {
+        async function fetchTypeRooms() {
+            await typeRoomApi
+                .getRoomType()
+                .then((response) => {
+                    console.log(response.data.data);
+                    setTypeRooms(response.data.data);
+                })
+                .catch((error) => {
+                    console.error('Error ftching', error);
+                });
+        }
+
+        fetchTypeRooms();
+    }, []);
     const section2Images = [
         {
             id: 'home-s2-image-1',
@@ -206,8 +223,23 @@ function Home() {
         },
     ];
 
-    // Section 8
-    const s8PhotoLibrariy = [
+    const s8SliderSettings = {
+        focusOnSelect: true,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 10000,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        prevArrow: <CustomPrevArrow />,
+        nextArrow: <CustomNextArrow />,
+    };
+
+    const [showModal, setShowModal] = useState(false);
+    const [indexPhotoLibrariy, setIndexPhotoLibrariy] = useState(0);
+
+    const imgPhotoLibrariy = [
         {
             id: 'home-s8-photoLibrariy-1',
             image: photoLibrary1,
@@ -230,20 +262,29 @@ function Home() {
         },
     ];
 
-    const s8SliderSettings = {
-        focusOnSelect: true,
-        infinite: true,
-        autoplay: true,
-        autoplaySpeed: 10000,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        initialSlide: 0,
-        prevArrow: <CustomPrevArrow />,
-        nextArrow: <CustomNextArrow />,
-    };
+    const handelImgPhotoLibrariy = (index) => {
+        // Tìm index của selectedId trong mảng
+        const selectedIndex = index;
+        const length = imgPhotoLibrariy.length;
+        let startIndex = 0;
 
-    const [showModal, setShowModal] = useState(false);
+        if (selectedIndex >= 0 && selectedIndex < length) {
+            const updatedData = [];
+
+            for (let i = 0; i < length; i++) {
+                if (i === 0) {
+                    updatedData.push(imgPhotoLibrariy[selectedIndex]);
+                } else if (selectedIndex + i <= length - 1) {
+                    updatedData.push(imgPhotoLibrariy[selectedIndex + i]);
+                } else {
+                    updatedData.push(imgPhotoLibrariy[startIndex++]);
+                }
+            }
+
+            return updatedData;
+        }
+        return imgPhotoLibrariy;
+    };
 
     return (
         <>
@@ -302,18 +343,19 @@ function Home() {
                     </Row>
                     <Row className={cx('content-wrapper')}>
                         <Slider className="px-0" {...s2SliderSettings}>
-                            {section2Images.map((item) => (
-                                <div className={cx('slider-item')} key={item.id}>
-                                    <img src={item.image} alt={item.name} />
-                                    <Button
-                                        className={cx('btn')}
-                                        outline_2={true}
-                                        to={config.Routes.bookRoom + item.to}
-                                    >
-                                        {item.name}
-                                    </Button>
-                                </div>
-                            ))}
+                            {Array.isArray(typeRooms) &&
+                                typeRooms.map((item) => (
+                                    <div className={cx('slider-item')} key={item._id}>
+                                        <img src={item.image[0]} alt={item.name} />
+                                        <Button
+                                            className={cx('btn')}
+                                            outline_2={true}
+                                            // to={config.Routes.bookRoom + item.to}
+                                        >
+                                            {item.name}
+                                        </Button>
+                                    </div>
+                                ))}
                         </Slider>
                     </Row>
                 </Container>
@@ -456,8 +498,8 @@ function Home() {
                         </div>
                     </Row>
                 </Container>
-                {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.375736707316!2d106.76933281027874!3d10.850632389258081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752763f23816ab%3A0x282f711441b6916f!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTxrAgcGjhuqFtIEvhu7kgdGh14bqtdCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!5e1!3m2!1svi!2s!4v1690684807626!5m2!1svi!2s"></iframe> */}
-                <Map />
+
+                <Map className={cx('map')} />
             </div>
 
             {/* Section 7 */}
@@ -496,12 +538,13 @@ function Home() {
                 </Container>
 
                 <div className={cx('content-wrapper')}>
-                    {s8PhotoLibrariy.map((item, index) => (
+                    {imgPhotoLibrariy.map((item, index) => (
                         <div md="6" key={item.id} className={cx('item')}>
                             <img
                                 src={item.image}
                                 alt={item.id}
                                 onClick={() => {
+                                    setIndexPhotoLibrariy(index);
                                     setShowModal(true);
                                 }}
                             />
@@ -519,7 +562,7 @@ function Home() {
                 onHide={() => setShowModal(false)}
             >
                 <Slider className="px-0" {...s8SliderSettings}>
-                    {s8PhotoLibrariy.map((item) => {
+                    {handelImgPhotoLibrariy(indexPhotoLibrariy).map((item) => {
                         return (
                             <ModalBody className={cx('slider-item')} key={item.id + '-modal'}>
                                 <img src={item.image} alt="Thư viện ảnh" />
