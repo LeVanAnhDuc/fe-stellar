@@ -7,26 +7,35 @@ import { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import { listOfTransaction } from '../../assets/images/listOfTransaction';
+import { bookingRoomApi } from '../../apis/index';
 
 const cx = classNames.bind(styles);
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
 function ListOfTransaction() {
-    const [currentItems, setcurrentItems] = useState([]);
+    const [listItems, setlistItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
-    const [itemOffset, setItemOffset] = useState(0);
+
+    const [pageNumber, setPageNumber] = useState(1);
     const itemsPerPage = 4;
 
+    const getListBooking = async (page, size = itemsPerPage) => {
+        const res = await bookingRoomApi.getTransactionHistory(page, size);
+        setlistItems(res.data.data);
+    };
+    const getTotalBooking = async () => {
+        const res = await bookingRoomApi.getTotalTransactionHistory();
+        setPageCount(Math.ceil(res.data.data.totalTransactionHistory / itemsPerPage));
+    };
     useEffect(() => {
-        const endOffset = itemOffset + itemsPerPage;
-        setcurrentItems(items.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(items.length / itemsPerPage));
-    }, [itemOffset, items]);
+        getListBooking(pageNumber);
+    }, [pageNumber]);
+
+    useEffect(() => {
+        getTotalBooking();
+    }, []);
 
     const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % items.length;
-        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-        setItemOffset(newOffset);
+        setPageNumber(event.selected + 1);
     };
     return (
         <>
@@ -48,24 +57,34 @@ function ListOfTransaction() {
             <div className={cx('content-wrapper')}>
                 <Container fluid="md" className={cx('my-container')}>
                     <Row className={cx('px-0', 'items')}>
-                        {currentItems.map((currentElement, index) => {
+                        {listItems.map((item, index) => {
                             return (
                                 <div key={'item' + index} className={cx('px-0', 'item')}>
                                     <div>
                                         <span>Mã giao dịch:</span>
-                                        <span>DV001</span>
+                                        <span>{item._id}</span>
                                     </div>
                                     <div>
-                                        <span>Tên giao dịch:</span>
-                                        <span>Dịch vụ 1</span>
+                                        <span>Loại phòng:</span>
+                                        <span>
+                                            {item.typeRoom} [{item.quantity}]
+                                        </span>
                                     </div>
                                     <div>
                                         <span>Ngày bắt đầu:</span>
-                                        <span>01/01/2023</span>
+                                        <span>{item.checkinDate}</span>
                                     </div>
                                     <div>
                                         <span>Ngày kết thúc:</span>
-                                        <span>01/01/2023</span>
+                                        <span>{item.checkoutDate}</span>
+                                    </div>
+                                    <div>
+                                        <span>Tổng tiền:</span>
+                                        <span>{item.totalprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</span>
+                                    </div>
+                                    <div>
+                                        <span>Trạng thái:</span>
+                                        <span>{item.status}</span>
                                     </div>
                                 </div>
                             );

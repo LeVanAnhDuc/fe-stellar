@@ -5,16 +5,9 @@ import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 import Image from '../../components/Image';
+import { typeRoomApi} from '../../apis';
 //import {InfoRoomRight, InfoRoomLeft} from './InfoRoom';
 import {
-    Deluxe1,
-    Deluxe2,
-    Executive1,
-    Executive2,
-    Suite1,
-    Suite2,
-    Superior1,
-    Superior2,
     pic1,
     pic2,
     pic3,
@@ -28,7 +21,18 @@ import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 function BookRoom() {
+    const images = [pic1, pic2, pic3];
+   
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    
+    const [datecheckin, setDatecheckin] = useState('');
+    const [datecheckout, setDatecheckout] = useState('');
+    const [typeRoom, setTypeRoom] = useState([]);
+    const [typeRoomId, setTypeRoomId] = useState('');
+    const [style, setStyle] = useState([]);
     const location = useLocation();
+
     useEffect(() => {
         if (location.hash) {
             // Lấy phần tử có id tương ứng với hash
@@ -49,61 +53,42 @@ function BookRoom() {
         }
     }, [location.hash, location]);
 
-    const images = [pic1, pic2, pic3];
-    const room = [
-        {
-            id: 1,
-            hash: 'rSuperiorDoubleOrTwin',
-            name: 'Phòng Superior Double Or Twin',
-            acreage: '23m2',
-            typebed: 'Giường đôi hoặc 02 giường đơn',
-            capacity: '2 người lớn',
-            view: 'Phòng không có cửa sổ',
-            description:
-                'Phòng nghỉ Stellar - Superior Double Or Twin mang đến sự ấm cúng bởi nét duyên dáng của lịch sử và những tiện nghi hiện đại nhất. Với sàn nhà kết hợp gỗ và gạch ốp, giường đôi thoải mái và đồ nội thất trang nhã, tất cả tạo nên sự cân bằng giữa “cổ điển” và “hiện đại”.',
-            images: [Superior1, Superior2],
-        },
-        {
-            id: 2,
-            hash: 'rDeluxeDouble',
-            name: 'Phòng Deluxe Double',
-            acreage: '23m2',
-            typebed: 'Giường đôi',
-            capacity: '2 người lớn',
-            view: 'Phòng không có cửa sổ',
-            description:
-                'Phòng nghỉ Stellar - Deluxe Double, căn phòng ấm áp này mang lại sự hoàn hảo trong kỳ nghỉ tại Sài Gòn. Không gian làm việc kết nối với các tiện nghi phòng nghỉ, cùng giường ngủ với bộ chăn lông vũ êm ái, chất liệu cao cấp cùng dịch vụ phục vụ phòng tận nơi mang lại sự thoải mái và thư giãn tối đa',
-            images: [Deluxe1, Deluxe2],
-        },
-        {
-            id: 3,
-            hash: 'rExecutiveCityView',
-            name: 'Phòng Executive City View',
-            acreage: '40m2',
-            typebed: '02 Giường đơn',
-            capacity: '2 người lớn',
-            view: 'Thành phố',
-            description:
-                'Với hai cửa sổ lớn cho quang cảnh tuyệt vời nhìn ra thành phố, Phòng Executive City View mang lại cho quý khách một không gian thoáng đãng, rộng mở. được trang trí bằng sàn gỗ kết hợp gạch, những món đồ nội thất phảng phất phong cách Đông Dương kết hợp những tiện nghi hiện đại tạo nên một tổng thể hài hoà, đương đại mà quý khách có thể trải nghiệm để cảm nhận nét đẹp Sài Gòn chuẩn xác nhất.',
-            images: [Executive1, Executive2],
-        },
-        {
-            id: 4,
-            hash: 'rSuiteGarden',
-            name: 'Phòng Suite Garden',
-            acreage: '40m2',
-            typebed: '01 giường queen',
-            capacity: '2 người lớn',
-            view: 'Thành phố',
-            description:
-                'Phòng Suite Garden được phối hợp phong cách hiện đại với cảm hứng từ cây xanh, rộng rãi, hoàn hảo cho các kì nghỉ cuối tuần hay chuyến khám phá của quý khách. Ban công rộng và được sắp xếp để quý khách luôn cảm nhận được không khí trong lành, gió nhẹ lay và bóng mát từ các tán cây. Loại phòng nghỉ này đáp ứng đầy đủ nhu cầu ngắm nhìn đường phố, tận hưởng những giây phút đắm mình trong bồn tắm bể sục.',
-            images: [Suite1, Suite2],
-        },
-    ];
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    
+    const handleCheckin = (e) => {
+        setDatecheckin(e.target.value);
+        localStorage.setItem('datecheckin', e.target.value);
+    };
+    const handleCheckout = (e) => {
+        setDatecheckout(e.target.value);
+        localStorage.setItem('datecheckout', e.target.value);
+    };
 
+    const minDate = () => {
+        const today = new Date().toISOString().split('T')[0];
+        return today;
+    };
+    
+    const fetchTypeRoom = async () => {
+        const response = await typeRoomApi.getRoomType();
+        const value = response.data;
+        if (Array.isArray(value)) {
+            setTypeRoom(value);
+            const initialStyles = value.map((_, index) => (index % 2 !== 0 ? 'row-reverse' : 'row'));
+            setStyle(initialStyles);
+        } else {
+            console.error('Received data is not an array:', value);
+        }
+    };
+    useEffect(() => {
+        fetchTypeRoom();
+    }, []);
+
+    const handleShow = (idTypeRoom) => {
+        setTypeRoomId(idTypeRoom);
+        localStorage.setItem('typeRoomId', idTypeRoom);
+        setShow(true);
+    };
+  
     return (
         <>
             <div className={cx('hero')}>
@@ -174,32 +159,38 @@ function BookRoom() {
                 </Row>
             </Container>
             <div className={cx('Room')}>
-                {room.map((item, index) => (
-                    <Container className={cx('container')} fluid="md" key={item.id} id={item.hash}>
-                        <Row className={cx('row')} style={{ flexDirection: item.id % 2 === 0 ? 'row-reverse' : 'row' }}>
+           
+            {Array.isArray(typeRoom) ? (
+                typeRoom.map((item, index) => (
+                    <Container className={cx('container')} fluid="md" key={item._id} id={item._id}>
+                        <Row className={cx('row')} style={{ flexDirection: style[index] }}>
                             <Col>
-                                <Carousel
-                                    className={cx('item-wrapper')}
-                                    controls={false}
-                                    wrap={true}
-                                    indicators={false}
-                                    interval={3000}
-                                >
-                                    {item.images.map((image, index) => (
-                                        <Carousel.Item key={index} className={cx('item')}>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url(${image})`,
-                                                    backgroundSize: 'cover',
-                                                    backgroundPosition: 'center',
-                                                    backgroundRepeat: 'no-repeat',
-                                                    maxWidth: '100%',
-                                                    height: '100%',
-                                                }}
-                                            ></div>
-                                        </Carousel.Item>
-                                    ))}
-                                </Carousel>
+                            <Carousel
+                                className={cx('item-wrapper')}
+                                controls={false}
+                                wrap={true}
+                                indicators={false}
+                                interval={3000}
+                            >
+                            {Array.isArray(item.image) ? (
+                                item.image.map((image, index) => (
+                                <Carousel.Item key={index} className={cx('item')}>
+                            <div
+                                style={{
+                                backgroundImage: `url(${image})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                backgroundRepeat: 'no-repeat',
+                                maxWidth: '100%',
+                                height: '100%',
+                            }}
+                            ></div>
+                            </Carousel.Item>
+                            ))
+                             ) : (
+                            <div>Không có hình ảnh</div>
+                            )}
+                            </Carousel>
                             </Col>
                             <Col>
                                 <h1>{item.name}</h1>
@@ -244,34 +235,31 @@ function BookRoom() {
                                         </ul>
                                     </Col>
                                 </Row>
-                                <Button filled_1 className={cx('btn')} onClick={handleShow}>
+                                <Button filled_1 className={cx('btn')} onClick={() => handleShow(item._id)} >
                                     {' '}
                                     Đặt phòng
                                 </Button>
                             </Col>
                         </Row>
-                        <Modal size="xl" show={show} onHide={handleClose}>
+                        <Modal size="xl" show={show} onHide={handleClose} >
                             <Modal.Header closeButton></Modal.Header>
                             <div className={cx('Search')}>
                                 <div className={cx('date')}>
                                     Ngày nhập phòng:
-                                    <input type="date" />
+                                    <input type="date"  min={minDate()} max={datecheckout} onChange={handleCheckin} value={datecheckin}/>
                                     Ngày trả phòng:
-                                    <input type="date" />
+                                    <input type="date"  min={datecheckin} onChange={handleCheckout} value={datecheckout}/>
                                 </div>
-                                <div className={cx('date')}>
-                                    Người lớn:
-                                    <input type="number" min="0" max="5" placeholder="1" />
-                                    Trẻ em:
-                                    <input type="number" min="0" max="5" placeholder="1" />
-                                </div>
-                                <Button className={cx('btn')} to={config.Routes.viewPrice}>
+                                <Button className={cx('btn')} to={config.Routes.viewPrice} >
                                     Đặt phòng
                                 </Button>
                             </div>
                         </Modal>
                     </Container>
-                ))}
+               ))
+               ) : (
+                <div>Loading...</div>
+               )}
             </div>
             <div id="demo"></div>
         </>
