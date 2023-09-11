@@ -16,6 +16,11 @@ const noToken = [
     '/auth/sendotp-forgotpass',
     '/auth/checkotp-forgotpass',
     '/auth/forgetpass',
+    '/type-room/',
+    'type-room/get-type-room-by-id/',
+    '/room/get-number-available-rooms/',
+    '/room/get-parameters-room/',
+    
 ];
 
 // Xử lý trước khi xuống server

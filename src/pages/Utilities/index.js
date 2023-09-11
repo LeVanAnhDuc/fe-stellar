@@ -83,7 +83,7 @@ function Utilities() {
                     <div id={utilies.name} key={index} className={cx('content')}>
                         <Container fluid="md" className={cx('content')} style={{ flexDirection: style[index] }}>
                         <Col className={cx('px-0','Image')} >
-                        <Image src={utilies.image} className={cx('ImageUtilies')}/>
+                        <Image src={utilies.image[0]} className={cx('ImageUtilies')}/>
                         </Col>
                         <Col className={cx('content-2')}>
                             <h1 className={cx('content-header')}>{utilies.name}</h1>

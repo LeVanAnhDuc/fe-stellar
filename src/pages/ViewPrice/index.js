@@ -18,6 +18,12 @@ function ViewPrice() {
     const [typeRoomInfo, setTypeRoomInfo] = useState( {name: '',description: '', image: ["https://res.cloudinary.com/drzp9tafy/image/upload/v1693905165/ExecutiveCityView1_hynorn.jpg"]});
     const [priceRoom, setPriceRoom] = useState({price: []});
     const [selectedPriceValue, setSelectedPriceValue] = useState('');
+    const [acreages, setAcreages] = useState({acreages: []});
+    const [selectedAcreagesValue, setSelectedAcreagesValue] = useState('');
+    const [typeBed, setTypeBed] = useState({typeBeds: []});
+    const [selectedTypeBedValue, setSelectedTypeBedValue] = useState('');
+    const [view, setView] = useState({views: []});
+    const [selectedViewValue, setSelectedViewValue] = useState('');
     const isSelectionOne = selectedValue === '0';
       
     useEffect(() => {
@@ -35,9 +41,27 @@ function ViewPrice() {
             setPriceRoom({
               price: result.prices
             });
-            if(selectedPriceValue === ''  ){
+            setAcreages({
+                acreages: result.acreages
+            })
+            setTypeBed({
+                typeBeds: result.typeBeds
+            })
+            setView({
+                views: result.views
+            })
+            if(selectedPriceValue === ''   ){
                 setSelectedPriceValue(result.prices[0])  
                 localStorage.setItem('priceOneRoom', result.prices[0])
+            }
+            if(selectedAcreagesValue === ''   ){
+                setSelectedAcreagesValue(result.acreages[0])  
+            }
+            if(selectedTypeBedValue === ''   ){
+                setSelectedTypeBedValue(result.typeBeds[0])  
+            }
+            if(selectedViewValue === ''   ){
+                setSelectedViewValue(result.views[0])  
             }
         } catch (error) {
            console.log(error);
@@ -52,7 +76,11 @@ function ViewPrice() {
                 typeRoom,
                 checkinDate: formattedCheckinDate,
                 checkoutDate: formattedCheckoutDate,
+                acreage: selectedAcreagesValue,
                 prices: selectedPriceValue,
+                typeBed: selectedTypeBedValue,
+                view: selectedViewValue,
+                
             });
            const result =response.data.result;
             setNumberRoom(result);
@@ -80,8 +108,7 @@ function ViewPrice() {
         fetchNumberRoom();
         fetchTypeRoom();
        
-    }, [ checkinDate,checkoutDate,typeRoom, selectedPriceValue]);
-   
+    }, [ checkinDate,checkoutDate,typeRoom, selectedPriceValue, selectedAcreagesValue, selectedTypeBedValue, selectedViewValue]);
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = date.getDate().toString().padStart(2, '0');
@@ -89,7 +116,6 @@ function ViewPrice() {
         const year = date.getFullYear();
         return `${day}-${month}-${year}`;
     };
-    console.log(checkinDate, checkoutDate)
     const handleCheckin = (e) => {
         setDatecheckin(e.target.value)
         localStorage.setItem('datecheckin', e.target.value);
@@ -109,12 +135,19 @@ function ViewPrice() {
         setSelectedPriceValue(event.target.value);
         localStorage.setItem('priceOneRoom', event.target.value);
     };
-
+    const handleSelectionAcreagesChange = (event) => {
+        setSelectedAcreagesValue(event.target.value);
+    };
+    const handleSelectionTypeBedChange = (event) => {
+        setSelectedTypeBedValue(event.target.value);
+    };
+    const handleSelectionViewChange = (event) => {
+        setSelectedViewValue(event.target.value);
+    };
     const minDate = () => {
         const today = new Date().toISOString().split('T')[0];
         return today;
     };
-    
 
     return (
         <>
@@ -174,12 +207,44 @@ function ViewPrice() {
                                    {typeRoomInfo.description}
                                 </p>
                                 <div style={{ display: ' flex' }}>
-                                    <p>
-                                        <b>Diện tích: </b> 40 m2{' '}
-                                    </p>
-                                    <p>
-                                        <b>Loại giường:</b> 1 giường queen
-                                    </p>
+                                   <p>Diện tích:</p>
+                                <select onChange={handleSelectionAcreagesChange} value={selectedAcreagesValue}>
+                                    {Array.isArray(acreages.acreages)? (
+                                        acreages.acreages.map((acreage, index) => (
+                                        <option key={index} value={acreage}>
+                                            {acreage} 
+                                        </option>
+                                        ))
+                                    ) : (
+                                        <option value="">No Acreages available</option>
+                                    )}
+                                    </select>
+                                   <p>Loại phòng:</p>
+                                <select onChange={handleSelectionTypeBedChange} value={selectedTypeBedValue}>
+                                    {Array.isArray(acreages.acreages)? (
+                                        typeBed.typeBeds.map((typeBed, index) => (
+                                        <option key={index} value={typeBed}>
+                                            {typeBed} 
+                                        </option>
+                                        ))
+                                    ) : (
+                                        <option value="">No Acreages available</option>
+                                    )}
+                                    </select>
+                                    <p>Hướng nhìn:</p>
+                                <select onChange={handleSelectionViewChange} value={selectedViewValue}>
+                                    {Array.isArray(view.views)? (
+                                        view.views.map((view, index) => (
+                                        <option key={index} value={view}>
+                                            {view} 
+                                        </option>
+                                        ))
+                                    ) : (
+                                        <option value="">No Acreages available</option>
+                                    )}
+                                    </select>
+                                    
+                                    
                                 </div>
                                 <a href={config.Routes.bookRoom}>
                                     <i>Xem các tiện ích</i>
