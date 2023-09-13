@@ -55,7 +55,7 @@ function Home() {
             await typeRoomApi
                 .getRoomType()
                 .then((response) => {
-                    console.log(response.data.data);
+                    console.log('>> check list:', response.data.data);
                     setTypeRooms(response.data.data);
                 })
                 .catch((error) => {
@@ -350,7 +350,7 @@ function Home() {
                                         <Button
                                             className={cx('btn')}
                                             outline_2={true}
-                                            // to={config.Routes.bookRoom + item.to}
+                                            to={config.Routes.bookRoom + '#' + item._id}
                                         >
                                             {item.name}
                                         </Button>

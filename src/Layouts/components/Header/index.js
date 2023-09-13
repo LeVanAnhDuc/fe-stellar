@@ -39,22 +39,22 @@ const TITLE_HEADER = [
             {
                 title: 'Superior Double Or Twin',
                 id: '2',
-                to: '#rSuperiorDoubleOrTwin',
+                to: '#64fe74632590c9ca9d33483c',
             },
             {
                 title: 'Deluxe Double',
                 id: '3',
-                to: '#rDeluxeDouble',
+                to: '#64fe74632590c9ca9d33483d',
             },
             {
                 title: 'Executive City View',
                 id: '4',
-                to: '#rExecutiveCityView',
+                to: '#64fe74632590c9ca9d33483e',
             },
             {
                 title: 'Suite Garden',
                 id: '5',
-                to: '#rSuiteGarden',
+                to: '#64fe74632590c9ca9d33483f',
             },
         ],
     },
