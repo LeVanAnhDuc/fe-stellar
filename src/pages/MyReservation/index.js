@@ -48,7 +48,6 @@ function MyReservation() {
             }).catch((error) => {
                 navigate(config.Routes.signIn);
             });
-
         }
         fetchUser();
     }, []);

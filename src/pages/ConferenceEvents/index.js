@@ -3,10 +3,70 @@ import classNames from 'classnames/bind';
 import { Carousel } from 'react-bootstrap';
 import { pic1, pic2, pic3, pic4 } from '../../assets/images/conference';
 import Button from '../../components/Button';
+import { useState,  useRef } from 'react';
+import {conferenceApi} from '../../apis';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 function ConferenceEvents() {
     const images = [pic1, pic2, pic3, pic4];
+    const notificationRef = useRef(null);
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    
+    const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleChangeName = (e) => {
+        setName(e.target.value);
+    };
+
+    const handleChangePhoneNumber = (e) => {
+        setPhoneNumber(e.target.value);
+    };
+
+    const handleChangeEmail = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handleChangeMessage = (e) => {
+        setMessage(e.target.value);
+    };
+    
+    const validatePhoneNumber = () => {
+        const phoneNumberPattern = /^\d{10}$/;
+        setIsValidPhoneNumber(phoneNumberPattern.test(phoneNumber));
+    };
+
+    const validateEmail = () => {
+        // Sử dụng biểu thức chính quy (regex) để kiểm tra tính hợp lệ của email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValidEmail(emailPattern.test(email));
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        event.preventDefault();
+        if(isValidEmail && isValidPhoneNumber){
+            await conferenceApi.createContact(name, email, phoneNumber, message)
+            .then(async (response) => {
+                toast.success('Gửi thông tin thành công');
+                setName('');
+                setEmail('');
+                setPhoneNumber('');
+                setMessage('');
+            })
+            .catch((error) => {
+                notificationRef.current.classList.remove(cx('hidden'));
+                notificationRef.current.classList.add(cx('error'));
+                notificationRef.current.textContent = error.response.data.message;
+            });
+    }
+        
+        }
     return (
         <>
             <div className={cx('hero')}>
@@ -60,10 +120,22 @@ function ConferenceEvents() {
                 <div className={cx('content')}>
                     <h1>LIÊN HỆ NHẬN BÁO GIÁ</h1>
                     <h3>Điền thông tin liên hệ đặt hội nghị - sự kiện để được tư vấn và nhận giá tốt nhất</h3>
-                    <input className={cx('name')} type="text" placeholder="Họ và tên" />
-                    <input className={cx('email')} type="text" placeholder="Email" />
-                    <textarea name="subject" className={cx('email', 'mess')} placeholder="Lời nhắn..."></textarea>
-                    <Button filled_1>Gửi thông tin</Button>
+                    <input className={cx('name')} required type="text" placeholder="Họ và tên" value={name} onChange={handleChangeName} />
+                    <input className={cx('email')} required type="text" placeholder="Email" 
+                     value={email}
+                     onChange={handleChangeEmail}
+                     isInvalid={!isValidEmail}
+                     onBlur={validateEmail} 
+                     />
+                    <input className={cx('email')} required type="phoneNumber" placeholder="Số điện thoại"
+                    value={phoneNumber}
+                    onChange={handleChangePhoneNumber}
+                    isInvalid={!isValidPhoneNumber}
+                    onBlur={validatePhoneNumber}  
+                    />
+                    <textarea name="subject" className={cx('email', 'mess')} value={message} onChange={handleChangeMessage} placeholder="Lời nhắn..."></textarea>
+                    <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
+                    <Button filled_1 onClick= {handleSubmit}>Gửi thông tin</Button>
                 </div>
             </div>
         </>
