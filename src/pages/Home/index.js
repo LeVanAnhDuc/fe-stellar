@@ -65,32 +65,6 @@ function Home() {
 
         fetchTypeRooms();
     }, []);
-    const section2Images = [
-        {
-            id: 'home-s2-image-1',
-            image: rSuperiorDoubleOrTwin,
-            name: 'Phòng Superior Double Or Twin',
-            to: '#rSuperiorDoubleOrTwin',
-        },
-        {
-            id: 'home-s2-image-2',
-            image: rDeluxeDouble,
-            name: 'Phòng Deluxe Double',
-            to: '#rDeluxeDouble',
-        },
-        {
-            id: 'home-s2-image-3',
-            image: rExecutiveCityView,
-            name: 'Phòng Executive City View',
-            to: '#rExecutiveCityView',
-        },
-        {
-            id: 'home-s2-image-4',
-            image: rSuiteGarden,
-            name: 'Phòng Suite Garden',
-            to: '#rSuiteGarden',
-        },
-    ];
 
     const CustomPrevArrow = (props) => {
         const { onClick } = props;
@@ -160,28 +134,34 @@ function Home() {
         {
             id: 'home-s3-restaurantImage-1',
             image: restaurant1,
+            to: '#64fe74632590c9ca9d33485a',
         },
         {
             id: 'home-s3-restaurantImage-2',
             image: restaurant2,
+            to: '#64fe74632590c9ca9d33485a',
         },
         {
             id: 'home-s3-restaurantImage-3',
             image: restaurant3,
+            to: '#64fe74632590c9ca9d33485a',
         },
     ];
     const section3BarImages = [
         {
             id: 'home-s3-barImage-1',
             image: bar1,
+            to: '#64fe74632590c9ca9d33485b',
         },
         {
             id: 'home-s3-barImage-2',
             image: bar2,
+            to: '#64fe74632590c9ca9d33485b',
         },
         {
             id: 'home-s3-barImage-3',
             image: bar3,
+            to: '#64fe74632590c9ca9d33485b',
         },
     ];
 
@@ -389,7 +369,11 @@ function Home() {
                                 {section3RestaurantImages.map((item) => (
                                     <Carousel.Item key={item.id} className={cx('item')}>
                                         <img src={item.image} alt={item.image} />
-                                        <Button className={cx('btn')} filled_2={true} disable>
+                                        <Button
+                                            className={cx('btn')}
+                                            filled_2={true}
+                                            to={config.Routes.restaurentAndBar + item.to}
+                                        >
                                             Tìm hiểu thêm
                                         </Button>
                                     </Carousel.Item>
@@ -407,7 +391,11 @@ function Home() {
                                 {section3BarImages.map((item) => (
                                     <Carousel.Item key={item.id} className={cx('item')}>
                                         <img src={item.image} alt={item.image} />
-                                        <Button className={cx('btn')} filled_2={true} disable>
+                                        <Button
+                                            className={cx('btn')}
+                                            filled_2={true}
+                                            to={config.Routes.restaurentAndBar + item.to}
+                                        >
                                             Tìm hiểu thêm
                                         </Button>
                                     </Carousel.Item>
