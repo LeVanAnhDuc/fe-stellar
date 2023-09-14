@@ -168,7 +168,7 @@ function Header() {
                                 // visible={true}
 
                                 hideOnClick={false}
-                                offset={[-1000, 10]}
+                                offset={[-90, 10]}
                                 interactive={true}
                                 delay={[0, 300]}
                                 placement="bottom-start"
@@ -181,7 +181,7 @@ function Header() {
                                                         activeButton === index ? cx('btn-active-responsive') : cx('btn')
                                                     }
                                                     none_1
-                                                    to={item.to}
+                                                    to={item.to === null ? config.Routes.bookRoom : item.to}
                                                     key={index}
                                                     onClick={() => handleActive(index)}
                                                 >
