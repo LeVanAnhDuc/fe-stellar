@@ -23,10 +23,10 @@ function SignIn() {
     const [isValidEmail, setIsValidEmail] = useState(true); // validate mail
     const [isValidPassword, setIsValidPassword] = useState(true); // validate password
     const [rememberMe, setRememberMe] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const notificationRef = useRef(null);
 
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
 
     const handleChangeEmail = (e) => {
@@ -101,7 +101,7 @@ function SignIn() {
                         <Form.Control
                             className={cx('input')}
                             required
-                            type="password"
+                            type={!showPassword && "password" || 'text'}
                             placeholder="Password"
                             value={password}
                             onChange={handleChangePassWord}
