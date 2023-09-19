@@ -73,9 +73,23 @@
                     }
                 }
             }
-            .notification{
-                color: red;
-                font-size: 12px;
+
+            .hidden {
+                display: none;
+            }
+
+            .success {
+                color: var(--color-Success);
+                font-size: 1.8rem;
+                text-align: center;
+                background-color: rgb(255, 255, 255);
+                border: 0;
+                border-radius: 0;
+            }
+
+            .error {
+                color: var(--color-Danger);
+                font-size: 1.8rem;
                 text-align: center;
                 background-color: rgb(255, 255, 255);
                 border: 0;

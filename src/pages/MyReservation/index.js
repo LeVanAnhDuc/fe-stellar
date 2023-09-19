@@ -1,14 +1,14 @@
 import styles from './MyReservation.module.scss';
 import classNames from 'classnames/bind';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import config from '../../config';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import {  bookingRoomApi, userApi} from '../../apis/index.js';
+import { bookingRoomApi, userApi } from '../../apis/index.js';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
@@ -21,7 +21,7 @@ function MyReservation() {
         return `${day}-${month}-${year}`;
     };
     const [validated, setValidated] = useState(false);
-    const [disabled, setDisabled] = useState(false); 
+    const [disabled, setDisabled] = useState(false);
     const [user, setUser] = useState({});
     const [isChecked, setIsChecked] = useState(false);
     const checkinDate = formatDate(localStorage.getItem('datecheckin'));
@@ -33,64 +33,67 @@ function MyReservation() {
     const numberDate = localStorage.getItem('numberDate');
     const totalRoomPrice = numberRoom * priceRoom;
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         async function fetchUser() {
-             await userApi.getProfile().then((res) => {
-                const value = res.data.data;
-                setUser({
-                    userName: value.userName,
-                    phoneNumber: value.phoneNumber,
-                    email: value.email,
-                    gender: value.gender,
-                    nationality: value.nationality,
-                    yearOfBirth: +value.yearOfBirth,
+            await userApi
+                .getProfile()
+                .then((res) => {
+                    const value = res.data.data;
+                    setUser({
+                        userName: value.userName,
+                        phoneNumber: value.phoneNumber,
+                        email: value.email,
+                        gender: value.gender,
+                        nationality: value.nationality,
+                        yearOfBirth: +value.yearOfBirth,
+                    });
                 })
-            }).catch((error) => {
-                toast.error('Vui lòng đăng nhập để đặt phòng');
-                navigate(config.Routes.signIn);
-            });
+                .catch((error) => {
+                    toast.error('Vui lòng đăng nhập để đặt phòng');
+                    navigate(config.Routes.signIn);
+                });
         }
         fetchUser();
     }, []);
-    
-    const updateUser = async (email, userName, phoneNumber,  nationality, yearOfBirth) => {
-        try {
-           const userGender = user.gender;
-            await userApi.updateProfile(email, userName, phoneNumber, userGender, nationality, yearOfBirth)
-            .catch((error) => {
-                toast.error('Vui lòng kiểm tra thông tin bạn chỉnh sửa');
-                setIsChecked(false);
-                setDisabled(false);
 
-            });
-        } 
-        catch {
+    const updateUser = async (email, userName, phoneNumber, nationality, yearOfBirth) => {
+        try {
+            const userGender = user.gender;
+            await userApi
+                .updateProfile(email, userName, phoneNumber, userGender, nationality, yearOfBirth)
+                .catch((error) => {
+                    toast.error('Vui lòng kiểm tra thông tin bạn chỉnh sửa');
+                    setIsChecked(false);
+                    setDisabled(false);
+                });
+        } catch {
             toast.error('Vui lòng đăng nhập để đặt phòng');
             navigate(config.Routes.signIn);
-        };
+        }
     };
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
-   
 
     const handleBookingRoom = async () => {
-         await bookingRoomApi.bookingRoom({
-            checkinDate,
-            checkoutDate,
-            typeRoom,
-            quantity: numberRoom,
-            prices: priceRoom,
-        }).then((res) => {
-          
-            localStorage.setItem('idBooking', res.data.data.id);
-            localStorage.setItem('totalRoomPrice', res.data.data.totalPrice);
-            navigate(config.Routes.pay);
-        }).catch((error) => {
-            navigate(config.Routes.signIn);
-        });
+        await bookingRoomApi
+            .bookingRoom({
+                checkinDate,
+                checkoutDate,
+                typeRoom,
+                quantity: numberRoom,
+                prices: priceRoom,
+            })
+            .then((res) => {
+                localStorage.setItem('idBooking', res.data.data.id);
+                localStorage.setItem('totalRoomPrice', res.data.data.totalPrice);
+                navigate(config.Routes.pay);
+            })
+            .catch((error) => {
+                navigate(config.Routes.signIn);
+            });
     };
 
     const handleChangeName = (e) => {
@@ -99,7 +102,7 @@ function MyReservation() {
             userName: e.target.value,
         });
     };
-   
+
     const handleChangeEmail = (e) => {
         setUser({
             ...user,
@@ -120,7 +123,7 @@ function MyReservation() {
             event.preventDefault();
             event.stopPropagation();
         }
-        updateUser(user.email, user.userName, user.phoneNumber,user.nationality);
+        updateUser(user.email, user.userName, user.phoneNumber, user.nationality);
         setValidated(true);
         setDisabled(true);
     };
@@ -138,14 +141,21 @@ function MyReservation() {
                             <p>Ngày trả: {checkoutDate} cho đến 12:00 </p>
                             <a href="/xem-gia">(Bạn có muốn chuyển ngày du lịch?)</a>
                             <div className={cx('content')}>
-                                <p>{room}   <FontAwesomeIcon 
+                                <p>
+                                    {room}{' '}
+                                    <FontAwesomeIcon
                                         data-toggle="tooltip"
                                         data-placement="top"
-                                        title={title} icon={faCircleExclamation} /></p>  
-                                  
+                                        title={title}
+                                        icon={faCircleExclamation}
+                                    />
+                                </p>
+
                                 <div className={cx('detail')}>
-                                <p> Số lượng {numberRoom} phòng</p>
-                                    <p>{numberRoom} * {priceRoom} VNĐ</p> 
+                                    <p> Số lượng {numberRoom} phòng</p>
+                                    <p>
+                                        {numberRoom} * {priceRoom} VNĐ
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -157,20 +167,38 @@ function MyReservation() {
                             <div className={cx('section-3')}>
                                 <Row>
                                     <p>Tên *</p>
-                                    <input type="text" className={cx('email')} id="name" onChange={handleChangeName} value={user.userName} disabled={disabled} />
+                                    <input
+                                        type="text"
+                                        className={cx('email')}
+                                        id="name"
+                                        onChange={handleChangeName}
+                                        value={user.userName}
+                                        disabled={disabled}
+                                    />
                                 </Row>
                                 <Row>
                                     <p>Email *</p>
-                                    <input type="text" className={cx('email')} id="email" onChange={handleChangeEmail} value={user.email} disabled={disabled} />
+                                    <input
+                                        type="text"
+                                        className={cx('email')}
+                                        id="email"
+                                        onChange={handleChangeEmail}
+                                        value={user.email}
+                                        disabled={disabled}
+                                    />
                                 </Row>
                                 <Row className={cx('phone')}>
                                     <Col>
                                         <p>Số điện thoại liên lạc *</p>
-                                        <input type="text" id="phone" onChange={handleChangePhone} value={user.phoneNumber} disabled={disabled}/>
+                                        <input
+                                            type="text"
+                                            id="phone"
+                                            onChange={handleChangePhone}
+                                            value={user.phoneNumber}
+                                            disabled={disabled}
+                                        />
                                     </Col>
-                                    
                                 </Row>
-                                
                             </div>
                         </Col>
                         <Col>
@@ -204,7 +232,7 @@ function MyReservation() {
                                         cạnh.
                                     </p>
                                 </div>
-                                <Button className={cx('btn')} filled_1 disable={!isChecked }  onClick={handleBookingRoom}>
+                                <Button className={cx('btn')} filled_1 disable={!isChecked} onClick={handleBookingRoom}>
                                     Xác nhận đặt phòng
                                 </Button>
                             </div>

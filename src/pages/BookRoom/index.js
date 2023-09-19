@@ -3,62 +3,84 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
 import Image from '../../components/Image';
 import { typeRoomApi } from '../../apis';
-//import {InfoRoomRight, InfoRoomLeft} from './InfoRoom';
 import { pic1, pic2, pic3, introRoom } from '../../assets/images/bookroom';
 import styles from './BookRoom.module.scss';
 import Button from '../../components/Button';
 import config from '../../config';
 import { useLocation } from 'react-router';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { dateTimeFormat, DateStrFormat, nDate } from './timeZone';
 
 const cx = classNames.bind(styles);
+
 function BookRoom() {
     const images = [pic1, pic2, pic3];
-
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+    const [datecheckin, setDatecheckin] = useState(dateTimeFormat(new Date(), DateStrFormat.INPUT_TYPE_DATE));
+    const [datecheckout, setDatecheckout] = useState(
+        dateTimeFormat(
+            nDate(new Date(dateTimeFormat(new Date(), DateStrFormat.INPUT_TYPE_DATE))),
+            DateStrFormat.INPUT_TYPE_DATE,
+        ),
+    );
 
-    const [datecheckin, setDatecheckin] = useState('');
-    const [datecheckout, setDatecheckout] = useState('');
     const [typeRoom, setTypeRoom] = useState([]);
-    const [typeRoomId, setTypeRoomId] = useState('');
+    // const [typeRoomId, setTypeRoomId] = useState('');
     const [style, setStyle] = useState([]);
 
     const handleCheckin = (e) => {
         setDatecheckin(e.target.value);
-        localStorage.setItem('datecheckin', e.target.value);
     };
+
     const handleCheckout = (e) => {
         setDatecheckout(e.target.value);
-        localStorage.setItem('datecheckout', e.target.value);
     };
 
-    const minDate = () => {
-        const today = new Date().toISOString().split('T')[0];
-        return today;
-    };
+    useEffect(() => {
+        let ignore = false;
+        if (!ignore) {
+            localStorage.setItem('datecheckin', datecheckin);
+            localStorage.setItem('datecheckout', datecheckout);
+        }
+
+        return () => {
+            ignore = true;
+        };
+    }, [datecheckin, datecheckout]);
 
     const fetchTypeRoom = async () => {
-        const response = await typeRoomApi.getRoomType();
-        const value = response.data.data;
-        if (Array.isArray(value)) {
-            console.log(value);
-            setTypeRoom(value);
-            const initialStyles = value.map((_, index) => (index % 2 !== 0 ? 'row-reverse' : 'row'));
-            setStyle(initialStyles);
-        } else {
-            console.error('Received data is not an array:', value);
-        }
+        await typeRoomApi
+            .getRoomType()
+            .then((response) => {
+                const value = response.data.data;
+                if (Array.isArray(value)) {
+                    setTypeRoom(value);
+                    const initialStyles = value.map((_, index) => (index % 2 !== 0 ? 'row-reverse' : 'row'));
+                    setStyle(initialStyles);
+                } else {
+                    toast.error('Received data is not an array:', value);
+                }
+            })
+            .catch((error) => {
+                toast.error(error.response?.data.message ?? 'Mất kết nối server!');
+            });
     };
+
     useEffect(() => {
-        fetchTypeRoom();
+        let ignore = false;
+        !ignore && fetchTypeRoom();
+
+        return () => {
+            ignore = true;
+        };
     }, []);
 
     const handleShow = (idTypeRoom) => {
-        setTypeRoomId(idTypeRoom);
+        // setTypeRoomId(idTypeRoom);
         localStorage.setItem('typeRoomId', idTypeRoom);
         setShow(true);
     };
@@ -66,24 +88,48 @@ function BookRoom() {
     // path den id
     const location = useLocation();
     useEffect(() => {
-        if (location.hash) {
-            // Lấy phần tử có id tương ứng với hash
-            const targetElement = document.getElementById(location.hash.substring(1));
+        let ignore = false;
+        if (!ignore) {
+            if (location.hash) {
+                // Lấy phần tử có id tương ứng với hash
+                const targetElement = document.getElementById(location.hash.substring(1));
 
-            // Nếu phần tử tồn tại, tính toán vị trí để cuộn tới
-            if (targetElement) {
-                const yOffset = -120; // Điều chỉnh dựa trên độ cao của fixed header (nếu có)
-                const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                // Nếu phần tử tồn tại, tính toán vị trí để cuộn tới
+                if (targetElement) {
+                    const yOffset = -120; // Điều chỉnh dựa trên độ cao của fixed header (nếu có)
+                    const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-                // Cuộn tới vị trí tính toán được
-                window.scrollTo({ top: y, behavior: 'smooth' });
+                    // Cuộn tới vị trí tính toán được
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        return () => {
+            ignore = true;
+        };
     }, [location.hash, location, typeRoom]);
+
+    useEffect(() => {
+        let ignore = false;
+        if (new Date(datecheckin) >= new Date(datecheckout) && !ignore) {
+            toast.error('Invalid date');
+            setDatecheckin(dateTimeFormat(new Date(), DateStrFormat.INPUT_TYPE_DATE));
+            setDatecheckout(
+                dateTimeFormat(
+                    nDate(new Date(dateTimeFormat(new Date(), DateStrFormat.INPUT_TYPE_DATE))),
+                    DateStrFormat.INPUT_TYPE_DATE,
+                ),
+            );
+        }
+        return () => {
+            ignore = true;
+        };
+    }, [datecheckin, datecheckout]);
 
     return (
         <>
@@ -110,24 +156,6 @@ function BookRoom() {
                         </Carousel.Item>
                     ))}
                 </Carousel>
-                <Container fluid="md">
-                    <div className={cx('content-wrapper')}>
-                        <div className={cx('input-date')}>
-                            <span className={cx('date')}>
-                                Check in
-                                <input type="date"></input>
-                            </span>
-                            <span className={cx('date')}>
-                                Check out
-                                <input type="date"></input>
-                            </span>
-                        </div>
-
-                        <Button to={config.Routes.viewPrice} className={cx('btn')}>
-                            CHECK AVAILABILITY
-                        </Button>
-                    </div>
-                </Container>
             </div>
             <Container fluid="md">
                 <Row className={cx('Intro')}>
@@ -243,7 +271,7 @@ function BookRoom() {
                                         Ngày nhập phòng:
                                         <input
                                             type="date"
-                                            min={minDate()}
+                                            min={dateTimeFormat(new Date(), DateStrFormat.INPUT_TYPE_DATE)}
                                             max={datecheckout}
                                             onChange={handleCheckin}
                                             value={datecheckin}
@@ -251,7 +279,7 @@ function BookRoom() {
                                         Ngày trả phòng:
                                         <input
                                             type="date"
-                                            min={datecheckin}
+                                            min={dateTimeFormat(new Date(), DateStrFormat.INPUT_TYPE_DATE)}
                                             onChange={handleCheckout}
                                             value={datecheckout}
                                         />

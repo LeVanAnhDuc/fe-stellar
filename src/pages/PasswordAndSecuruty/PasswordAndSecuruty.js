@@ -1,32 +1,27 @@
 import classNames from 'classnames/bind';
 import styles from './PasswordAndSecurity.module.scss';
 import { useNavigate } from 'react-router-dom';
-
 import Button from 'react-bootstrap/Button';
-
 import Form from 'react-bootstrap/Form';
 import { authApi } from '../../apis';
-import { useState } from 'react';
-
 
 const cx = classNames.bind(styles);
 
 function PasswordAndSecurity() {
-    const [validated, setValidated] = useState(false);
+    // const [validated, setValidated] = useState(false);
     const navigate = useNavigate();
-    const handleSubmit = async(event) => {
-        
+    const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        await authApi.resetPass_SendOTP()
-        .then((response) => {
-            console.log(response);
-            navigate('/doi-mat-khau');
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-       
+        await authApi
+            .resetPass_SendOTP()
+            .then((response) => {
+                console.log(response);
+                navigate('/doi-mat-khau');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
     return (
         <div className={cx('wrapper')}>
@@ -37,9 +32,8 @@ function PasswordAndSecurity() {
             </div>
             <div className={cx('section-2')}>
                 <div className={cx('back-ground')}>
-                    <Form className={cx('form')} noValidate validated={validated} onSubmit={handleSubmit}>
-                
-                        <Button className={cx('btn')} type="submit" >
+                    <Form className={cx('form')} noValidate onSubmit={handleSubmit}>
+                        <Button className={cx('btn')} type="submit">
                             Đổi mật khẩu
                         </Button>
                     </Form>

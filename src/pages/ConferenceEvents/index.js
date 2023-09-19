@@ -51,7 +51,7 @@ function ConferenceEvents() {
         event.preventDefault();
         event.stopPropagation();
 
-        if (name === '' && email === '' && phoneNumber === '' && message === '') {
+        if (name === '' || email === '' || phoneNumber === '' || message === '') {
             notificationRef.current.classList.remove(cx('hidden'));
             notificationRef.current.classList.add(cx('error'));
             notificationRef.current.textContent = 'Vui lòng nhập đầy đủ thông tin!';
@@ -85,7 +85,7 @@ function ConferenceEvents() {
                 });
         }
     };
-    
+
     return (
         <>
             <div className={cx('hero')}>

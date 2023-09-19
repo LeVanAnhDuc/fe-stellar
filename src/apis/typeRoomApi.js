@@ -18,4 +18,5 @@ const getRoomTypeById = async (params) => {
         throw error;
     }
 };
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { getRoomType, getRoomTypeById };

@@ -9,8 +9,8 @@ import { Container, Row } from 'react-bootstrap';
 import SliderHero from '../../components/SliderHero';
 import Map from '../../components/Map';
 import { toast } from 'react-toastify';
-import {conferenceApi} from '../../apis';
-import { useState,  useRef } from 'react';
+import { conferenceApi } from '../../apis';
+import { useState, useRef } from 'react';
 
 import { sliderHero1, sliderHero2, sliderHero3, sliderHero4 } from '../../assets/images/home';
 
@@ -21,7 +21,7 @@ function Contact() {
     const notificationRef = useRef(null);
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    
+
     const [emailValid, setEmailValid] = useState(true);
     const [phoneNumberValid, setPhoneNumberValid] = useState(true);
     const [name, setName] = useState('');
@@ -36,7 +36,7 @@ function Contact() {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setEmailValid(emailPattern.test(emailValue));
     };
-    
+
     const handleChangePhoneNumber = (e) => {
         const phoneNumberValue = e.target.value;
         setPhoneNumber(phoneNumberValue);
@@ -47,33 +47,55 @@ function Contact() {
     const handleChangeMessage = (e) => {
         setMessage(e.target.value);
     };
-    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        event.preventDefault();
-        if(emailValid && phoneNumberValid){
-            await conferenceApi.createContact(name, email, phoneNumber, message)
-            .then(async (response) => {
-                toast.success('Gửi thông tin thành công');
-                setName('');
-                setEmail('');
-                setPhoneNumber('');
-                setMessage('');
-            })
-            .catch((error) => {
-                notificationRef.current.classList.remove(cx('hidden'));
-                notificationRef.current.classList.add(cx('error'));
-                notificationRef.current.textContent = error.response.data.message;
-            });
-    }else{
-        notificationRef.current.classList.remove(cx('hidden'));
-        notificationRef.current.classList.add(cx('error'));
-        notificationRef.current.textContent = 'Email hoặc số điện thoại không hợp lệ!';
-    }
-        
+
+        if (name === '' || email === '' || phoneNumber === '' || message === '') {
+            notificationRef.current.classList.remove(cx('hidden'));
+            notificationRef.current.classList.add(cx('error'));
+            notificationRef.current.textContent = 'Vui lòng nhập đầy đủ thông tin!';
+
+            setTimeout(() => {
+                notificationRef?.current?.classList?.remove(cx('error'));
+                notificationRef?.current?.classList?.remove(cx('success'));
+                notificationRef?.current?.classList?.add(cx('hidden'));
+            }, 2000);
+        } else if (emailValid && phoneNumberValid) {
+            await conferenceApi
+                .createContact(name, email, phoneNumber, message)
+                .then(async (response) => {
+                    toast.success('Gửi thông tin thành công');
+                    setName('');
+                    setEmail('');
+                    setPhoneNumber('');
+                    setMessage('');
+                })
+                .catch((error) => {
+                    notificationRef.current.classList.remove(cx('hidden'));
+                    notificationRef.current.classList.add(cx('error'));
+                    notificationRef.current.textContent = error.response?.data.message ?? 'Mất kết nối server!';
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        notificationRef?.current?.classList?.remove(cx('error'));
+                        notificationRef?.current?.classList?.remove(cx('success'));
+                        notificationRef?.current?.classList?.add(cx('hidden'));
+                    }, 2000);
+                });
+        } else {
+            notificationRef.current.classList.remove(cx('hidden'));
+            notificationRef.current.classList.add(cx('error'));
+            notificationRef.current.textContent = 'Email hoặc số điện thoại không hợp lệ!';
+
+            setTimeout(() => {
+                notificationRef?.current?.classList?.remove(cx('error'));
+                notificationRef?.current?.classList?.remove(cx('success'));
+                notificationRef?.current?.classList?.add(cx('hidden'));
+            }, 2000);
         }
+    };
 
     return (
         <>
@@ -87,12 +109,17 @@ function Contact() {
                         <form>
                             <div htmlFor="name">
                                 <label htmlFor="name">Họ và tên:</label>
-                                <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" 
-                                onChange={handleChangeName}/>
+                                <input
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    placeholder="Nguyễn Văn A"
+                                    onChange={handleChangeName}
+                                />
                             </div>
-                            <div >
+                            <div>
                                 <label htmlFor="email">Email:</label>
-                                 <input
+                                <input
                                     id="email"
                                     name="email"
                                     type="text"
@@ -114,12 +141,10 @@ function Contact() {
                             </div>
                             <div>
                                 <label htmlFor="massage">Massage:</label>
-                                <textarea id="massage" name="massage"
-                                onChange={handleChangeMessage}
-                                ></textarea>
+                                <textarea id="massage" name="massage" onChange={handleChangeMessage}></textarea>
                             </div>
                             <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
-                            <Button className={cx('btn')} filled_1={true} onClick= {handleSubmit}>
+                            <Button className={cx('btn')} filled_1={true} onClick={handleSubmit}>
                                 Gửi tin nhắn
                             </Button>
                         </form>
