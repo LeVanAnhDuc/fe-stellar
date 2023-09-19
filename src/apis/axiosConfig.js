@@ -20,11 +20,8 @@ const noToken = [
     'type-room/get-type-room-by-id/',
     '/room/get-number-available-rooms/',
     '/room/get-parameters-room/',
-    
 ];
 
-// Xử lý trước khi xuống server
-// Xử lý token và làm mới token khi cần
 instance.interceptors.request.use(
     async (config) => {
         if (
@@ -76,9 +73,6 @@ instance.interceptors.response.use(
                     return instance(originalRequest);
                 })
                 .catch((error) => {
-                    localStorage.clear();
-                    const navigate = useNavigate();
-                    navigate(config.Routes.signIn);
                     return Promise.reject(error);
                 });
         } else {

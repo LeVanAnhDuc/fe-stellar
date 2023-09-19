@@ -1,9 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-
 import Button from '../../components/Button';
 import Map from '../../components/Map';
-
 import { Carousel, Container, Row, Col, Modal, ModalBody } from 'react-bootstrap';
 import Slider from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,10 +16,6 @@ import {
     sliderHero3,
     sliderHero4,
     aboutStellar,
-    rSuperiorDoubleOrTwin,
-    rDeluxeDouble,
-    rExecutiveCityView,
-    rSuiteGarden,
     restaurant1,
     restaurant2,
     restaurant3,
@@ -41,6 +35,7 @@ import {
 import SliderHero from '../../components/SliderHero';
 import config from '../../config';
 import { typeRoomApi } from '../../apis';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -51,19 +46,23 @@ function Home() {
     // Section 2
     const [typeRooms, setTypeRooms] = useState();
     useEffect(() => {
+        let ignore = false;
         async function fetchTypeRooms() {
             await typeRoomApi
                 .getRoomType()
                 .then((response) => {
-                    console.log('>> check list:', response.data.data);
                     setTypeRooms(response.data.data);
                 })
                 .catch((error) => {
-                    console.error('Error ftching', error);
+                    toast.error(error.response?.data.message ?? 'Mất kết nối server!');
                 });
         }
 
-        fetchTypeRooms();
+        !ignore && fetchTypeRooms();
+
+        return () => {
+            ignore = true;
+        };
     }, []);
 
     const CustomPrevArrow = (props) => {
@@ -348,7 +347,7 @@ function Home() {
                     <Row>
                         <div className={cx('px-0', 'heading-wrapper')}>
                             <h1>NHÀ HÀNG & QUÁN BAR</h1>
-                            <Button className={cx('btn')} outline_1={true}>
+                            <Button className={cx('btn')} outline_1={true} to={config.Routes.restaurentAndBar}>
                                 Khám phá
                             </Button>
                             <p>
@@ -470,7 +469,7 @@ function Home() {
 
                 <div className={cx('heading-wrapper')}>
                     <h1>THƯ GIÃN TẠI STELLAR HOTEL</h1>
-                    <Button className={cx('btn')} filled_2={true}>
+                    <Button className={cx('btn')} filled_2={true} to={config.Routes.contact}>
                         Trải nghiệm
                     </Button>
                 </div>

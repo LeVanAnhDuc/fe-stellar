@@ -3,8 +3,9 @@ import classNames from 'classnames/bind';
 import { Carousel } from 'react-bootstrap';
 import { pic1, pic2, pic3, pic4 } from '../../assets/images/conference';
 import Button from '../../components/Button';
-import { useState,  useRef } from 'react';
-import {conferenceApi} from '../../apis';
+import Form from 'react-bootstrap/Form';
+import { useState, useRef } from 'react';
+import { conferenceApi } from '../../apis';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
@@ -13,7 +14,7 @@ function ConferenceEvents() {
     const notificationRef = useRef(null);
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    
+
     const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [name, setName] = useState('');
@@ -34,7 +35,7 @@ function ConferenceEvents() {
     const handleChangeMessage = (e) => {
         setMessage(e.target.value);
     };
-    
+
     const validatePhoneNumber = () => {
         const phoneNumberPattern = /^\d{10}$/;
         setIsValidPhoneNumber(phoneNumberPattern.test(phoneNumber));
@@ -49,24 +50,41 @@ function ConferenceEvents() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        event.preventDefault();
-        if(isValidEmail && isValidPhoneNumber){
-            await conferenceApi.createContact(name, email, phoneNumber, message)
-            .then(async (response) => {
-                toast.success('Gửi thông tin thành công');
-                setName('');
-                setEmail('');
-                setPhoneNumber('');
-                setMessage('');
-            })
-            .catch((error) => {
-                notificationRef.current.classList.remove(cx('hidden'));
-                notificationRef.current.classList.add(cx('error'));
-                notificationRef.current.textContent = error.response.data.message;
-            });
-    }
-        
+
+        if (name === '' && email === '' && phoneNumber === '' && message === '') {
+            notificationRef.current.classList.remove(cx('hidden'));
+            notificationRef.current.classList.add(cx('error'));
+            notificationRef.current.textContent = 'Vui lòng nhập đầy đủ thông tin!';
+
+            setTimeout(() => {
+                notificationRef?.current?.classList?.remove(cx('error'));
+                notificationRef?.current?.classList?.remove(cx('success'));
+                notificationRef?.current?.classList?.add(cx('hidden'));
+            }, 2000);
+        } else if (isValidEmail && isValidPhoneNumber) {
+            await conferenceApi
+                .createContact(name, email, phoneNumber, message)
+                .then(async (response) => {
+                    toast.success('Gửi thông tin thành công');
+                    setName('');
+                    setEmail('');
+                    setPhoneNumber('');
+                    setMessage('');
+                })
+                .catch((error) => {
+                    notificationRef.current.classList.remove(cx('hidden'));
+                    notificationRef.current.classList.add(cx('error'));
+                    notificationRef.current.textContent = error.response?.data.message ?? 'Mất kết nối server!';
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        notificationRef?.current?.classList?.remove(cx('error'));
+                        notificationRef?.current?.classList?.remove(cx('success'));
+                        notificationRef?.current?.classList?.add(cx('hidden'));
+                    }, 2000);
+                });
         }
+    };
     return (
         <>
             <div className={cx('hero')}>
@@ -117,26 +135,68 @@ function ConferenceEvents() {
                 </p>
             </div>
             <div className={cx('session-1')}>
-                <div className={cx('content')}>
-                    <h1>LIÊN HỆ NHẬN BÁO GIÁ</h1>
-                    <h3>Điền thông tin liên hệ đặt hội nghị - sự kiện để được tư vấn và nhận giá tốt nhất</h3>
-                    <input className={cx('name')} required type="text" placeholder="Họ và tên" value={name} onChange={handleChangeName} />
-                    <input className={cx('email')} required type="text" placeholder="Email" 
-                     value={email}
-                     onChange={handleChangeEmail}
-                     isInvalid={!isValidEmail}
-                     onBlur={validateEmail} 
-                     />
-                    <input className={cx('email')} required type="phoneNumber" placeholder="Số điện thoại"
-                    value={phoneNumber}
-                    onChange={handleChangePhoneNumber}
-                    isInvalid={!isValidPhoneNumber}
-                    onBlur={validatePhoneNumber}  
-                    />
-                    <textarea name="subject" className={cx('email', 'mess')} value={message} onChange={handleChangeMessage} placeholder="Lời nhắn..."></textarea>
-                    <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
-                    <Button filled_1 onClick= {handleSubmit}>Gửi thông tin</Button>
-                </div>
+                <Form noValidate className={cx('form')}>
+                    <div className={cx('content')}>
+                        <h1>LIÊN HỆ NHẬN BÁO GIÁ</h1>
+                        <h3>Điền thông tin liên hệ đặt hội nghị - sự kiện để được tư vấn và nhận giá tốt nhất</h3>
+                        <Form.Group controlId="validationCustom01" className={cx('input-box')}>
+                            <Form.Control
+                                className={cx('input')}
+                                required
+                                type="text"
+                                placeholder="Enter full name"
+                                value={name}
+                                onChange={handleChangeName}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="validationCustom01" className={cx('input-box')}>
+                            <Form.Control
+                                className={cx('input')}
+                                required
+                                type="email"
+                                placeholder="Enter email address"
+                                value={email}
+                                onChange={handleChangeEmail}
+                                isInvalid={!isValidEmail}
+                                onBlur={validateEmail}
+                            />
+
+                            <Form.Control.Feedback type="invalid">Invalid email address.</Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="validationCustom01" className={cx('input-box')}>
+                            <Form.Control
+                                className={cx('input')}
+                                required
+                                type="phoneNumber"
+                                placeholder="Enter phone number"
+                                value={phoneNumber}
+                                onChange={handleChangePhoneNumber}
+                                isInvalid={!isValidPhoneNumber}
+                                onBlur={validatePhoneNumber}
+                            />
+
+                            <Form.Control.Feedback type="invalid">Invalid phone number.</Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="validationCustom01" className={cx('input-box')}>
+                            <Form.Control
+                                className={cx('input', 'mess')}
+                                as="textarea"
+                                required
+                                type="text"
+                                placeholder="Message..."
+                                value={message}
+                                onChange={handleChangeMessage}
+                            />
+                        </Form.Group>
+
+                        <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
+                        <Button filled_1 onClick={handleSubmit}>
+                            Gửi thông tin
+                        </Button>
+                    </div>
+                </Form>
             </div>
         </>
     );

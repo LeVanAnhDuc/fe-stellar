@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const SelectYearOfBirth = ({ className, value, handleChangeBirth }) => {
@@ -18,8 +18,8 @@ const SelectYearOfBirth = ({ className, value, handleChangeBirth }) => {
     return (
         <Form.Select className={className} aria-label="Select Year of Birth" onChange={handleChange} value={value}>
             <option value="">Enter year of birth</option>
-            {years.map((year) => (
-                <option key={year} value={year}>
+            {years.map((year, index) => (
+                <option key={index} value={year}>
                     {year}
                 </option>
             ))}

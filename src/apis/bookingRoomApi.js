@@ -16,6 +16,7 @@ const getTotalPrices = async (params) => {
 };
 
 const getTransactionHistory = async (page, size) => {
+    
     try {
         const response = await axios.get(`/booking-room/get-transaction-history?page=${page}&size=${size}`);
         return response;

@@ -36,6 +36,7 @@
         margin-bottom: 2rem;
     }
 }
+
 .session-1 {
     .content {
         background-color: #ffffff;
@@ -47,19 +48,62 @@
         h1 {
             margin-top: 2rem;
         }
-        .name,
-        .email {
-            width: 80%;
-            border: 0.1rem solid black;
+
+        .input-box {
+            width: 81%;
+            height: 100%;
             border-radius: 0.7rem;
             padding: 1rem;
-            margin: 1rem 0;
+
+            .input {
+                width: 100%;
+                height: 45px;
+                border: 0.1rem solid black;
+                border-radius: 0.7rem;
+
+                font-size: 1.6rem;
+
+                &::placeholder {
+                    opacity: 0.7;
+                }
+            }
+
+            .mess {
+                width: 100%;
+                height: 80px;
+                border: 0.1rem solid black;
+                border-radius: 0.7rem;
+
+                font-size: 1.6rem;
+
+                &::placeholder {
+                    opacity: 0.7;
+                }
+            }
         }
-        .mess {
-            max-height: 30rem;
-        }
+
         Button {
             margin-bottom: 1rem;
         }
     }
+}
+
+.hidden {
+    display: none;
+}
+
+.success {
+    color: var(--color-Success);
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    color: var(--color-Danger);
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

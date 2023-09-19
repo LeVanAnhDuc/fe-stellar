@@ -3,13 +3,11 @@ import styles from './SignIn.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useRef } from 'react';
 import config from '../../config';
 import { authApi } from '../../apis/index.js';
-
 import { useDispatch } from 'react-redux';
 import { setIsSignIn } from '../../Layouts/components/Header/HeaderSlice';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +17,6 @@ const cx = classNames.bind(styles);
 function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [validated, setValidated] = useState(false); // validate
     const [isValidEmail, setIsValidEmail] = useState(true); // validate mail
     const [isValidPassword, setIsValidPassword] = useState(true); // validate password
     const [rememberMe, setRememberMe] = useState(false);
@@ -64,13 +61,22 @@ function SignIn() {
                     notificationRef.current.classList.add(cx('success'));
                     notificationRef.current.textContent = response.data.message;
 
-                    dispatch(setIsSignIn(true));
-                    navigate('/');
+                    setTimeout(() => {
+                        dispatch(setIsSignIn(true));
+                        navigate('/');
+                    }, 1000);
                 })
                 .catch((error) => {
                     notificationRef.current.classList.remove(cx('hidden'));
                     notificationRef.current.classList.add(cx('error'));
-                    notificationRef.current.textContent = error.response.data.message;
+                    notificationRef.current.textContent = error.response?.data.message ?? 'Mất kết nối server!';
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        notificationRef?.current?.classList?.remove(cx('error'));
+                        notificationRef?.current?.classList?.remove(cx('success'));
+                        notificationRef?.current?.classList?.add(cx('hidden'));
+                    }, 1000);
                 });
         }
     };
@@ -78,7 +84,7 @@ function SignIn() {
     return (
         <>
             <div className={cx('wrapper')}>
-                <Form noValidate validated={validated} className={cx('form')}>
+                <Form noValidate className={cx('form')}>
                     <h1>Login</h1>
                     <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
 
@@ -101,14 +107,18 @@ function SignIn() {
                         <Form.Control
                             className={cx('input')}
                             required
-                            type={!showPassword && "password" || 'text'}
+                            type={(!showPassword && 'password') || 'text'}
                             placeholder="Password"
                             value={password}
                             onChange={handleChangePassWord}
                             isInvalid={!isValidPassword}
                             onBlur={validatePassword}
                         />
-                        <FontAwesomeIcon icon={faLock} className={cx('icon')} />
+                        <FontAwesomeIcon
+                            icon={faLock}
+                            className={cx('icon')}
+                            onClick={() => setShowPassword(!showPassword)}
+                        />
                         <Form.Control.Feedback type="invalid">Invalid password</Form.Control.Feedback>
                     </Form.Group>
 

@@ -14,7 +14,6 @@ const cx = classNames.bind(styles);
 function ChangePass() {
     const navigate = useNavigate();
     const notificationRef = useRef(null);
-    const [validated, setValidated] = useState(false);
     const [oldpass, setOldpass] = useState('');
     const [newpass, setNewpass] = useState('');
     const [checknewpass, setChecknewpass] = useState('');
@@ -39,34 +38,49 @@ function ChangePass() {
         setValidatedPass(passwordPattern.test(newpass));
     };
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(newpass === checknewpass){
+
+        if (oldpass === '' && newpass === '' && checknewpass === '' && otp === '') {
+            notificationRef.current.classList.remove(cx('hidden'));
+            notificationRef.current.classList.add(cx('error'));
+            notificationRef.current.textContent = 'Vui lòng nhập đầy đủ thông tin!';
+
+            setTimeout(() => {
+                notificationRef?.current?.classList?.remove(cx('error'));
+                notificationRef?.current?.classList?.remove(cx('success'));
+                notificationRef?.current?.classList?.add(cx('hidden'));
+            }, 2000);
+        } else if (newpass === checknewpass) {
             setIsComFirmPass(true);
-            if(validatedPass)
-            {
-                await authApi.resetPass(oldpass, newpass, checknewpass, otp)
-                .then((response) => {
-                    notificationRef.current.classList.remove(cx('hidden'));
-                    notificationRef.current.classList.add(cx('success'));
-                    notificationRef.current.textContent = response.data.message;
-                    navigate('/');
-                })
-                .catch((error) => {
-                    notificationRef.current.classList.remove(cx('hidden'));
-                    notificationRef.current.classList.add(cx('error'));
-                    notificationRef.current.textContent = error.response.data.message;
-                })
-
+            if (validatedPass) {
+                await authApi
+                    .resetPass(oldpass, newpass, checknewpass, otp)
+                    .then((response) => {
+                        notificationRef.current.classList.remove(cx('hidden'));
+                        notificationRef.current.classList.add(cx('success'));
+                        notificationRef.current.textContent = response.data.message;
+                        setTimeout(() => {
+                            navigate('/');
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        notificationRef.current.classList.remove(cx('hidden'));
+                        notificationRef.current.classList.add(cx('error'));
+                        notificationRef.current.textContent = error.response?.data.message ?? 'Mất kết nối server!';
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            notificationRef?.current?.classList?.remove(cx('error'));
+                            notificationRef?.current?.classList?.remove(cx('success'));
+                            notificationRef?.current?.classList?.add(cx('hidden'));
+                        }, 2000);
+                    });
             }
-
-        }
-        else{
+        } else {
             setIsComFirmPass(false);
         }
-
-
     };
     return (
         <div className={cx('wrapper')}>
@@ -77,7 +91,8 @@ function ChangePass() {
             </div>
             <div className={cx('section-2')}>
                 <div className={cx('back-ground')}>
-                    <Form className={cx('form')} noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form className={cx('form')} noValidate onSubmit={handleSubmit}>
+                        <div className={cx('register-link')}>Hãy kiểm tra mail của bạn!</div>
                         <Form.Group className={cx('input-box')} as={Col} md="12">
                             <Form.Label>Mật khẩu cũ</Form.Label>
                             <Form.Control

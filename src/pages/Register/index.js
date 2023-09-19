@@ -16,7 +16,6 @@ import { setIsSignIn } from '../../Layouts/components/Header/HeaderSlice';
 const cx = classNames.bind(styles);
 
 function Register() {
-    const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [enterPassWord, setEnterPassWord] = useState('');
@@ -68,12 +67,9 @@ function Register() {
         setIsValidPassword(passwordPattern.test(password));
     };
 
-    console.log(email)
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        event.preventDefault();
 
         if (password === enterPassWord) {
             setIsComFirmPass(true);
@@ -98,7 +94,14 @@ function Register() {
                     .catch((error) => {
                         notificationRef.current.classList.remove(cx('hidden'));
                         notificationRef.current.classList.add(cx('error'));
-                        notificationRef.current.textContent = error.response.data.message;
+                        notificationRef.current.textContent = error.response?.data.message ?? 'Mất kết nối server!';
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            notificationRef?.current?.classList?.remove(cx('error'));
+                            notificationRef?.current?.classList?.remove(cx('success'));
+                            notificationRef?.current?.classList?.add(cx('hidden'));
+                        }, 1000);
                     });
             }
         } else {
@@ -109,7 +112,7 @@ function Register() {
     return (
         <>
             <div className={cx('wrapper')}>
-                <Form noValidate validated={validated} className={cx('form')}>
+                <Form noValidate className={cx('form')}>
                     <h1>Register</h1>
                     <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
 

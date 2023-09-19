@@ -6,6 +6,7 @@ const SelectCountry = ({ className, value, handleChangeNationality }) => {
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
+        let ignore = false;
         async function fetchUserName() {
             await axios
                 .get('https://countriesnow.space/api/v0.1/countries')
@@ -16,7 +17,11 @@ const SelectCountry = ({ className, value, handleChangeNationality }) => {
                     console.error('Error fetching countries:', error);
                 });
         }
-        fetchUserName();
+        !ignore && fetchUserName();
+
+        return () => {
+            ignore = true;
+        };
     }, []);
 
     const handleChange = (e) => {
@@ -26,10 +31,10 @@ const SelectCountry = ({ className, value, handleChangeNationality }) => {
     return (
         <Form.Select className={className} aria-label="Select Country" onChange={handleChange} value={value}>
             <option value="">Select a country</option>
-            {countries.map((country) => (
-                <option key={country.country} value={country.country}>
+            {countries.map((country, index) => (
+                <option key={index} value={country.country}>
                     {country.country}
-                </option>
+                </option>   
             ))}
         </Form.Select>
     );

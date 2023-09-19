@@ -34,16 +34,26 @@ function InfoAccount() {
             yearOfBirth: +value.yearOfBirth,
         });
     };
+
     const updateUser = async (email, userName, phoneNumber, gender, nationality, yearOfBirth) => {
-        try {
-            await userApi.updateProfile(email, userName, phoneNumber, gender, nationality, yearOfBirth);
-        } catch {
-            toast.error('Update error');
-        }
+        await userApi
+            .updateProfile(email, userName, phoneNumber, gender, nationality, yearOfBirth)
+            .then((response) => {
+                toast.success(response.data.data);
+            })
+            .catch((error) => {
+                toast.error(error.response?.data.message ?? 'Mất kết nối server!');
+            });
     };
 
     useEffect(() => {
-        fetchUser();
+        let ignore = false;
+
+        !ignore && fetchUser();
+
+        return () => {
+            ignore = true;
+        };
     }, []);
 
     const handleChangeName = (e) => {
@@ -52,12 +62,14 @@ function InfoAccount() {
             userName: e.target.value,
         });
     };
+
     const handleChangeBirth = (e) => {
         setUser({
             ...user,
             yearOfBirth: e.target.value,
         });
     };
+
     const handleChangeSex = (e) => {
         setUser({
             ...user,
@@ -70,6 +82,7 @@ function InfoAccount() {
             nationality: e.target.value,
         });
     };
+
     const handleChangeEmail = (e) => {
         setUser({
             ...user,
@@ -82,7 +95,8 @@ function InfoAccount() {
             phoneNumber: e.target.value,
         });
     };
-    const handleSubmit = (event) => {
+
+    const handleSubmit = async (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -91,6 +105,7 @@ function InfoAccount() {
         updateUser(user.email, user.userName, user.phoneNumber, user.gender, user.nationality, user.yearOfBirth);
         setValidated(true);
     };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('section-1')}>

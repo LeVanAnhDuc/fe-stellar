@@ -24,11 +24,8 @@ const publishRoute = [
     { path: config.Routes.bookRoom, component: BookRoom },
     { path: config.Routes.conferenceEvents, component: ConferenceEvents },
     { path: config.Routes.contact, component: Contact },
-    { path: config.Routes.infoAccount, component: InfoAccount },
-    { path: config.Routes.listOfTransaction, component: ListOfTransaction },
     { path: config.Routes.myReservation, component: MyReservation },
-    { path: config.Routes.passwordAndSecuruty, component: PasswordAndSecuruty.PasswordAndSecuruty},
-    { path: config.Routes.changePass, component: PasswordAndSecuruty.ChangePass},
+    { path: config.Routes.changePass, component: PasswordAndSecuruty.ChangePass },
     { path: config.Routes.pay, component: Pay },
     { path: config.Routes.restaurentAndBar, component: RestaurentAndBar },
     { path: config.Routes.utilities, component: Utilities },
@@ -41,6 +38,10 @@ const publishRoute = [
 ];
 
 // required sign in
-const privateRoute = [];
+const privateRoute = [
+    { path: config.Routes.listOfTransaction, component: ListOfTransaction },
+    { path: config.Routes.infoAccount, component: InfoAccount },
+    { path: config.Routes.passwordAndSecuruty, component: PasswordAndSecuruty.PasswordAndSecuruty },
+];
 
 export { publishRoute, privateRoute };

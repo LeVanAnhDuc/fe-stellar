@@ -7,6 +7,7 @@ import config from '../../config';
 import { utilitiesApi } from '../../apis';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 function RestaurentAndBar() {
@@ -14,38 +15,51 @@ function RestaurentAndBar() {
     const [restaurent, setRestaurent] = useState([]);
 
     useEffect(() => {
+        let ignore = false;
         async function fetchRestaurent() {
-            try {
-                const response = await utilitiesApi.getUtilities({ searchString: 'Restaurant' });
-                setRestaurent(response.data.data);
-            } catch (error) {
-                console.log(error);
-            }
+            await utilitiesApi
+                .getUtilities({ searchString: 'Restaurant' })
+                .then((response) => {
+                    setRestaurent(response.data.data);
+                })
+                .catch((error) => {
+                    toast.error(error.response?.data.message ?? 'Mất kết nối server!');
+                });
         }
-        fetchRestaurent();
+        !ignore && fetchRestaurent();
+
+        return () => {
+            ignore = true;
+        };
     }, []);
 
     // path den id
     const location = useLocation();
     useEffect(() => {
-        if (location.hash) {
-            // Lấy phần tử có id tương ứng với hash
-            const targetElement = document.getElementById(location.hash.substring(1));
-            console.log(targetElement);
+        let ignore = false;
+        if (!ignore) {
+            if (location.hash) {
+                // Lấy phần tử có id tương ứng với hash
+                const targetElement = document.getElementById(location.hash.substring(1));
+                console.log(targetElement);
 
-            // Nếu phần tử tồn tại, tính toán vị trí để cuộn tới
-            if (targetElement) {
-                const yOffset = -120; // Điều chỉnh dựa trên độ cao của fixed header (nếu có)
-                const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                // Nếu phần tử tồn tại, tính toán vị trí để cuộn tới
+                if (targetElement) {
+                    const yOffset = -120; // Điều chỉnh dựa trên độ cao của fixed header (nếu có)
+                    const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-                // Cuộn tới vị trí tính toán được
-                window.scrollTo({ top: y, behavior: 'smooth' });
+                    // Cuộn tới vị trí tính toán được
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        return () => {
+            ignore = true;
+        };
     }, [location.hash, location, restaurent]);
 
     return (

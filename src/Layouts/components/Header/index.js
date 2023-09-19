@@ -1,19 +1,16 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
-
 import Image from '../../../components/Image';
 import images from '../../../assets/images';
 import Button from '../../../components/Button';
 import '../../../components/Icon';
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
-
 import React, { useState } from 'react';
 import Account from './Account';
 import { Link } from 'react-router-dom';
 import Language from './Language';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
-
 import Tippy from '@tippyjs/react/headless';
 import config from '../../../config';
 

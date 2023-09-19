@@ -1,13 +1,11 @@
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
 import { useState, useEffect } from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../../components/Button';
 import config from '../../../config';
 import { useNavigate } from 'react-router-dom';
-
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 import { authApi, userApi } from '../../../apis/index.js';
@@ -19,6 +17,7 @@ function Account({ name = 'Name', onClick }) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        let ignore = false;
         // Gọi API và cập nhật userName khi component mount
         async function fetchUserName() {
             await userApi
@@ -27,12 +26,16 @@ function Account({ name = 'Name', onClick }) {
                     setUserName(response.data.data.userName);
                 })
                 .catch((error) => {
-                    console.error('Error ftching user name:', error);
+                    setUserName('Anonymous');
                 });
         }
 
-        fetchUserName();
-    }, [userName]);
+        !ignore && fetchUserName();
+
+        return () => {
+            ignore = true;
+        };
+    }, []);
 
     const handelLogout = async () => {
         await authApi

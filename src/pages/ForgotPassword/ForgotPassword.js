@@ -3,20 +3,18 @@ import styles from './ForgotPassword.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-// import Button from '../../components/Button';
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useRef } from 'react';
-import InputEmail from '../../components/InputBootstrap/Email';
 import { authApi } from '../../apis';
+import config from '../../config';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function ForgotPassword() {
     const notificationRef = useRef(null);
     const navigate = useNavigate();
-    const [validated, setValidated] = useState(false);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [email, setEmail] = useState('');
 
@@ -29,46 +27,59 @@ function ForgotPassword() {
         setIsValidEmail(emailPattern.test(email));
     };
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if(isValidEmail)
-        {
+
+        if (isValidEmail) {
             await authApi
-            .forgotpass_SendOTP(email)
-            .then(async (response) => {
-                notificationRef.current.classList.remove(cx('hidden'));
-                notificationRef.current.classList.add(cx('success'));
-                notificationRef.current.textContent = response.data.message;
-                navigate('/lay-OTP');
-                localStorage.setItem('email', email);
-            })
-            .catch((error) => {
-                notificationRef.current.classList.remove(cx('hidden'));
-                notificationRef.current.classList.add(cx('error'));
-                notificationRef.current.textContent = error.response.data.message;
-            });
-            }     
+                .forgotpass_SendOTP(email)
+                .then(async (response) => {
+                    navigate('/lay-OTP');
+                    localStorage.setItem('email', email);
+                })
+                .catch((error) => {
+                    notificationRef.current.classList.remove(cx('hidden'));
+                    notificationRef.current.classList.add(cx('error'));
+                    notificationRef.current.textContent = error.response?.data.message ?? 'Mất kết nối server!';
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        notificationRef?.current?.classList?.remove(cx('error'));
+                        notificationRef?.current?.classList?.remove(cx('success'));
+                        notificationRef?.current?.classList?.add(cx('hidden'));
+                    }, 2000);
+                });
         }
+    };
     return (
         <>
             <div className={cx('wrapper')}>
-                <Form noValidate validated={validated} onSubmit={handleSubmit} className={cx('form')} action="/">
+                <Form noValidate onSubmit={handleSubmit} className={cx('form')} action="/">
                     <h1>Forgot Password</h1>
-                    <Form.Group controlId="validationCustom01" className={cx('input-box')}>
-                        <InputEmail className={cx('input')} 
-                        label={false}  
-                        handleChangeEmail ={handleChangeEmail}
-                        value = {email} 
-                        onBlur={validateEmail}>
-                            <FontAwesomeIcon icon={faUser} className={cx('icon')} />
-                        </InputEmail>
+                    <Form.Group controlId="validationCustom02" className={cx('input-box')}>
+                        <Form.Control
+                            className={cx('input')}
+                            required
+                            type="email"
+                            placeholder="Enter email address"
+                            value={email}
+                            onChange={handleChangeEmail}
+                            isInvalid={!isValidEmail}
+                            onBlur={validateEmail}
+                        />
+                        <FontAwesomeIcon icon={faUser} className={cx('icon')} />
+                        <Form.Control.Feedback type="invalid">Invalid email address.</Form.Control.Feedback>
                     </Form.Group>
+
                     <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
 
                     <Button type="submit" className={cx('btn-submit')}>
                         Kiểm tra
                     </Button>
+                    <div className={cx('register-link')}>
+                        Don't want to continue? <Link to={config.Routes.signIn}> Login</Link>
+                    </div>
                 </Form>
             </div>
         </>

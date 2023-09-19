@@ -1,37 +1,56 @@
 import styles from './ListOfTransaction.module.scss';
 import classNames from 'classnames/bind';
-
 import { Container, Row } from 'react-bootstrap';
-
 import { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
-
 import { listOfTransaction } from '../../assets/images/listOfTransaction';
 import { bookingRoomApi } from '../../apis/index';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function ListOfTransaction() {
     const [listItems, setlistItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
-
     const [pageNumber, setPageNumber] = useState(1);
     const itemsPerPage = 4;
 
     const getListBooking = async (page, size = itemsPerPage) => {
-        const res = await bookingRoomApi.getTransactionHistory(page, size);
-        setlistItems(res.data.data);
+        await bookingRoomApi
+            .getTransactionHistory(page, size)
+            .then((res) => {
+                setlistItems(res.data.data);
+            })
+            .catch((error) => {
+                toast.error(error.response?.data.message ?? 'Mất kết nối server!');
+            });
     };
+
     const getTotalBooking = async () => {
-        const res = await bookingRoomApi.getTotalTransactionHistory();
-        setPageCount(Math.ceil(res.data.data.totalTransactionHistory / itemsPerPage));
+        await bookingRoomApi
+            .getTotalTransactionHistory()
+            .then((res) => {
+                setPageCount(Math.ceil(res.data.data.totalTransactionHistory / itemsPerPage));
+            })
+            .catch((error) => {
+                toast.error(error.response?.data.message ?? 'Mất kết nối server!');
+            });
     };
+
     useEffect(() => {
-        getListBooking(pageNumber);
+        let ignore = false;
+        !ignore && getListBooking(pageNumber);
+        return () => {
+            ignore = true;
+        };
     }, [pageNumber]);
 
     useEffect(() => {
-        getTotalBooking();
+        let ignore = false;
+        ignore && getTotalBooking();
+        return () => {
+            ignore = true;
+        };
     }, []);
 
     const handlePageClick = (event) => {
