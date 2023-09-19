@@ -29,7 +29,7 @@ function BookRoom() {
     );
 
     const [typeRoom, setTypeRoom] = useState([]);
-    // const [typeRoomId, setTypeRoomId] = useState('');
+    const [typeRoomId, setTypeRoomId] = useState('');
     const [style, setStyle] = useState([]);
 
     const handleCheckin = (e) => {
@@ -80,7 +80,7 @@ function BookRoom() {
     }, []);
 
     const handleShow = (idTypeRoom) => {
-        // setTypeRoomId(idTypeRoom);
+        setTypeRoomId(idTypeRoom);
         localStorage.setItem('typeRoomId', idTypeRoom);
         setShow(true);
     };
