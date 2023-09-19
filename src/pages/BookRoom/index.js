@@ -81,9 +81,16 @@ function BookRoom() {
 
     const handleShow = (idTypeRoom) => {
         setTypeRoomId(idTypeRoom);
-        localStorage.setItem('typeRoomId', idTypeRoom);
         setShow(true);
     };
+
+    useEffect(() => {
+        let ignore = false;
+        !ignore && localStorage.setItem('typeRoomId', typeRoomId);
+        return () => {
+            ignore = true;
+        };
+    }, [typeRoomId]);
 
     // path den id
     const location = useLocation();
