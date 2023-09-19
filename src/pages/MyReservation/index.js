@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import {  bookingRoomApi, userApi} from '../../apis/index.js';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 function MyReservation() {
@@ -46,6 +47,7 @@ function MyReservation() {
                     yearOfBirth: +value.yearOfBirth,
                 })
             }).catch((error) => {
+                toast.error('Vui lòng đăng nhập để đặt phòng');
                 navigate(config.Routes.signIn);
             });
         }
@@ -55,9 +57,16 @@ function MyReservation() {
     const updateUser = async (email, userName, phoneNumber,  nationality, yearOfBirth) => {
         try {
            const userGender = user.gender;
-            await userApi.updateProfile(email, userName, phoneNumber, userGender, nationality, yearOfBirth);
+            await userApi.updateProfile(email, userName, phoneNumber, userGender, nationality, yearOfBirth)
+            .catch((error) => {
+                toast.error('Vui lòng kiểm tra thông tin bạn chỉnh sửa');
+                setIsChecked(false);
+                setDisabled(false);
+
+            });
         } 
         catch {
+            toast.error('Vui lòng đăng nhập để đặt phòng');
             navigate(config.Routes.signIn);
         };
     };
