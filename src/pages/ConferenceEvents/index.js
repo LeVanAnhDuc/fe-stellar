@@ -64,6 +64,10 @@ function ConferenceEvents() {
                 notificationRef.current.classList.add(cx('error'));
                 notificationRef.current.textContent = error.response.data.message;
             });
+    }else{
+        notificationRef.current.classList.remove(cx('hidden'));
+        notificationRef.current.classList.add(cx('error'));
+        notificationRef.current.textContent = 'Email hoặc số điện thoại không hợp lệ';
     }
         
         }
@@ -121,17 +125,23 @@ function ConferenceEvents() {
                     <h1>LIÊN HỆ NHẬN BÁO GIÁ</h1>
                     <h3>Điền thông tin liên hệ đặt hội nghị - sự kiện để được tư vấn và nhận giá tốt nhất</h3>
                     <input className={cx('name')} required type="text" placeholder="Họ và tên" value={name} onChange={handleChangeName} />
-                    <input className={cx('email')} required type="text" placeholder="Email" 
-                     value={email}
-                     onChange={handleChangeEmail}
-                     isInvalid={!isValidEmail}
-                     onBlur={validateEmail} 
-                     />
-                    <input className={cx('email')} required type="phoneNumber" placeholder="Số điện thoại"
-                    value={phoneNumber}
-                    onChange={handleChangePhoneNumber}
-                    isInvalid={!isValidPhoneNumber}
-                    onBlur={validatePhoneNumber}  
+                    <input
+                        className={cx('email', { 'is-invalid': !isValidEmail })}
+                        required
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        onChange={handleChangeEmail}
+                        onBlur={validateEmail}
+                    />
+                    <input
+                        className={cx('email', { 'is-invalid': !isValidPhoneNumber })}
+                        required
+                        type="text"
+                        placeholder="Số điện thoại"
+                        value={phoneNumber}
+                        onChange={handleChangePhoneNumber}
+                        onBlur={validatePhoneNumber}
                     />
                     <textarea name="subject" className={cx('email', 'mess')} value={message} onChange={handleChangeMessage} placeholder="Lời nhắn..."></textarea>
                     <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
