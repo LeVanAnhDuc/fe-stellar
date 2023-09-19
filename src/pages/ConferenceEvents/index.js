@@ -85,6 +85,7 @@ function ConferenceEvents() {
                 });
         }
     };
+    
     return (
         <>
             <div className={cx('hero')}>

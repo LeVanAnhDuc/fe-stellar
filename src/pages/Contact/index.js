@@ -8,6 +8,9 @@ import { Container, Row } from 'react-bootstrap';
 
 import SliderHero from '../../components/SliderHero';
 import Map from '../../components/Map';
+import { toast } from 'react-toastify';
+import {conferenceApi} from '../../apis';
+import { useState,  useRef } from 'react';
 
 import { sliderHero1, sliderHero2, sliderHero3, sliderHero4 } from '../../assets/images/home';
 
@@ -15,6 +18,62 @@ const cx = classNames.bind(styles);
 
 function Contact() {
     const heroImages = [sliderHero1, sliderHero2, sliderHero3, sliderHero4];
+    const notificationRef = useRef(null);
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    
+    const [emailValid, setEmailValid] = useState(true);
+    const [phoneNumberValid, setPhoneNumberValid] = useState(true);
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleChangeName = (e) => {
+        setName(e.target.value);
+    };
+    const handleChangeEmail = (e) => {
+        const emailValue = e.target.value;
+        setEmail(emailValue);
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setEmailValid(emailPattern.test(emailValue));
+    };
+    
+    const handleChangePhoneNumber = (e) => {
+        const phoneNumberValue = e.target.value;
+        setPhoneNumber(phoneNumberValue);
+        const phoneNumberPattern = /^\d{10}$/;
+        setPhoneNumberValid(phoneNumberPattern.test(phoneNumberValue));
+    };
+
+    const handleChangeMessage = (e) => {
+        setMessage(e.target.value);
+    };
+    
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        event.preventDefault();
+        if(emailValid && phoneNumberValid){
+            await conferenceApi.createContact(name, email, phoneNumber, message)
+            .then(async (response) => {
+                toast.success('Gửi thông tin thành công');
+                setName('');
+                setEmail('');
+                setPhoneNumber('');
+                setMessage('');
+            })
+            .catch((error) => {
+                notificationRef.current.classList.remove(cx('hidden'));
+                notificationRef.current.classList.add(cx('error'));
+                notificationRef.current.textContent = error.response.data.message;
+            });
+    }else{
+        notificationRef.current.classList.remove(cx('hidden'));
+        notificationRef.current.classList.add(cx('error'));
+        notificationRef.current.textContent = 'Email hoặc số điện thoại không hợp lệ!';
+    }
+        
+        }
 
     return (
         <>
@@ -28,17 +87,39 @@ function Contact() {
                         <form>
                             <div htmlFor="name">
                                 <label htmlFor="name">Họ và tên:</label>
-                                <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" />
+                                <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" 
+                                onChange={handleChangeName}/>
+                            </div>
+                            <div >
+                                <label htmlFor="email">Email:</label>
+                                 <input
+                                    id="email"
+                                    name="email"
+                                    type="text"
+                                    placeholder="abc@gmail.com"
+                                    onChange={handleChangeEmail}
+                                    className={cx('input', { 'is-invalid': !emailValid })}
+                                />
                             </div>
                             <div>
                                 <label htmlFor="phone">Số điện thoại:</label>
-                                <input id="phone" name="phone" type="text" placeholder="09465412XX" />
+                                <input
+                                    id="phone"
+                                    name="phone"
+                                    type="text"
+                                    placeholder="09465412XX"
+                                    onChange={handleChangePhoneNumber}
+                                    className={cx('input', { 'is-invalid': !phoneNumberValid })}
+                                />
                             </div>
                             <div>
                                 <label htmlFor="massage">Massage:</label>
-                                <textarea id="massage" name="massage"></textarea>
+                                <textarea id="massage" name="massage"
+                                onChange={handleChangeMessage}
+                                ></textarea>
                             </div>
-                            <Button className={cx('btn')} filled_1={true}>
+                            <div ref={notificationRef} className={cx('notification', 'hidden')}></div>
+                            <Button className={cx('btn')} filled_1={true} onClick= {handleSubmit}>
                                 Gửi tin nhắn
                             </Button>
                         </form>
