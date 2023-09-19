@@ -5,7 +5,7 @@ import images from '../../../assets/images';
 import Button from '../../../components/Button';
 import '../../../components/Icon';
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Account from './Account';
 import { Link } from 'react-router-dom';
 import Language from './Language';
@@ -16,62 +16,10 @@ import config from '../../../config';
 
 import { useSelector } from 'react-redux';
 import { getStateHeaderSlice } from '../../../redux/select';
+import { typeRoomApi } from '../../../apis';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
-
-const TITLE_HEADER = [
-    {
-        title: 'Giới thiệu',
-        to: config.Routes.aboutStellar,
-    },
-    {
-        title: 'Phòng nghỉ',
-        icon: <FontAwesomeIcon icon={faAngleDown} />,
-        to: null,
-        children: [
-            {
-                title: 'Giới thiệu',
-                id: '1',
-            },
-            {
-                title: 'Superior Double Or Twin',
-                id: '2',
-                to: '#64fe74632590c9ca9d33483c',
-            },
-            {
-                title: 'Deluxe Double',
-                id: '3',
-                to: '#64fe74632590c9ca9d33483d',
-            },
-            {
-                title: 'Executive City View',
-                id: '4',
-                to: '#64fe74632590c9ca9d33483e',
-            },
-            {
-                title: 'Suite Garden',
-                id: '5',
-                to: '#64fe74632590c9ca9d33483f',
-            },
-        ],
-    },
-    {
-        title: 'Nhà hàng & Bar',
-        to: config.Routes.restaurentAndBar,
-    },
-    {
-        title: 'Hội thảo & Sự kiện',
-        to: config.Routes.conferenceEvents,
-    },
-    {
-        title: 'Tiện ích',
-        to: config.Routes.utilities,
-    },
-    {
-        title: 'Liên hệ',
-        to: config.Routes.contact,
-    },
-];
 
 function Header() {
     const { isSignIn } = useSelector(getStateHeaderSlice);
@@ -80,6 +28,56 @@ function Header() {
     const handleActive = (index) => {
         setActiveButton(index);
     };
+
+    const [typeRooms, setTypeRooms] = useState([]);
+    useEffect(() => {
+        let ignore = false;
+        async function fetchTypeRooms() {
+            await typeRoomApi
+                .getRoomType()
+                .then((response) => {
+                    setTypeRooms(response.data.data);
+                })
+                .catch((error) => {
+                    toast.error(error.response?.data.message ?? 'Mất kết nối server!');
+                });
+        }
+
+        !ignore && fetchTypeRooms();
+
+        return () => {
+            ignore = true;
+        };
+    }, []);
+
+    const TITLE_HEADER = [
+        {
+            title: 'Giới thiệu',
+            to: config.Routes.aboutStellar,
+        },
+        {
+            title: 'Phòng nghỉ',
+            icon: <FontAwesomeIcon icon={faAngleDown} />,
+            to: null,
+            children: typeRooms,
+        },
+        {
+            title: 'Nhà hàng & Bar',
+            to: config.Routes.restaurentAndBar,
+        },
+        {
+            title: 'Hội thảo & Sự kiện',
+            to: config.Routes.conferenceEvents,
+        },
+        {
+            title: 'Tiện ích',
+            to: config.Routes.utilities,
+        },
+        {
+            title: 'Liên hệ',
+            to: config.Routes.contact,
+        },
+    ];
 
     return (
         <header className={cx('wrapper')}>
@@ -106,13 +104,10 @@ function Header() {
                                                     <Button
                                                         className={cx('btn', 'custom-btn')}
                                                         none_1
-                                                        to={
-                                                            config.Routes.bookRoom +
-                                                            (item2.to === undefined ? '' : item2.to)
-                                                        }
+                                                        to={config.Routes.bookRoom + '#' + item2._id}
                                                         key={index2}
                                                     >
-                                                        {item2.title}
+                                                        {item2.name}
                                                     </Button>
                                                 ))}
                                             </PopperWrapper>

@@ -41,7 +41,6 @@ function RestaurentAndBar() {
             if (location.hash) {
                 // Lấy phần tử có id tương ứng với hash
                 const targetElement = document.getElementById(location.hash.substring(1));
-                console.log(targetElement);
 
                 // Nếu phần tử tồn tại, tính toán vị trí để cuộn tới
                 if (targetElement) {

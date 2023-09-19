@@ -34,7 +34,7 @@ import {
 } from '../../assets/images/home';
 import SliderHero from '../../components/SliderHero';
 import config from '../../config';
-import { typeRoomApi } from '../../apis';
+import { typeRoomApi, utilitiesApi } from '../../apis';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
@@ -129,38 +129,59 @@ function Home() {
     };
 
     // Section 3
+    const [restaurent, setRestaurent] = useState([]);
+
+    useEffect(() => {
+        let ignore = false;
+        async function fetchRestaurent() {
+            await utilitiesApi
+                .getUtilities({ searchString: 'Restaurant' })
+                .then((response) => {
+                    setRestaurent(response.data.data);
+                })
+                .catch((error) => {
+                    toast.error(error.response?.data.message ?? 'Mất kết nối server!');
+                });
+        }
+        !ignore && fetchRestaurent();
+
+        return () => {
+            ignore = true;
+        };
+    }, []);
+
     const section3RestaurantImages = [
         {
             id: 'home-s3-restaurantImage-1',
             image: restaurant1,
-            to: '#64fe74632590c9ca9d33485a',
+            to: `#${restaurent.map((item) => item?._id)[0]}`,
         },
         {
             id: 'home-s3-restaurantImage-2',
             image: restaurant2,
-            to: '#64fe74632590c9ca9d33485a',
+            to: `#${restaurent.map((item) => item?._id)[0]}`,
         },
         {
             id: 'home-s3-restaurantImage-3',
             image: restaurant3,
-            to: '#64fe74632590c9ca9d33485a',
+            to: `#${restaurent.map((item) => item?._id)[0]}`,
         },
     ];
     const section3BarImages = [
         {
             id: 'home-s3-barImage-1',
             image: bar1,
-            to: '#64fe74632590c9ca9d33485b',
+            to: `#${restaurent.map((item) => item?._id)[1]}`,
         },
         {
             id: 'home-s3-barImage-2',
             image: bar2,
-            to: '#64fe74632590c9ca9d33485b',
+            to: `#${restaurent.map((item) => item?._id)[1]}`,
         },
         {
             id: 'home-s3-barImage-3',
             image: bar3,
-            to: '#64fe74632590c9ca9d33485b',
+            to: `#${restaurent.map((item) => item?._id)[1]}`,
         },
     ];
 

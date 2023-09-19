@@ -16,7 +16,6 @@ function PasswordAndSecurity() {
         await authApi
             .resetPass_SendOTP()
             .then((response) => {
-                console.log(response);
                 navigate('/doi-mat-khau');
             })
             .catch((error) => {
